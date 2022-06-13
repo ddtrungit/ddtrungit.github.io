@@ -1,0 +1,1173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>TRUNG DUONG</title>
+    <link href="https://ddtrungit.github.io/feed.xml" rel="self" />
+    <link href="https://ddtrungit.github.io" />
+    <updated>2022-06-13T14:26:52+07:00</updated>
+    <author>
+        <name>Duong Dinh Trung</name>
+    </author>
+    <id>https://ddtrungit.github.io</id>
+
+    <entry>
+        <title>Sử dụng Ansible thông qua Bastion Host</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/su-dung-ansible-thong-qua-bastion-host/index.html"/>
+        <id>https://ddtrungit.github.io/su-dung-ansible-thong-qua-bastion-host/index.html</id>
+            <category term="Ansible"/>
+
+        <updated>2022-06-13T14:24:17+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1.png" alt="" />
+                    Bastion host là gì? Bastion dịch theo nghĩa đen là một nơi được tăng cường. Về thuật ngữ máy tính,&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1.png" alt="" />
+                <ul>
+<li>Bastion host là gì?</li>
+</ul>
+<p style="text-align: left;">Bastion dịch theo nghĩa đen là một nơi được tăng cường. Về thuật ngữ máy tính, đó là một máy trên mạng có thể là gatekeeper cho các kết nối đến và đi. Wikipedia định nghĩa: Máy chủ pháo đài (bastion host) là một máy tính có mục đích đặc biệt trên mạng, được thiết kế và cấu hình riêng để chịu được các cuộc tấn công. Máy chủ pháo đài thường chỉ lưu trữ một ứng dụng duy nhất, ví dụ như máy chủ proxy, các dịch vụ khác sẽ bị xóa hoặc giới hạn để giảm thiểu mối đe dọa cho máy tính. Sở dĩ, bastion host được thiết lập cứng như vậy là do vị trí và mục đích đặc biệt của nó, thường được đặt bên ngoài tường lửa hoặc trong vùng DMZ (một vùng mạng trung lập giữa mạng nội bộ và mạng Internet) và thường liên quan đến những truy cập từ các mạng hoặc máy tính không đáng tin cậy. Bạn có thể thiết lập bastion host làm máy duy nhất chấp nhận kết nối từ Internet. Sau đó, lần lượt, thiết lập tất cả các máy khác trong mạng để chỉ nhận các kết nối đến từ máy bastion host này.</p>
+<figure class="alignnone wp-image-504"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108.png" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-xs.png 300w ,https://ddtrungit.github.io/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-sm.png 480w ,https://ddtrungit.github.io/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-md.png 768w"  alt="" width="719" height="259"></figure>
+<p>Khai báo các máy chủ vào :</p>
+<blockquote><em>/etc/ansible/hosts</em></blockquote>
+<p style="padding-left: 160px;"><em>[proxy]</em> <em>3.115.75.133</em></p>
+<p style="padding-left: 160px;"><em>[web]</em> <em>10.1.0.48</em> <em>10.1.0.29</em></p>
+<blockquote><em>/etc/ansible/ansible.cfg</em></blockquote>
+<p style="padding-left: 40px;">[ssh_connection]</p>
+<p style="padding-left: 40px;"><em>ssh_args = -F ~/.ssh/config -o ControlMaster=auto -o ControlPersist=30m -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ForwardAgent=yes</em> <em>control_path = ~/.ansible/cp/ansible-%%r@%%h:%%p</em></p>
+<blockquote><em>/home/<strong>username</strong>/.ssh/config</em></blockquote>
+<p style="padding-left: 160px;"><em>Host proxy</em> <em>Hostname 3.115.75.133</em> <em>IdentityFile ~/bastion_ssh_key</em> <em>User ec2-user</em></p>
+<p style="padding-left: 160px;"><em>Host 3.115.75.130</em> <em>Hostname 3.115.75.133</em> <em>IdentityFile ~/bastion_ssh_key</em> <em>User ec2-user</em></p>
+<p style="padding-left: 160px;"><em>Host api</em> <em>Hostname 10.1.0.48</em> <em>User ec2-user</em> <em>IdentityFile ~/web_ssh_key</em> <em>ProxyCommand ssh -W %h:%p proxy</em></p>
+<p style="padding-left: 160px;"><em>Host admin</em> <em>Hostname 10.1.0.29</em> <em>User ec2-user</em> <em>IdentityFile ~/web_ssh_key</em> <em>ProxyCommand ssh -W %h:%p proxy</em> <em>Host 10.1.*</em> <em>User ec2-user</em> <em>IdentityFile ~/api_ssh_key</em> <em>ProxyCommand ssh -W %h:%p proxy</em></p>
+<p>Như vậy khi chỉ định ansible group proxy hay web thì sẽ kết nối  ssh bình thường.</p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Ansible Là Gì? Hướng Dẫn Cài Đặt Ansible</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/ansible-la-gi-huong-dan-cai-dat-ansible/index.html"/>
+        <id>https://ddtrungit.github.io/ansible-la-gi-huong-dan-cai-dat-ansible/index.html</id>
+            <category term="Ansible"/>
+
+        <updated>2022-06-13T14:24:26+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/109/Ansible-la-gi-1.png" alt="" />
+                    Trong một môi trường với nhiều server thì ta sẽ có vô vàn thứ phải lo. Từ setup crontab, update&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/109/Ansible-la-gi-1.png" alt="" />
+                <p>Trong một môi trường với nhiều server thì ta sẽ có vô vàn thứ phải lo. Từ setup crontab, update các gói phần mềm mới, deploy ứng dụng mới, chỉnh sửa file cấu hình…. Những công việc này tuy không khó, nhưng rất mất thời gian của những người quản trị (SysAdmin/SysEngineer/DevOps). Vậy có cách nào để tự động hóa những thao tác nhàm chán, lặp đi lặp lại này không?</p>
+<p><em>“Cùng một việc mà làm quá 2 lần thì có gì đó không ổn rồi”</em><em> </em><em>Từ một giảng viên cũ từng dạy mình</em></p>
+<p>Câu trả lời chính là ứng dụng những tool automation để quản trị hệ thống. Hiện nay có rất nhiều tool như vậy trên thị trường cụ thể như: <strong>Chef</strong>, <strong>Puppet</strong>, <strong>CFEngine</strong>, <strong>StackStorm</strong>, <strong>Ansible</strong>, <strong>SaltStack</strong>… Trong bài này, mình sẽ giới thiệu đến các bạn một công cụ rất mạnh mẽ trong việc quản trị hệ thống, đó chính là <strong>Ansible</strong>.</p>
+<h2><span id="1_Gioi_thieu_Ansible"><strong>1. Giới thiệu Ansible</strong></span></h2>
+<p>Như đã nói ở trên, <strong>Ansible</strong> là một công cụ dùng để tự động hóa việc cấu hình trên nhiều server. So với các công cụ khác với tính năng tương đương thì Ansible dễ học và dễ tiếp cận hơn rất nhiều. Cộng đồng người dùng cũng nhiều hơn so với các công cụ khác.</p>
+<p>So sánh một vài thông số về <strong>Ansible, SaltStack, Chef, Puppet</strong> trên <strong>GitHub (11/2018)</strong></p>
+<table width="100%">
+<tbody>
+<tr>
+<td width="20%"> </td>
+<td width="20%"><strong>Ansible</strong></td>
+<td width="20%"><strong>SaltStack</strong></td>
+<td width="20%"><strong>Chef</strong></td>
+<td width="20%"><strong>Puppet</strong></td>
+</tr>
+<tr>
+<td width="20%"><strong>Số sao trên GitHub</strong></td>
+<td width="20%">33,500</td>
+<td width="20%">9,341</td>
+<td width="20%">5,543</td>
+<td width="20%">5,125</td>
+</tr>
+<tr>
+<td width="20%"><strong>Số lượt fork</strong></td>
+<td width="20%">13,338</td>
+<td width="20%">4,366</td>
+<td width="20%">2,268</td>
+<td width="20%">2,049</td>
+</tr>
+<tr>
+<td width="20%"><strong>Ngôn ngữ lâp trình</strong></td>
+<td width="20%">Python</td>
+<td width="20%">Python</td>
+<td width="20%">Ruby</td>
+<td width="20%">Ruby</td>
+</tr>
+<tr>
+<td width="20%"><strong>Ngôn ngữ cấu hình</strong></td>
+<td width="20%">YAML</td>
+<td width="20%">YAML</td>
+<td width="20%">Ruby DSL</td>
+<td width="20%">Puppet DSL</td>
+</tr>
+</tbody>
+</table>
+<p>Có thể thấy Ansible là công cụ tự động hóa phổ biến nhất trên GitHub với số sao được người dùng bình chọn cho project này là 33,500 sao. <strong>Ansible</strong> cũng là tool dễ tiếp cận và làm quen do được build bằng Python và sử dụng file cấu hình theo dạng YAML (<strong>Y</strong>AML <strong>A</strong>in’t <strong>M</strong>arkup <strong>L</strong>anguage) dễ đọc và dễ hiểu.</p>
+<h3><span id="Kien_truc"><a name="_Toc70061298"></a><strong>Kiến trúc</strong></span></h3>
+<p>Ansible sử dụng kiến trúc agentless để giao tiếp với các máy khác mà không cần agent. Cơ bản nhất là giao tiếp thông qua giao thức SSH trên Linux, WinRM trên Windows hoặc giao tiếp qua chính API của thiết bị đó cung cấp.</p>
+<figure class="alignnone  wp-image-3598"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/109/Ansible-1.png" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/109/responsive/Ansible-1-xs.png 300w ,https://ddtrungit.github.io/media/posts/109/responsive/Ansible-1-sm.png 480w ,https://ddtrungit.github.io/media/posts/109/responsive/Ansible-1-md.png 768w"  sizes="(max-width: 825px) 100vw, 825px" srcset="https://ddtrungit.github.io/media/posts/109/Ansible-1.png 1024w, https://blog.vinahost.vn/wp-content/uploads/2021/05/Ansible-1-300x169.png 300w, https://blog.vinahost.vn/wp-content/uploads/2021/05/Ansible-1-768x434.png 768w" alt="" width="825" height="466"></figure>
+<p>Ansible có thể giao tiếp với rất nhiều platform, OS và loại thiết bị khác nhau. Từ Ubuntu, CentOS, VMware, Windows cho tới AWS, Azure, các thiết bị mạng Cisco và Juniper….vân vân và mây mây….(hoàn toàn không cần agent khi giao tiếp).</p>
+<p>Chính cách thiết kế này làm tăng tính tiện dụng của Ansible do không cần phải setup bảo trì agent trên nhiều host. Có thể coi đây là một thế mạnh của Ansible so với các công cụ có cùng chức năng như Chef, Puppet, SaltStack (Salt thì hỗ trợ cả 2 mode là agent và agentless, có thời gian thì mình sẽ viết 1 bài về Salt).</p>
+<h3><span id="Ung_dung"><a name="_Toc70061299"></a><strong>Ứng dụng</strong></span></h3>
+<p>Ansible có rất nhiều ứng dụng trong triển khai phần mềm và quản trị hệ thống.</p>
+<ul>
+<li><strong>Provisioning:</strong> Khởi tạo VM, container hàng loạt trong môi trường cloud dựa trên API (OpenStack, AWS, Google Cloud, Azure…)</li>
+<li><strong>Configuration Management: </strong>Quản lý cấu hình tập trung các dịch vụ tập trung, không cần phải tốn công chỉnh sửa cấu hình trên từng server.</li>
+<li><strong>Application Deployment:</strong> Deploy ứng dụng hàng loạt, quản lý hiệu quả vòng đời của ứng dụng từ giai đoạn dev cho tới production.</li>
+<li><strong>Security &amp; Compliance:</strong> Quản lý các chính sách về an toàn thông tinmột cách đồng bộ trên nhiều môi trường và sản phẩm khác nhau (deploy policy, cấu hình firewall hàng loạt trên nhiều server…).</li>
+</ul>
+<h3><span id="Mot_so_thuat_ngu_co_ban"><a name="_Toc70061300"></a><strong>Một số thuật ngữ cơ bản</strong></span></h3>
+<ul>
+<li><strong>Controller Machine</strong>: Là máy cài Ansible, chịu trách nhiệm quản lý, điều khiển và gởi task tới các máy con cần quản lý.</li>
+<li><strong>Inventory</strong>: Là file chứa thông tin các server cần quản lý. File này thường nằm tại đường dẫn /etc/ansible/hosts.</li>
+<li><strong>Playbook</strong>: Là file chứa các task của Ansible được ghi dưới định dạng YAML. Máy controller sẽ đọc các task trong Playbook và đẩy các lệnh thực thi tương ứng bằng Python xuống các máy con.</li>
+<li><strong>Task</strong>: Một block ghi tác vụ cần thực hiện trong playbook và các thông số liên quan. Ví dụ 1 playbook có thể chứa 2 task là: yum update và yum install vim.</li>
+<li><strong>Module</strong>: Ansible có rất nhiều module, ví dụ như moduel yum là module dùng để cài đặt các gói phần mềm qua yum. Ansible hiện có hơn ….2000 module để thực hiện nhiều tác vụ khác nhau, bạn cũng có thể tự viết thêm các module của mình nếu muốn.</li>
+<li><strong>Role</strong>: Là một tập playbook được định nghĩa sẵn để thực thi 1 tác vụ nhất định (ví dụ cài đặt LAMP stack).</li>
+<li><strong>Play</strong>: là quá trình thực thi của 1 playbook</li>
+<li><strong>Facts</strong>: Thông tin của những máy được Ansible điều khiển, cụ thể là thông tin về OS, network, system…</li>
+<li><strong>Handlers</strong>: Dùng để kích hoạt các thay đổi của dịch vụ như start, stop service.</li>
+</ul>
+<h2><span id="2_Huong_dan_cai_dat"><a name="_Toc70061301"></a><strong>2. Hướng dẫn cài đặt</strong></span></h2>
+<h3><span id="Cau_hinh_yeu_cau"><a name="_Toc70061302"></a><strong>Cấu hình yêu cầu</strong></span></h3>
+<ul>
+<li>Python 2.7 trở lên, Python 3.x thì càng tốt</li>
+<li>Đối với các host Linux thì cần hỗ trợ SSH.</li>
+<li>Đối với những host chạy Windows thì cần hỗ trợ WinRM.</li>
+</ul>
+<h3><span id="Cach_thuc_hoat_dong"><a name="_Toc70061303"></a><strong>Cách thức hoạt động</strong></span></h3>
+<p>Giống như đa phần các phần mềm quản lý cấu hình tập trung khác. <strong>Ansible</strong> có 2 loại server là control machine và node. Control machine là máy có trách nhiệm quản lý các node con trong hệ thống. Đây cũng là máy lưu trữ các thông tin về các node, playbook và các script cần dùng để deploy trên các node khác qua giao thức SSH.</p>
+<p>Để quản lý các node, <strong>Ansible</strong> sẽ gởi các module lệnh tới các node con qua SSH. Các module lệnh này sẽ được lưu trữ tạm thời trên các node con và giao tiếp với máy chủ <strong>Ansible</strong> bằng JSON. Khi đã thực thi xong tác vụ trên các máy này, các module đó sẽ được xóa đi. Các module này thường được lưu ở folder <strong>/root/.ansible</strong> hoặc <strong>/home/&lt;user&gt;/.ansible</strong>, tùy theo user mà <strong>Ansible</strong> dùng để quản lý các node con.</p>
+<p>Khi <strong>Ansible</strong> ở chế độ rảnh, không có task để thực hiện máy chủ <strong>Ansible</strong> sẽ không chiếm dụng tài nguyên do <strong>Ansible</strong> không sử dụng trình daemon hoặc program chạy ở chế độ background. Chỉ khi nào thực thi lệnh thì <strong>Ansible</strong> mới sử dụng tài nguyên của hệ thống.</p>
+<h2><span id="Cai_dat_Ansible">Cài <a name="_Toc70061304"></a><strong>đặt Ansible</strong></span></h2>
+<h3><span id="Ansible_Server_Control_Machine"><strong>Ansible Server – Control Machine</strong></span></h3>
+<p>Ansible Server sẽ là nơi người quản trị chạy lệnh (ad-hoc/playbooks), Ansible engine sẽ xử lý các lệnh này và đẩy xuống các server slave tương ứng.</p>
+<table>
+<tbody>
+<tr>
+<td width="638">
+<pre># Install on CentOS$ sudo yum update$ sudo yum install epel-release$ sudo yum install ansible# Install on Ubuntu$ sudo apt update$ sudo apt install software-properties-common$ sudo apt-add-repository ppa:ansible/ansible$ sudo apt update$ sudo apt install ansible</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Tạo file inventory chứa thông tin về các node cần quản lý:</p>
+<table>
+<tbody>
+<tr>
+<td width="638">
+<pre># vi /etc/ansible/hosts[group1]10.0.0.510.0.0.6</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Trên các Nodes con</strong></p>
+<p>Cài đặt Python 2.7 trở lên và mở port SSH.</p>
+<p>Chạy lệnh sau trên <strong>Control machine</strong> để kiểm tra các thông tin trên server:</p>
+<table>
+<tbody>
+<tr>
+<td width="638">
+<pre>#Kiem tra ket noi den cac nodes# ansible group1 -m ping#Kiem tra luong RAM trong tren cac nodes# ansible group1 -a "free -m" -u &lt;username&gt;#Kiem tra nhanh o cung tren cac nodes# ansible group1 -a "df -lh" -u &lt;username&gt;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Install and Configure OpenVPN Server on Ubuntu Linux</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/install-and-configure-openvpn-server-on-ubuntu-linux/index.html"/>
+        <id>https://ddtrungit.github.io/install-and-configure-openvpn-server-on-ubuntu-linux/index.html</id>
+            <category term="Linux"/>
+
+        <updated>2022-06-13T14:24:56+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/108/what_is_openvpn_thumb800.jpg" alt="" />
+                    Download openvpn-install.sh script to set up OpenVPN server in 5 minutes on Ubuntu Type the following wget command or curl&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/108/what_is_openvpn_thumb800.jpg" alt="" />
+                <h2>Download openvpn-install.sh script to set up OpenVPN server in 5 minutes on Ubuntu</h2>
+<p>Type the following wget command or curl command: <code>$ wget https://git.io/vpn -O openvpn-install.sh</code> wget grabbing the script:</p>
+<pre>--2020-12-09 09:15:57--  https://git.io/vpnResolving git.io (git.io)... 34.195.187.253, 52.87.143.234, 34.205.238.171, ...Connecting to git.io (git.io)|34.195.187.253|:443... connected.HTTP request sent, awaiting response... 302 FoundLocation: https://raw.github.com/Nyr/openvpn-install/master/openvpn-install.sh [following]--2020-12-09 09:15:57--  https://raw.github.com/Nyr/openvpn-install/master/openvpn-install.shResolving raw.github.com (raw.github.com)... 151.101.124.133Connecting to raw.github.com (raw.github.com)|151.101.124.133|:443... connected.HTTP request sent, awaiting response... 301 Moved PermanentlyLocation: https://raw.githubusercontent.com/Nyr/openvpn-install/master/openvpn-install.sh [following]--2020-12-09 09:15:57--  https://raw.githubusercontent.com/Nyr/openvpn-install/master/openvpn-install.shResolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.124.133Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.124.133|:443... connected.HTTP request sent, awaiting response... 200 OKLength: 23079 (23K) [text/plain]Saving to: 'openvpn-install.sh'openvpn-install.sh  100%[==================&gt;]  22.54K  --.-KB/s    in 0.001s  2020-12-09 09:15:57 (36.9 MB/s) - 'openvpn-install.sh saved [23079/23079]</pre>
+<p>We can verify script using a text editor such as nano command or vim command: <code>$ nano openvpn-install.sh</code></p>
+<h2>Running openvpn-install.sh to install OpenVPN server</h2>
+<p>Type the following command: <code>$ sudo chmod +x openvpn-install.sh
+$ sudo bash openvpn-install.sh</code> Make sure you provide needed information:</p>
+<pre>Welcome to this OpenVPN road warrior installer!Which protocol should OpenVPN use?   1) UDP (recommended)   2) TCPProtocol [1]: <strong>1</strong>What port should OpenVPN listen to?Port [1194]: Select a DNS server for the clients:   1) Current system resolvers   2) Google   3) 1.1.1.1   4) OpenDNS   5) Quad9   6) AdGuardDNS server [1]: <strong>2</strong>Enter a name for the first client:Name [client]: <strong>iphone</strong>OpenVPN installation is ready to begin.Press any key to continue...</pre>
+<p>Once you press any key such as [Enter] key, you will see:</p>
+<pre>writing new private key to '/etc/openvpn/server/easy-rsa/pki/easy-rsa-1768.FjG9Gr/tmp.vQL9q8'-----Using configuration from /etc/openvpn/server/easy-rsa/pki/easy-rsa-1768.FjG9Gr/tmp.FiauWWCheck that the request matches the signatureSignature okThe Subject's Distinguished Name is as followscommonName            :ASN.1 12:'server'Certificate is to be certified until Dec  7 09:22:17 2030 GMT (3650 days)Write out database with 1 new entriesData Base UpdatedUsing SSL: openssl OpenSSL 1.1.1f  31 Mar 2020Generating a RSA private key....................................+++++...................+++++writing new private key to '/etc/openvpn/server/easy-rsa/pki/easy-rsa-1843.4USwJm/tmp.lOecLW'-----Using configuration from /etc/openvpn/server/easy-rsa/pki/easy-rsa-1843.4USwJm/tmp.5j0n6qCheck that the request matches the signatureSignature okThe Subject's Distinguished Name is as followscommonName            :ASN.1 12:'iphone'Certificate is to be certified until Dec  7 09:22:17 2030 GMT (3650 days)Write out database with 1 new entriesData Base UpdatedUsing SSL: openssl OpenSSL 1.1.1f  31 Mar 2020Using configuration from /etc/openvpn/server/easy-rsa/pki/easy-rsa-1899.k6zZtP/tmp.riZi2RAn updated CRL has been created.CRL file: /etc/openvpn/server/easy-rsa/pki/crl.pemCreated symlink /etc/systemd/system/multi-user.target.wants/openvpn-iptables.service → /etc/systemd/system/openvpn-iptables.service.Created symlink /etc/systemd/system/multi-user.target.wants/openvpn-server@server.service → /lib/systemd/system/openvpn-server@.service.Finished!The client configuration is available in: /root/iphone.ovpnNew clients can be added by running this script again.</pre>
+<h3>Viewing and Seting up OpenVPN Server In 5 Minutes on Ubuntu Firewall Rules</h3>
+<p>That is all. Your OpenVPN server has been configured and ready to use. You can see added firewall rules <kbd>/etc/systemd/system/openvpn-iptables.service</kbd> file: <code>$ sudo systemctl cat openvpn-iptables.service</code> Sample rules. Please do not edit them:</p>
+<div class="wp-geshi-highlight-wrap5">
+<div class="wp-geshi-highlight-wrap4">
+<div class="wp-geshi-highlight-wrap3">
+<div class="wp-geshi-highlight-wrap2">
+<div class="wp-geshi-highlight-wrap">
+<div class="wp-geshi-highlight">
+<div class="bash">
+<pre class="de1"><span class="br0">[</span>Unit<span class="br0">]</span><span class="re2">Before</span>=network.target<span class="br0">[</span>Service<span class="br0">]</span><span class="re2">Type</span>=oneshot<span class="re2">ExecStart</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-t</span> nat <span class="re5">-A</span> POSTROUTING <span class="re5">-s</span> 10.8.0.0<span class="sy0">/</span><span class="nu0">24</span> <span class="sy0">!</span> <span class="re5">-d</span> 10.8.0.0<span class="sy0">/</span><span class="nu0">24</span> <span class="re5">-j</span> SNAT <span class="re5">--to</span> 172.105.102.90<span class="re2">ExecStart</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-I</span> INPUT <span class="re5">-p</span> udp <span class="re5">--dport</span> <span class="nu0">1194</span> <span class="re5">-j</span> ACCEPT<span class="re2">ExecStart</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-I</span> FORWARD <span class="re5">-s</span> 10.8.0.0<span class="sy0">/</span><span class="nu0">24</span> <span class="re5">-j</span> ACCEPT<span class="re2">ExecStart</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-I</span> FORWARD <span class="re5">-m</span> state <span class="re5">--state</span> RELATED,ESTABLISHED <span class="re5">-j</span> ACCEPT<span class="re2">ExecStop</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-t</span> nat <span class="re5">-D</span> POSTROUTING <span class="re5">-s</span> 10.8.0.0<span class="sy0">/</span><span class="nu0">24</span> <span class="sy0">!</span> <span class="re5">-d</span> 10.8.0.0<span class="sy0">/</span><span class="nu0">24</span> <span class="re5">-j</span> SNAT <span class="re5">--to</span> 172.105.102.90<span class="re2">ExecStop</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-D</span> INPUT <span class="re5">-p</span> udp <span class="re5">--dport</span> <span class="nu0">1194</span> <span class="re5">-j</span> ACCEPT<span class="re2">ExecStop</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-D</span> FORWARD <span class="re5">-s</span> 10.8.0.0<span class="sy0">/</span><span class="nu0">24</span> <span class="re5">-j</span> ACCEPT<span class="re2">ExecStop</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-D</span> FORWARD <span class="re5">-m</span> state <span class="re5">--state</span> RELATED,ESTABLISHED <span class="re5">-j</span> ACCEPT<span class="re2">ExecStart</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>ip6tables <span class="re5">-t</span> nat <span class="re5">-A</span> POSTROUTING <span class="re5">-s</span> fddd:<span class="nu0">1194</span>:<span class="nu0">1194</span>:<span class="nu0">1194</span>::<span class="sy0">/</span><span class="nu0">64</span> <span class="sy0">!</span> <span class="re5">-d</span> fddd:<span class="nu0">1194</span>:<span class="nu0">1194</span>:<span class="nu0">1194</span>::<span class="sy0">/</span><span class="nu0">64</span> <span class="re5">-j</span> SNAT <span class="re5">--to</span> <span class="nu0">2600</span>:3c04::f03c:92ff:fe42:3d72<span class="re2">ExecStart</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>ip6tables <span class="re5">-I</span> FORWARD <span class="re5">-s</span> fddd:<span class="nu0">1194</span>:<span class="nu0">1194</span>:<span class="nu0">1194</span>::<span class="sy0">/</span><span class="nu0">64</span> <span class="re5">-j</span> ACCEPT<span class="re2">ExecStart</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>ip6tables <span class="re5">-I</span> FORWARD <span class="re5">-m</span> state <span class="re5">--state</span> RELATED,ESTABLISHED <span class="re5">-j</span> ACCEPT<span class="re2">ExecStop</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>ip6tables <span class="re5">-t</span> nat <span class="re5">-D</span> POSTROUTING <span class="re5">-s</span> fddd:<span class="nu0">1194</span>:<span class="nu0">1194</span>:<span class="nu0">1194</span>::<span class="sy0">/</span><span class="nu0">64</span> <span class="sy0">!</span> <span class="re5">-d</span> fddd:<span class="nu0">1194</span>:<span class="nu0">1194</span>:<span class="nu0">1194</span>::<span class="sy0">/</span><span class="nu0">64</span> <span class="re5">-j</span> SNAT <span class="re5">--to</span> <span class="nu0">2600</span>:3c04::f03c:92ff:fe42:3d72<span class="re2">ExecStop</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>ip6tables <span class="re5">-D</span> FORWARD <span class="re5">-s</span> fddd:<span class="nu0">1194</span>:<span class="nu0">1194</span>:<span class="nu0">1194</span>::<span class="sy0">/</span><span class="nu0">64</span> <span class="re5">-j</span> ACCEPT<span class="re2">ExecStop</span>=<span class="sy0">/</span>usr<span class="sy0">/</span>sbin<span class="sy0">/</span>ip6tables <span class="re5">-D</span> FORWARD <span class="re5">-m</span> state <span class="re5">--state</span> RELATED,ESTABLISHED <span class="re5">-j</span> ACCEPT<span class="re2">RemainAfterExit</span>=<span class="kw2">yes</span><span class="br0">[</span>Install<span class="br0">]</span><span class="re2">WantedBy</span>=multi-user.target</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>You can view your openvpn server config file generated by the script as follows (agin do not edit this file by hand as it will break things for you): <code>$ sudo more /etc/openvpn/server/server.conf</code> Sample openvpn config:</p>
+<div class="wp-geshi-highlight-wrap5">
+<div class="wp-geshi-highlight-wrap4">
+<div class="wp-geshi-highlight-wrap3">
+<div class="wp-geshi-highlight-wrap2">
+<div class="wp-geshi-highlight-wrap">
+<div class="wp-geshi-highlight">
+<div class="bash">
+<pre class="de1"><span class="kw3">local</span> 172.105.102.90port <span class="nu0">1194</span>proto udpdev tunca ca.crtcert server.crtkey server.key<span class="kw2">dh</span> dh.pemauth SHA512tls-crypt tc.keytopology subnetserver 10.8.0.0 255.255.255.0server-ipv6 fddd:<span class="nu0">1194</span>:<span class="nu0">1194</span>:<span class="nu0">1194</span>::<span class="sy0">/</span><span class="nu0">64</span>push <span class="st0">"redirect-gateway def1 ipv6 bypass-dhcp"</span>ifconfig-pool-persist ipp.txtpush <span class="st0">"dhcp-option DNS 8.8.8.8"</span>push <span class="st0">"dhcp-option DNS 8.8.4.4"</span>keepalive <span class="nu0">10</span> <span class="nu0">120</span>cipher AES-<span class="nu0">256</span>-CBCuser nobodygroup nogrouppersist-keypersist-tunstatus openvpn-status.logverb <span class="nu0">3</span>crl-verify crl.pemexplicit-exit-notify</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h3>How do I start/stop/restart OpenVPN server on Ubuntu Linux 18.04/20.04 LTS and 20.10?</h3>
+<p>Run the following systemctl command to stop the OpenVPN service: <code>$ sudo systemctl stop openvpn-server@server.service</code> Want to start it again? Try: <code>$ sudo systemctl start openvpn-server@server.service</code> The command to restart the OpenVPN service: <code>$ sudo systemctl restart openvpn-server@server.service</code> View status of your OpenVPN systemd based service: <code>$ sudo systemctl status openvpn-server@server.service</code></p>
+<pre><strong>●</strong> openvpn-server@server.service - OpenVPN service for server     Loaded: loaded (/lib/systemd/system/openvpn-server@.service; enabled; vendor preset: enabled)     Active: <strong>active (running)</strong> since Wed 2020-12-09 09:22:18 UTC; 7min ago       Docs: man:openvpn(8)             https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage             https://community.openvpn.net/openvpn/wiki/HOWTO   Main PID: 2017 (openvpn)     Status: "Initialization Sequence Completed"      Tasks: 1 (limit: 4610)     Memory: 1.2M     CGroup: /system.slice/system-openvpn\x2dserver.slice/openvpn-server@server.service             └─2017 /usr/sbin/openvpn --status /run/openvpn-server/status-server.log --status-version 2 --suppress-timestamps --config server.confDec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: Socket Buffers: R=[212992-&gt;212992] S=[212992-&gt;212992]Dec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: UDPv4 link local (bound): [AF_INET]172.105.102.90:1194Dec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: UDPv4 link remote: [AF_UNSPEC]Dec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: GID set to nogroupDec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: UID set to nobodyDec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: MULTI: multi_init called, r=256 v=256Dec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: IFCONFIG POOL IPv6: (IPv4) size=252, size_ipv6=65536, netbits=64, base_ipv6=fddd:1194:1194:1194::1000Dec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: IFCONFIG POOL: base=10.8.0.2 size=252, ipv6=1Dec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: IFCONFIG POOL LISTDec 09 09:22:18 nixcraft-ubuntu-vm openvpn[2017]: Initialization Sequence Completed</pre>
+<h2>OpenVPN client configuration</h2>
+<p>On server your will find a client configuration file called ~/iphone.ovpn. Use the find command to locate OpenVPN config file: <code>$ sudo find / -type f -name "iphone.ovpn"
+$ sudo find / -type f -name "*.ovpn"</code> Now, all you have to do is copy this file to your local desktop using the scp and provide this file to your OpenVPN client to connect: <code>$ scp root@172.105.102.90:~/iphone.ovpn .</code> Next, you need to download OpenVPN client as per your operating system or mobile device:</p>
+<ul>
+<li>Client for <a href="https://itunes.apple.com/us/app/openvpn-connect/id590379981?mt=8" target="_blank" rel="noopener">Apple iOS</a> version 6.x or above</li>
+<li><a href="https://play.google.com/store/apps/details?id=net.openvpn.openvpn&amp;hl=en" target="_blank" rel="noopener">Android</a> client</li>
+<li><a href="https://tunnelblick.net/" target="_blank" rel="noopener">Apple MacOS (OS X)</a></li>
+<li><a href="https://openvpn.net/community-downloads-2/" target="_blank" rel="noopener">Windows 8/10 OpenVPN</a> client</li>
+</ul>
+<h3>MacOS/OS X OpenVPN client configuration</h3>
+<p>Just double click on iphone.ovpn file and it will open in your tunnelblick client &gt; Click on the “Only me” to install it:</p>
+<div id="attachment_145487" class="wp-caption aligncenter">
+<figure class="size-full wp-image-145487 lazyloaded"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/108/responsive/openvpn-macos-xs.jpg 300w ,https://ddtrungit.github.io/media/posts/108/responsive/openvpn-macos-sm.jpg 480w ,https://ddtrungit.github.io/media/posts/108/responsive/openvpn-macos-md.jpg 768w"  sizes="(max-width: 599px) 100vw, 599px" srcset="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/openvpn-macos-300x139.jpg 300w" alt="Fig.03: MacOS / OS X openvpn client configuration" width="599" height="278" aria-describedby="caption-attachment-145487" data-src="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg" data-srcset="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/openvpn-macos-300x139.jpg 300w" data-sizes="(max-width: 599px) 100vw, 599px"></figure>
+<p id="caption-attachment-145487" class="wp-caption-text">Fig.03: MacOS / OS X openvpn client configuration</p>
+</div>
+<p>Once installed click on Connect button and you will be online. Use the following command on MacOS client to verify that your public IP changed to the VPN server IP: <code>$ dig TXT +short o-o.myaddr.l.google.com @ns1.google.com</code> You can ping to OpenVPN server private IP: <code>$ ping 10.8.0.1</code></p>
+<p> </p>
+<h3>Linux OpenVPN client configuration</h3>
+<p>First, install the openvpn client, enter: <code>$ sudo yum install openvpn</code> OR <code>$ sudo apt install openvpn</code> Next, copy iphone.ovpn as follows: <code>$ sudo cp iphone.ovpn /etc/openvpn/client.conf</code> Test connectivity from the CLI: <code>$ sudo openvpn --client --config /etc/openvpn/client.conf</code> Your Linux system will automatically connect when computer restart using /etc/init.d/openvpn script: <code>$ sudo /etc/init.d/openvpn start</code> For systemd based system, use the following command: <code>$ sudo systemctl start openvpn@client</code> Test the OpenVPN connectivity on Linux desktop: <code>$ <strong>ping 10.8.0.1</strong> #Ping to OpenVPN server gateway using the <a title="See Linux/Unix ping command examples for more info" href="https://www.cyberciti.biz/faq/unix-ping-command-examples/">ping command</a>
+$ <strong>ip route</strong> #Make sure routing setup using the <a title="See Linux/Unix ip command examples for more info" href="https://www.cyberciti.biz/faq/linux-ip-command-examples-usage-syntax/">ip command</a> $ ip route get 10.8.0.1
+#Make sure your public IP set to OpenVPN server
+$ <strong>dig TXT +short o-o.myaddr.l.google.com @ns1.google.com</strong></code> <figure class="aligncenter size-full wp-image-149227 lazyloaded"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-xs.jpg 300w ,https://ddtrungit.github.io/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-sm.jpg 480w ,https://ddtrungit.github.io/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-md.jpg 768w"  sizes="(max-width: 599px) 100vw, 599px" srcset="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-300x128.jpg 300w" alt="Set up and Verify OpenVPN Server In 5 Minutes on Ubuntu Linux" width="599" height="255" data-src="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg" data-srcset="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-300x128.jpg 300w" data-sizes="(max-width: 599px) 100vw, 599px"></figure>
+<h3>FreeBSD OpenVPN client configuration</h3>
+<p>First, install the openvpn client using the pkg command: <code>$ sudo pkg install openvpn</code> Next, copy iphone.ovpn as follows: <code>$ mkdir -p /usr/local/etc/openvpn/
+$ sudo cp iphone.ovpn /usr/local/etc/openvpn/client.conf</code> Edit /etc/rc.conf and add the following:</p>
+<pre>openvpn_enable="YES"openvpn_configfile="/usr/local/etc/openvpn/client.conf"</pre>
+<p>Start the OpenVPN service: <code>$ sudo /usr/local/etc/rc.d/openvpn start</code> Verify it: <code>#Ping to OpenVPN server gateway from BSD
+$ ping 10.8.0.1
+#Make sure routing setup
+$ netstat -nr
+#Make sure your public IP set to OpenVPN server
+$ drill myip.opendns.com @resolver1.opendns.com</code></p>
+<h2>How do I add a new client?</h2>
+<p>For demo purpose I added a new device called googlephone. Let us add one more device called googlephone by running the script again: <code>$ sudo bash openvpn-install.sh</code></p>
+<pre>Looks like OpenVPN is already installedWhat do you want to do?   1) Add a cert for a new user   2) Revoke existing user cert   3) Remove OpenVPN   4) ExitSelect an option [1-4]:</pre>
+<p>Select option 1 and type googlephone as a client name:</p>
+<div class="wp-geshi-highlight-wrap5">
+<div class="wp-geshi-highlight-wrap4">
+<div class="wp-geshi-highlight-wrap3">
+<div class="wp-geshi-highlight-wrap2">
+<div class="wp-geshi-highlight-wrap">
+<div class="wp-geshi-highlight">
+<div class="ini">
+<pre class="de1">Tell me a name for the client certPlease, use one word only, no special charactersClient name: googlephoneGenerating a <span class="nu0">2048</span> bit RSA private key.........+++.................................................................................................+++writing new private key to <span class="st0">'/etc/openvpn/easy-rsa/pki/private/googlephone.key.FNaDMaP56c'</span>-----Using configuration from /etc/openvpn/easy-rsa/openssl-<span class="nu0">1.0</span>.cnfCheck that the request matches the signatureSignature okThe Subject<span class="st0">'s Distinguished Name is as followscommonName            :ASN.1 12:'</span>googlephone<span class="st0">'Certificate is to be certified until Sep 25 07:31:46 2027 GMT (3650 days) Write out database with 1 new entriesData Base Updated Client googlephone added, certs available at ~/googlephone.ovpn</span></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Now you can use googlephone.ovpn with Google Android phone. You can add as many users you want using this method.</p>
+<h2>How do I delete/revoke existing user certificate?</h2>
+<p>Run the script: <code>$ sudo bash openvpn-install.sh</code> Here is how it looks:</p>
+<pre>Looks like OpenVPN is already installedWhat do you want to do?   1) Add a cert for a new user   2) Revoke existing user cert   3) Remove OpenVPN   4) ExitSelect an option [1-4]:</pre>
+<p>Type 2 option and you will see a list of all the existing client certificate you want to revoke:</p>
+<pre>Select the existing client certificate you want to revoke     1) iphone6     2) googlephone     3) delllaptop     4) macbookSelect one client [1-4]: 2</pre>
+<p>Sample outputs when I revoked googlephone certificate:</p>
+<pre>Using configuration from /etc/openvpn/easy-rsa/openssl-1.0.cnfRevoking Certificate 09.Data Base UpdatedUsing configuration from /etc/openvpn/easy-rsa/openssl-1.0.cnfAn updated CRL has been created.CRL file: /etc/openvpn/easy-rsa/pki/crl.pemCertificate for client googlephone revoked</pre>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Install and Configure Redis on AMAZON LINUX 2</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/install-and-configure-redis-on-amazon-linux-2/index.html"/>
+        <id>https://ddtrungit.github.io/install-and-configure-redis-on-amazon-linux-2/index.html</id>
+            <category term="Linux"/>
+            <category term="Aws"/>
+
+        <updated>2022-06-13T14:25:29+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/107/Redis-1.png" alt="" />
+                    Install Redis In this section you’ll add the EPEL repository, and then use it to install Redis. sudo yum install epel-releasesudo yum&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/107/Redis-1.png" alt="" />
+                <h2 id="install-redis">Install Redis</h2>
+<p>In this section you’ll add the <a href="https://fedoraproject.org/wiki/EPEL" target="_blank" rel="noopener">EPEL</a> repository, and then use it to install Redis.</p>
+<ol>
+<li>Add the EPEL repository, and update YUM to confirm your change:
+<pre><code data-wg-notranslate="manual">sudo yum install epel-releasesudo yum update</code></pre>
+</li>
+<li>Install Redis:
+<pre><code data-wg-notranslate="manual">sudo yum install redis</code></pre>
+</li>
+<li>Start Redis:
+<pre><code data-wg-notranslate="manual">sudo systemctl start redis</code></pre>
+<p><strong>Optional</strong>: To automatically start Redis on boot:</p>
+<pre><code data-wg-notranslate="manual">sudo systemctl enable redis</code></pre>
+</li>
+</ol>
+<h3 id="verify-the-installation">Verify the Installation</h3>
+<p>Verify that Redis is running with <code data-wg-notranslate="manual">redis-cli</code>:</p>
+<pre><code data-wg-notranslate="manual">redis-cli ping</code></pre>
+<p>If Redis is running, it will return:</p>
+<pre><code data-wg-notranslate="manual">PONG</code></pre>
+<h2 id="configure-redis">Configure Redis</h2>
+<p>In this section, you’ll configure some basic persistence and tuning options for Redis.</p>
+<h3 id="persistence-options">Persistence Options</h3>
+<p>Redis provides two options for disk persistence:</p>
+<ul>
+<li>Point-in-time snapshots of the dataset, made at specified intervals (RDB).</li>
+<li>Append-only logs of all the write operations performed by the server (AOF).</li>
+</ul>
+<p>Each option has its own pros and cons which are detailed in the Redis documentation. For the greatest level of data safety, consider running both persistence methods.</p>
+<p>Because the Point-in-time snapshot persistence is enabled by default, you only need to set up AOF persistence:</p>
+<ol>
+<li>Make sure that the following values are set for the <code data-wg-notranslate="manual">appendonly</code> and <code data-wg-notranslate="manual">appendfsync</code> settings in <code data-wg-notranslate="manual">redis.conf</code>:
+<dl class="file font-mono text-xs pull-out" data-wg-notranslate="manual">
+<dt class="relative px-8 py-3 bg-titlecolor sm:rounded-t-md text-white">File: /etc/redis.conf
+<div class="absolute right-0 top-0 pt-3 pr-2"> </div>
+</dt>
+<dd class="overflow-x-scroll">
+<div>
+<div class="highlight">
+<div class="chroma">
+<table class="lntable">
+<tbody>
+<tr>
+<td class="lntd">
+<pre class="chroma"><code data-wg-notranslate="manual"><span class="lnt">1</span><span class="lnt">2</span></code></pre>
+</td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash" data-wg-notranslate="manual">appendonly yesappendfsync everysec</code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</li>
+<li>Restart Redis:
+<pre><code data-wg-notranslate="manual">sudo systemctl restart redis</code></pre>
+</li>
+</ol>
+<h3 id="basic-system-tuning">Basic System Tuning</h3>
+<p>To improve Redis performance, set the Linux kernel overcommit memory setting to 1:</p>
+<pre><code data-wg-notranslate="manual">sudo sysctl vm.overcommit_memory=1</code></pre>
+<p>This immediately changes the overcommit memory setting, but the change will not persist across reboots. To make it permanent, add <code data-wg-notranslate="manual">vm.overcommit_memory = 1</code> to <code data-wg-notranslate="manual">/etc/sysctl.conf</code>:</p>
+<dl class="file font-mono text-xs pull-out" data-wg-notranslate="manual">
+<dt class="relative px-8 py-3 bg-titlecolor sm:rounded-t-md text-white">File: /etc/sysctl.conf
+<div class="absolute right-0 top-0 pt-3 pr-2"> </div>
+</dt>
+<dd class="overflow-x-scroll">
+<div>
+<div class="highlight">
+<div class="chroma">
+<table class="lntable">
+<tbody>
+<tr>
+<td class="lntd">
+<pre class="chroma"><code data-wg-notranslate="manual"><span class="lnt">1</span></code></pre>
+</td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash" data-wg-notranslate="manual">vm.overcommit_memory <span class="o">=</span> <span class="m">1</span></code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+<h3 id="additional-swap">Additional Swap</h3>
+<p>Depending upon your usage, you may find it necessary to add extra swap disk space. You can add swap by <a href="https://www.linode.com/docs/platform/disk-images/disk-images-and-configuration-profiles/#resizing-a-disk" data-turbolinks="false">resizing your disk</a> in the Linode Manager. The <a href="https://redis.io/topics/admin" target="_blank" rel="noopener">Redis documentation</a> recommends the size of your swap disk match the amount of memory available to your system.</p>
+<h2 id="distributed-redis">Distributed Redis</h2>
+<p>Redis provides several options for setting up distributed data stores. The simplest option, covered below, is <em>master/slave replication</em>, which creates copies of data. It will also allow distribution of reads among groups of slave copies as long as all write operations are handled by the master server.</p>
+<p>The master/slave setup described above can be made highly available with <a href="https://redis.io/topics/sentinel" target="_blank" rel="noopener">Redis Sentinel</a>. Sentinel can be configured to monitor both master and slave instances, and will perform automatic failover if the master node is not working as expected. That means that one of the slave nodes will be elected master and all other slave nodes will be configured to use the new master.</p>
+<p>With Redis version 3.0 and above, you can use <a href="https://redis.io/topics/cluster-tutorial" target="_blank" rel="noopener">Redis Cluster</a>, a data sharding solution that automatically manages replication and failover. With Redis Cluster, you are able to automatically split your dataset among multiple nodes, which is useful when your dataset is larger than a single server’s RAM. It also gives you the ability to continue operations when a subset of the nodes are experiencing failures or are unable to communicate with the rest of the cluster.</p>
+<p>The following steps will guide you through master/slave replication, with the slaves set to read-only mode.</p>
+<h2 id="set-up-redis-masterslave-replication">Set Up Redis Master/Slave Replication</h2>
+<p>For this section, you will use two Linodes, a master and a slave.</p>
+<blockquote class="callout border-brand"><strong class="callout-title">Note</strong>
+<div class="leading-tight callout-body">To communicate over the private network, your master and slave Linodes must reside in the same data center.</div>
+</blockquote>
+<h3 id="prepare-your-linodes">Prepare Your Linodes</h3>
+<ol>
+<li>Set up both Linodes with a Redis instance, using the <a href="https://www.linode.com/docs/guides/install-and-configure-redis-on-centos-7/#install-redis">Installation</a> and <a href="https://www.linode.com/docs/guides/install-and-configure-redis-on-centos-7/#configure-redis">Configuration</a> steps from this guide. You can also copy your initially configured disk to another Linode using the <a href="https://www.linode.com/docs/platform/disk-images/disk-images-and-configuration-profiles/#cloning-disks-and-configuration-profiles" data-turbolinks="false">Clone</a> option in the Linode Manager.</li>
+<li>Configure <a href="https://www.linode.com/docs/networking/remote-access/#adding-private-ip-addresses" data-turbolinks="false">Private IP Addresses</a> on both Linodes, and make sure you can access the master Linode’s private IP address from the slave. You will use only private addresses for replication traffic for security reasons.</li>
+</ol>
+<h3 id="configure-the-master-linode">Configure the Master Linode</h3>
+<ol>
+<li>Configure the master Redis instance to listen on a private IP address by updating the <code data-wg-notranslate="manual">bind</code> configuration option in <code data-wg-notranslate="manual">redis.conf</code>. Replace <code data-wg-notranslate="manual">192.0.2.100</code> with the master Linode’s private IP address:
+<dl class="file font-mono text-xs pull-out" data-wg-notranslate="manual">
+<dt class="relative px-8 py-3 bg-titlecolor sm:rounded-t-md text-white">File: /etc/redis.conf
+<div class="absolute right-0 top-0 pt-3 pr-2"> </div>
+</dt>
+<dd class="overflow-x-scroll">
+<div>
+<div class="highlight">
+<div class="chroma">
+<table class="lntable">
+<tbody>
+<tr>
+<td class="lntd">
+<pre class="chroma"><code data-wg-notranslate="manual"><span class="lnt">1</span></code></pre>
+</td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash" data-wg-notranslate="manual"><span class="nb">bind</span> 127.0.0.1 192.0.2.100</code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</li>
+<li>Restart Redis to apply the changes:
+<pre><code data-wg-notranslate="manual">sudo systemctl restart redis</code></pre>
+</li>
+</ol>
+<h3 id="configure-the-slave-linode">Configure the Slave Linode</h3>
+<ol>
+<li>Configure a slave instance by adding the <code data-wg-notranslate="manual">slaveof</code> directive into <code data-wg-notranslate="manual">redis.conf</code> to setup the replication. Again replace <code data-wg-notranslate="manual">192.0.2.100</code> with the master Linode’s private IP address:
+<dl class="file font-mono text-xs pull-out" data-wg-notranslate="manual">
+<dt class="relative px-8 py-3 bg-titlecolor sm:rounded-t-md text-white">File: /etc/redis.conf
+<div class="absolute right-0 top-0 pt-3 pr-2"> </div>
+</dt>
+<dd class="overflow-x-scroll">
+<div>
+<div class="highlight">
+<div class="chroma">
+<table class="lntable">
+<tbody>
+<tr>
+<td class="lntd">
+<pre class="chroma"><code data-wg-notranslate="manual"><span class="lnt">1</span></code></pre>
+</td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash" data-wg-notranslate="manual">slaveof 192.0.2.100 <span class="m">6379</span></code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+<p>The <code data-wg-notranslate="manual">slaveof</code> directive takes two arguments: the first is the IP address of the master node; the second is the Redis port specified in the master’s configuration.</p>
+</li>
+<li>Restart the slave Redis instance:
+<pre><code data-wg-notranslate="manual">sudo systemctl restart redis</code></pre>
+<p>After restarting, the slave Linode will attempt to synchronize its data set to master and then propagate the changes.</p>
+</li>
+</ol>
+<h3 id="confirm-replication">Confirm Replication</h3>
+<p>Test that the replication works. On your master Linode, run <code data-wg-notranslate="manual">redis-cli</code> and execute command <code data-wg-notranslate="manual">set 'a' 1</code></p>
+<pre><code data-wg-notranslate="manual">redis-cli127.0.0.1:6379&gt; set 'a' 1OK</code></pre>
+<p>Type <code data-wg-notranslate="manual">exit</code> or press <strong>Ctrl-C</strong> to exit from <code data-wg-notranslate="manual">redis-cli</code> prompt.</p>
+<p>Next, run <code data-wg-notranslate="manual">redis-cli</code> on the slave Linode and execute <code data-wg-notranslate="manual">get 'a'</code>, which should return the same value as that on the master:</p>
+<pre><code data-wg-notranslate="manual">redis-cli127.0.0.1:6379&gt; get 'a'"1"</code></pre>
+<p>Your master/slave replication setup is working properly.</p>
+<h2 id="secure-the-redis-installation">Secure the Redis Installation</h2>
+<blockquote class="callout border-brand"><strong class="callout-title">Note</strong>
+<div class="leading-tight callout-body">
+<p><a href="https://www.linode.com/products/cloud-firewall/" target="_blank" rel="noopener">Linode Cloud Firewall</a> is now in beta! For more information on Cloud Firewall, see our <a href="https://www.linode.com/docs/guides/getting-started-with-cloud-firewall/">Tutorial for Adding and Configuring Linode Cloud Firewalls</a>.</p>
+<p>For help with solving general firewall issues, see our guide on <a href="https://www.linode.com/docs/guides/troubleshooting-firewalls/">Troubleshooting Firewalls</a>.</p>
+</div>
+</blockquote>
+<p>Since Redis is designed to work in trusted environments and with trusted clients, you should control access to the Redis instance. Some recommended security steps include:</p>
+<ul>
+<li>Set up a firewall using <a href="https://www.linode.com/docs/security/securing-your-server/#configure-a-firewall" data-turbolinks="false">your tool of choice</a>.</li>
+<li>Encrypt Redis traffic using an SSH tunnel, or the methods described in the <a href="http://redis.io/topics/security" target="_blank" rel="noopener">Redis Security documentation</a>.</li>
+</ul>
+<p>Additionally, to ensure that no outside traffic accesses your Redis instance, we suggest that you only listen for connections on the localhost interface or your Linode’s private IP address.</p>
+<h3 id="use-password-authentication">Use Password Authentication</h3>
+<p>For an added layer of security, use password authentication to secure the connection between your master and slave Linodes.</p>
+<ol>
+<li>On your master Linode, uncomment the <code data-wg-notranslate="manual">requirepass</code> line in your Redis configuration and replace <code data-wg-notranslate="manual">master_password</code> with a secure password:
+<dl class="file font-mono text-xs pull-out" data-wg-notranslate="manual">
+<dt class="relative px-8 py-3 bg-titlecolor sm:rounded-t-md text-white">File: /etc/redis.conf
+<div class="absolute right-0 top-0 pt-3 pr-2"> </div>
+</dt>
+<dd class="overflow-x-scroll">
+<div>
+<div class="highlight">
+<div class="chroma">
+<table class="lntable">
+<tbody>
+<tr>
+<td class="lntd">
+<pre class="chroma"><code data-wg-notranslate="manual"><span class="lnt">1</span></code></pre>
+</td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash" data-wg-notranslate="manual">requirepass master_password</code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+</li>
+<li>Save your changes, and apply them by restarting Redis on the master Linode:
+<pre><code data-wg-notranslate="manual">sudo systemctl restart redis</code></pre>
+</li>
+<li>On your slave Linode, add the master password to your Redis configuration under <code data-wg-notranslate="manual">masterpass</code>, and then create a unique password for the slave Linode with <code data-wg-notranslate="manual">requirepass</code>:
+<dl class="file font-mono text-xs pull-out" data-wg-notranslate="manual">
+<dt class="relative px-8 py-3 bg-titlecolor sm:rounded-t-md text-white">File: /etc/redis.conf
+<div class="absolute right-0 top-0 pt-3 pr-2"> </div>
+</dt>
+<dd class="overflow-x-scroll">
+<div>
+<div class="highlight">
+<div class="chroma">
+<table class="lntable">
+<tbody>
+<tr>
+<td class="lntd">
+<pre class="chroma"><code data-wg-notranslate="manual"><span class="lnt">1</span><span class="lnt">2</span></code></pre>
+</td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash" data-wg-notranslate="manual">masterpass  master_passwordrequirepass slave_password</code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</dd>
+</dl>
+<p>Replace <code data-wg-notranslate="manual">master_password</code> with the password you configured on your master, and replace <code data-wg-notranslate="manual">slave_password</code> with the password to use for your slave Linode.</p>
+</li>
+<li>Save your changes, and restart Redis on your slave Linode:
+<pre><code data-wg-notranslate="manual">sudo systemctl restart redis</code></pre>
+</li>
+<li>Connect to <code data-wg-notranslate="manual">redis-cli</code> on your master Linode, and use <code data-wg-notranslate="manual">AUTH</code> to authenticate with your master password:
+<pre><code data-wg-notranslate="manual">redis-cli127.0.0.1:6379&gt; AUTH master_password</code></pre>
+</li>
+<li>Once you’ve authenticated, you can view details about your Redis configuration by running <code data-wg-notranslate="manual">INFO</code>. This provides a lot of information, so you can specifically request the “Replication” section in your command:
+<pre><code data-wg-notranslate="manual">127.0.0.1:6379&gt; INFO replication</code></pre>
+<p>Output should be similar to the following:</p>
+<pre><code data-wg-notranslate="manual"># Replicationrole:masterconnected_slaves:1slave0:ip=192.0.2.105,port=6379,state=online,offset=1093,lag=1</code></pre>
+<p>It should confirm the master role of your Linode, as well as how many slave Linodes are connected to it.</p>
+</li>
+<li>From your slave Linode, connect to <code data-wg-notranslate="manual">redis-cli</code> and authenticate using your slave password:
+<pre><code data-wg-notranslate="manual">redis-cli127.0.0.1:6379&gt; AUTH slave_password</code></pre>
+</li>
+<li>Once you’ve authenticated, use <code data-wg-notranslate="manual">INFO</code> to confirm your slave Linode’s role, and its connection to the master server:
+<pre><code data-wg-notranslate="manual">127.0.0.1:6379&gt; INFO replication# Replicationrole:slavemaster_host:192.0.2.100master_port:6379master_link_status:up</code></pre>
+</li>
+</ol>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Creat user admin MongoDB</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/creat-user-admin-mongodb/index.html"/>
+        <id>https://ddtrungit.github.io/creat-user-admin-mongodb/index.html</id>
+            <category term="Linux"/>
+
+        <updated>2022-06-13T14:25:37+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/106/images.png" alt="" />
+                    https://www.howtoforge.com/tutorial/how-to-install-and-configure-mongodb-on-centos-7/ #sudo mongo &gt; use admin db.createUser( { user: "admin", pwd: "admin123", roles: [ { role: "userAdminAnyDatabase", db: "admin" }&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/106/images.png" alt="" />
+                <div style="direction: ltr; border-width: 100%;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 6.6451in;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 6.6451in;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"><a href="https://www.howtoforge.com/tutorial/how-to-install-and-configure-mongodb-on-centos-7/">https://www.howtoforge.com/tutorial/how-to-install-and-configure-mongodb-on-centos-7/</a></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">#sudo mongo</p>
+<p style="margin: 0in; margin-left: .375in;"><span style="font-family: Calibri; font-size: 11.0pt;">&gt; </span><span style="font-style: italic; font-family: 'Courier New'; font-size: 12.0pt; background: #F9F9F9;">use admin</span></p>
+<p style="margin: 0in; margin-left: .375in; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">db.createUser(</span></p>
+<p style="margin-left: .375in; margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">  {</span></p>
+<p style="margin-left: .375in; margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">    user: "admin",</span></p>
+<p style="margin-left: .375in; margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">    pwd: "admin123",</span></p>
+<p style="margin-left: .375in; margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]</span></p>
+<p style="margin-left: .375in; margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">  }</span></p>
+<p style="margin-left: .375in; margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">)</span></p>
+<p style="margin-left: .375in; margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">&gt; show users</span></p>
+<p style="margin-top: 0pt; margin-bottom: 7pt; font-family: Tahoma; font-size: 15.75pt; color: #314d7c;"><span style="font-weight: bold; background: white;">Step 5 - Enable User Authentication in MongoDB</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">In this step, we will enable authentication for users to prevent that another user without sufficient privileges is able to see the data on the database.</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">On our CentOS 7 server, MongoDB is running under systemd with an init script in the '/etc/init.d/' dirctory. We will edit that script to force the mongodb service to run with the '--auth' option.</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">Go to the '/etc/init.d/' directory and edit the "mongod" file:</span></p>
+<p style="margin: 0in; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">sudo vi /usr/lib/systemd/system/mongod.servicevim mongod</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">On line 15 you will find the "OPTION" variable, there we will add the "mongod" option.</span></p>
+<p style="margin: 0in; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: whitesmoke;">OPTIONS=" --auth -f $CONFIGFILE"</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">Save the file.</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">Reload the systemd service and restart MongoDB.</span></p>
+<p style="margin: 0in; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">$sudo systemctl daemon-reload</span></p>
+<p style="margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">$sudo systemctl restart mongod</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">Next, we have to test the configuration by logging into the mongo shell and switch to the admin database, then try to see the admin users.</span></p>
+<p style="margin: 0in; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">$mongo</span></p>
+<p style="margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">&gt;use admin</span></p>
+<p style="margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">&gt;show users</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">You will see an error about the unauthorized execution of the command in the database admin. Now we need to use the command 'db.auth()' for the authentication.</span></p>
+<p style="margin: 0in; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">db.auth('admin', 'admin123')</span></p>
+<p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">Now you can see the users with their roles and the privileges.</span></p>
+<p style="margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"> </p>
+</div>
+</div>
+</div>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Install MongoDB Community Edition on Amazon Linux</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/install-mongodb-community-edition-on-amazon-linux/index.html"/>
+        <id>https://ddtrungit.github.io/install-mongodb-community-edition-on-amazon-linux/index.html</id>
+            <category term="Linux"/>
+
+        <updated>2022-06-13T14:25:49+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/105/images.png" alt="" />
+                    https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/ Configure the package management system (yum). Create a /etc/yum.repos.d/mongodb-org-4.4.repo file so that you can install MongoDB directly using yum: [mongodb-org-4.4] name=MongoDB Repository&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/105/images.png" alt="" />
+                <div style="direction: ltr; border-width: 100%;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 7.6791in;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 7.6791in;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/</a></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt;"><span style="font-weight: bold; font-family: Akzidenz; font-size: 13.5pt; color: #313030;">Configure the package management system (</span><span style="font-weight: bold; font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">yum</span><span style="font-weight: bold; font-family: Akzidenz; font-size: 13.5pt; color: #313030;">).</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">Create a </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">/etc/yum.repos.d/mongodb-org-4.4.repo</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;"> file so that you can install MongoDB directly using </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">yum</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">:</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"> </p>
+<div style="direction: ltr;">
+<table style="direction: ltr; border-collapse: collapse; border: 0pt solid #A3A3A3;" title="" border="0" summary="" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">[mongodb-org-4.4]</p>
+</td>
+</tr>
+<tr>
+<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">name=MongoDB Repository</p>
+</td>
+</tr>
+<tr>
+<td style="border-width: 0pt; vertical-align: top; width: 5.1715in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.4/x86_64/</p>
+</td>
+</tr>
+<tr>
+<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">gpgcheck=1</p>
+</td>
+</tr>
+<tr>
+<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">enabled=1</p>
+</td>
+</tr>
+<tr>
+<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">You can also download the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">.rpm</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;"> files directly from the </span><a href="https://repo.mongodb.org/yum/amazon/"><span style="font-family: Akzidenz; font-size: 12.0pt;">MongoDB repository</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">. Downloads are organized by Amazon Linux version (e.g. </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">2</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">), then MongoDB </span><a href="https://docs.mongodb.com/manual/reference/versioning/"><span style="font-family: Akzidenz; font-size: 12.0pt;">release version</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;"> (e.g. </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">4.4</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">), then architecture (e.g. </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">x86_64</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">). Odd-numbered MongoDB release versions, such as </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">4.3</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">, are development versions and are unsuitable for production deployment.</span></p>
+<p style="margin: 0in; font-family: Akzidenz; font-size: 12.0pt; color: #979797;"><span style="font-weight: bold;">2</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 13.5pt; color: #313030;"><span style="font-weight: bold;">Install the MongoDB packages.</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #494747;">To install the latest stable version of MongoDB, issue the following command:</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum install -y mongodb-org</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Akzidenz; font-size: 18.0pt; color: #313030;"><span style="background: white;">Run MongoDB Community Edition</span></p>
+<p style="margin: 0in; margin-left: .375in; font-family: Akzidenz; font-size: 12.0pt; color: #494747;"><span style="font-weight: bold; background: white;">ulimit Considerations</span></p>
+<p style="margin-left: .75in; margin-top: 2pt; margin-bottom: 7pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">Most Unix-like operating systems limit the system resources that a process may use. These limits may negatively impact MongoDB operation, and should be adjusted. See </span><a href="https://docs.mongodb.com/manual/reference/ulimit/"><span style="font-family: Akzidenz; font-size: 12.0pt; background: white;">UNIX </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; background: white;">ulimit</span><span style="font-family: Akzidenz; font-size: 12.0pt; background: white;"> Settings</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> for the recommended settings for your platform.</span></p>
+<p style="margin: 0in; margin-left: .75in; line-height: 12pt; font-family: Akzidenz; font-size: 9.0pt; color: #1a567e;"><span style="font-weight: bold; background: white;">NOTE</span></p>
+<p style="margin: 0in; margin-left: .75in; line-height: 18pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #0d324f; background: white;">Starting in MongoDB 4.4, a startup error is generated if the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">ulimit</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #0d324f; background: white;"> value for number of open files is under </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">64000</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #0d324f; background: white;">.</span></p>
+<p style="margin: 0in; margin-left: .375in; font-family: Akzidenz; font-size: 12.0pt; color: #494747;"><span style="font-weight: bold; background: white;">Directories</span></p>
+<p style="margin-left: .75in; margin-top: 2pt; margin-bottom: 7pt; font-family: Akzidenz; font-size: 12.0pt; color: #494747;"><span style="background: white;">By default, MongoDB instance stores:</span></p>
+<ul style="margin-left: 1.125in; direction: ltr; unicode-bidi: embed; margin-top: 0in; margin-bottom: 0in;" type="disc">
+<li style="margin-top: 0; margin-bottom: 0; vertical-align: middle; color: #494747;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">its data files in </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/lib/mongo</span></li>
+<li style="margin-top: 0; margin-bottom: 0; vertical-align: middle; color: #494747;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">its log files in </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/log/mongodb</span></li>
+</ul>
+<p style="margin-left: .75in; margin-top: 2pt; margin-bottom: 7pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">If you installed via the package manager, these default directories are created during the installation.If you installed manually by downloading the tarballs, you can create the directories using </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">mkdir -p &lt;directory&gt;</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> or </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">sudo mkdir -p &lt;directory&gt;</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> depending on the user that will run MongoDB. (See your linux man pages for information on </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">mkdir</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> and </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">sudo</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">.)By default, MongoDB runs using the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">mongod</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> user account. If you change the user that runs the MongoDB process, you </span><span style="font-weight: bold; font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">must</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> also modify the permission to the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/lib/mongo</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> and </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/log/mongodb</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> directories to give this user access to these directories.To specify a different log file directory and data file directory, edit the </span><a href="https://docs.mongodb.com/manual/reference/configuration-options/#mongodb-setting-systemLog.path"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; background: white;">systemLog.path</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> and </span><a href="https://docs.mongodb.com/manual/reference/configuration-options/#mongodb-setting-storage.dbPath"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; background: white;">storage.dbPath</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> settings in the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/etc/mongod.conf</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">. Ensure that the user running MongoDB has access to these directories.</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 13.5pt; color: #313030;"><span style="font-weight: bold;">Procedure</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">Follow these steps to run MongoDB Community Edition. These instructions assume that you are using the default settings.</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Start MongoDB.</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can start the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process by issuing the following command:</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl start mongod</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">If you receive an error similar to the following when starting </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;">:</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">Failed to start mongod.service: Unit mongod.service not found.</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">Run the following command first:</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl daemon-reload</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">Then run the start command above again.</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">2</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Verify that MongoDB has started successfully.</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can verify that the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process has started successfully by issuing the following command:</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl status mongod</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">You can optionally ensure that MongoDB will start following a system reboot by issuing the following command:</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl enable mongod</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">3</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Stop MongoDB.</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">As needed, you can stop the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process by issuing the following command:</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl stop mongod</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">4</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Restart MongoDB.</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can restart the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process by issuing the following command:</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl restart mongod</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can follow the state of the process for errors or important messages by watching the output in the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">/var/log/mongodb/mongod.log</span><span style="font-family: Calibri; font-size: 11.0pt;"> file.</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">5</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Begin using MongoDB.</span></p>
+<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">Start a </span><a href="https://docs.mongodb.com/manual/reference/program/mongo/#mongodb-binary-bin.mongo"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> shell on the same host machine as the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;">. You can run the </span><a href="https://docs.mongodb.com/manual/reference/program/mongo/#mongodb-binary-bin.mongo"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> shell without any command-line options to connect to a </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> that is running on your localhost with default port 27017:</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">mongo</p>
+<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">For more information on connecting using the </span><a href="https://docs.mongodb.com/manual/reference/program/mongo/#mongodb-binary-bin.mongo"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> shell, such as to connect to a </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> instance running on a different host and/or port, see </span><a href="https://docs.mongodb.com/manual/mongo/"><span style="font-family: Calibri; font-size: 11.0pt;">The </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span><span style="font-family: Calibri; font-size: 11.0pt;"> Shell</span></a><span style="font-family: Calibri; font-size: 11.0pt;">.</span></p>
+<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">To help you start using MongoDB, MongoDB provides <a href="https://docs.mongodb.com/manual/tutorial/getting-started/#std-label-getting-started">Getting Started Guides</a> in various driver editions. For the driver documentation, see <a href="https://api.mongodb.com/">Start Developing with MongoDB</a>.</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"> </p>
+</div>
+<hr>
+<div style="direction: ltr; border-width: 100%;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 2.8118in;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 2.8118in;">
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> $mongo – -version</span></p>
+<p style="margin-top: 0pt; margin-bottom: 10pt; font-family: inherit; font-size: 10.0pt; color: #444444;"><span style="background: white;">Some Basic Commands for MongoDB</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">1) To show all databases in MongoDB</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;">   &gt; show dbs ;</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">2)  create a database or switch to already created databases</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;">  &gt; use my-db;</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">  Note: This DB will not show in show dbs; command until we do not insert any data in this. </span></p>
+<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;"> </span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">3) Insert data into the newly created database.</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">$ db.Any data that represents your collection .insert({“data you want “:”value of the data”})</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;">  &gt; db.names.insert({“username_name”:”chandan”})</span></p>
+<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;"> </span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">4) show your collections</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> &gt; show collections;</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">5) Delete your collections</span></p>
+<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;">db.name of your collection.drop();</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> &gt; db.”names”.drop() ;</span></p>
+<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;"> </span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">6) Drop the database</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">Make sure to switch to the database you want to delete and run the following command.</span></p>
+<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> &gt; db.dropDatabase() ;</span></p>
+<hr>
+<p> </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Install MariaDB 10.5 on Amazon Linux 2</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/install-mariadb-105-on-amazon-linux-2/index.html"/>
+        <id>https://ddtrungit.github.io/install-mariadb-105-on-amazon-linux-2/index.html</id>
+            <category term="Linux"/>
+            <category term="Aws"/>
+
+        <updated>2022-06-13T14:26:00+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/104/mariadb-vector-logo.png" alt="" />
+                    Install MariaDB 10.5 on Amazon Linux 2 The version of MariaDB server available on the OS default repositories is not&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/104/mariadb-vector-logo.png" alt="" />
+                <p>Install MariaDB 10.5 on Amazon Linux 2</p>
+<p>The version of MariaDB server available on the OS default repositories is not the latest as per the upstream project.</p>
+<p>$ sudo  amazon-linux-extras | grep mariadb 17  lamp-mariadb10.2-php7.2  available</p>
+<p>To be able to install the latest MariaDB 10.5 on Amazon Linux 2 we’ll have to add MariaDB official RPM repository. The one that works for Amazon Linux 2 is CentOS 7 repository.</p>
+<p>Step 1: Add MariaDB repository to Amazon Linux 2</p>
+<p>Add MariaDB repository to Amazon Linux 2 machine by running the commands below as root or user with sudo privileges.</p>
+<p>sudo tee /etc/yum.repos.d/mariadb.repo&lt;&lt;EOF [mariadb] name = MariaDB baseurl = <a href="http://yum.mariadb.org/10.5/centos7-amd64">http://yum.mariadb.org/10.5/centos7-amd64</a> gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB gpgcheck=1 EOF</p>
+<p>Before you begin installaton update OS package cache index:</p>
+<p>$ sudo yum makecache Loaded plugins: dkms-build-requires, langpacks, priorities, update-motd amzn2-core                                                                                                                               | 3.7 kB  00:00:00 amzn2extra-docker                                                                                                                        | 1.3 kB  00:00:00 mariadb                                                                                                                                  | 2.9 kB  00:00:00 (1/3): mariadb/primary_db                                                                                                                |  60 kB  00:00:01 (2/3): mariadb/other_db                                                                                                                  | 9.6 kB  00:00:00 (3/3): mariadb/filelists_db                                                                                                              | 349 kB  00:00:02 Metadata Cache Created</p>
+<p>Confirm available repositories on your Amazon Linux instance.</p>
+<p>$ sudo yum repolist Loaded plugins: dkms-build-requires, langpacks, priorities, update-motd 1 packages excluded due to repository priority protections repo id                                                                    repo name                                                                      status amzn2-core/2/x86_64                                                        Amazon Linux 2 core repository                                                 19,883 amzn2extra-docker/2/x86_64                                                 Amazon Extras repo for docker                                                      19 mariadb                                                                    MariaDB                                                                          84+4 repolist: 19,986</p>
+<p>Step 2: Install MariaDB 10.5 on Amazon Linux 2</p>
+<p>Once you have the repository added and working you can then begin the installation of MariaDB 10.5 on Amazon Linux 2 machine.</p>
+<p>sudo yum install MariaDB-server MariaDB-client</p>
+<p>Make sure there are no dependency issues and agree to installation.</p>
+<p>Dependencies Resolved</p>
+<p>================================================================================================================================================================ Package                                      Arch                        Version                                         Repository                       Size ================================================================================================================================================================ Installing: MariaDB-client                               x86_64                      10.5.4-1.el7.centos                             mariadb                          13 M MariaDB-compat                               x86_64                      10.5.4-1.el7.centos                             mariadb                         2.2 M replacing  mariadb-libs.x86_64 1:5.5.64-1.amzn2 MariaDB-server                               x86_64                      10.5.4-1.el7.centos                             mariadb                          26 M Installing for dependencies: MariaDB-common                               x86_64                      10.5.4-1.el7.centos                             mariadb                          81 k boost-program-options                        x86_64                      1.53.0-27.amzn2.0.3                             amzn2-core                      163 k galera-4                                     x86_64                      26.4.5-1.el7.centos                             mariadb                         9.5 M ncurses-compat-libs                          x86_64                      6.0-8.20170212.amzn2.1.3                        amzn2-core                      308 k perl-Compress-Raw-Bzip2                      x86_64                      2.061-3.amzn2.0.2                               amzn2-core                       32 k perl-Compress-Raw-Zlib                       x86_64                      1:2.061-4.amzn2.0.2                             amzn2-core                       58 k perl-DBI                                     x86_64                      1.627-4.amzn2.0.2                               amzn2-core                      804 k perl-Data-Dumper                             x86_64                      2.145-3.amzn2.0.2                               amzn2-core                       48 k perl-IO-Compress                             noarch                      2.061-2.amzn2                                   amzn2-core                      260 k perl-Net-Daemon                              noarch                      0.48-5.amzn2                                    amzn2-core                       51 k perl-PlRPC                                   noarch                      0.2020-14.amzn2                                 amzn2-core                       36 k socat                                        x86_64                      1.7.3.2-2.amzn2.0.1                             amzn2-core                      291 k</p>
+<p>Transaction Summary ================================================================================================================================================================ Install  3 Packages (+12 Dependent packages)</p>
+<p>Total download size: 53 M Is this ok [y/d/N]: y</p>
+<p>You are also asked to import GPG key:</p>
+<p>Total                                                                                                                           764 kB/s |  53 MB  00:01:10 Retrieving key from <a href="https://yum.mariadb.org/RPM-GPG-KEY-MariaDB">https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</a> Importing GPG key 0x1BB943DB: Userid     : "MariaDB Package Signing Key &lt;package-signing-key@mariadb.org&gt;" Fingerprint: 1993 69e5 404b d5fc 7d2f e43b cbcb 082a 1bb9 43db From       : <a href="https://yum.mariadb.org/RPM-GPG-KEY-MariaDB">https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</a> Is this ok [y/N]: y</p>
+<p>Start and enable the database service.</p>
+<p>sudo systemctl enable --now mariadb</p>
+<p>MariaDB service should show as running.</p>
+<p>$ systemctl status mariadb ● mariadb.service - MariaDB 10.5.4 database server Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled) Drop-In: /etc/systemd/system/mariadb.service.d └─migrated-from-my.cnf-settings.conf Active: active (running) since Thu 2020-07-02 20:31:32 UTC; 9s ago Docs: man:mariadbd(8) <a href="https://mariadb.com/kb/en/library/systemd/">https://mariadb.com/kb/en/library/systemd/</a> Process: 5009 ExecStartPost=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS) Process: 4985 ExecStartPre=/bin/sh -c [ ! -e /usr/bin/galera_recovery ] &amp;&amp; VAR= ||   VAR=`cd /usr/bin/..; /usr/bin/galera_recovery`; [ $? -eq 0 ]   &amp;&amp; systemctl set-environment _WSREP_START_POSITION=$VAR || exit 1 (code=exited, status=0/SUCCESS) Process: 4983 ExecStartPre=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS) Main PID: 4996 (mariadbd) Status: "Taking your SQL requests now..." CGroup: /system.slice/mariadb.service └─4996 /usr/sbin/mariadbd</p>
+<p>Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] InnoDB: 10.5.4 started; log sequence number 45041; transaction id 21 Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] Plugin 'FEEDBACK' is disabled. Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] Server socket created on IP: '::'. Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] InnoDB: Buffer pool(s) load completed at 200702 20:31:32 Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] Reading of all Master_info entries succeeded Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] Added new Master_info '' to hash table Jul 02 20:31:32 amazon-linux mariadbd[4996]: 2020-07-02 20:31:32 0 [Note] /usr/sbin/mariadbd: ready for connections. Jul 02 20:31:32 amazon-linux mariadbd[4996]: Version: '10.5.4-MariaDB'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  MariaDB Server Jul 02 20:31:32 amazon-linux systemd[1]: Started MariaDB 10.5.4 database server.</p>
+<p> </p>
+<p>Step 3: Secure and Test database connection</p>
+<p>Run the database hardening script provided by the installer.</p>
+<p> </p>
+<p>$ sudo mysql_secure_installation</p>
+<p>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!</p>
+<p>In order to log into MariaDB to secure it, we'll need the current password for the root user. If you've just installed MariaDB, and haven't set the root password yet, you should just press enter here.</p>
+<p>Enter current password for root (enter for none): OK, successfully used password, moving on...</p>
+<p>Setting the root password or using the unix_socket ensures that nobodycan log into the MariaDB root user without the proper authorisation.</p>
+<p>You already have your root account protected, so you can safely answer 'n'.</p>
+<p>Switch to unix_socket authentication [Y/n] y Enabled successfully! Reloading privilege tables.. ... Success!</p>
+<p>You already have your root account protected, so you can safely answer 'n'.</p>
+<p>Change the root password? [Y/n] y New password: Re-enter new password: Password updated successfully! Reloading privilege tables.. ... Success!</p>
+<p>By default, a MariaDB installation has an anonymous user, allowing anyone to log into MariaDB without having to have a user account created for them.  This is intended only for testing, and to make the installation go a bit smoother.  You should remove them before moving into a production environment.</p>
+<p>Remove anonymous users? [Y/n] y ... Success!</p>
+<p>Normally, root should only be allowed to connect from 'localhost'.  This ensures that someone cannot guess at the root password from the network.</p>
+<p>Disallow root login remotely? [Y/n] y ... Success!</p>
+<p>By default, MariaDB comes with a database named 'test' that anyone can access.  This is also intended only for testing, and should be removed before moving into a production environment.</p>
+<p>Remove test database and access to it? [Y/n] y - Dropping test database... ... Success! - Removing privileges on test database... ... Success!</p>
+<p>Reloading the privilege tables will ensure that all changes made so far will take effect immediately.</p>
+<p>Reload privilege tables now? [Y/n] y ... Success!</p>
+<p>Cleaning up...</p>
+<p>All done!  If you've completed all of the above steps, your MariaDB installation should now be secure.</p>
+<p>Thanks for using MariaDB!</p>
+<p>Confirm you can login as root user with the password set.</p>
+<p>$ mysql -u root -p Enter password: Welcome to the MariaDB monitor.  Commands end with ; or \g. Your MariaDB connection id is 13 Server version: 10.5.4-MariaDB MariaDB Server</p>
+<p>Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</p>
+<p>Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.</p>
+<p>MariaDB [(none)]&gt; SELECT VERSION(); +----------------+ | VERSION()      | +----------------+ | 10.5.4-MariaDB | +----------------+ 1 row in set (0.000 sec)</p>
+<p>MariaDB [(none)]&gt; QUIT Bye</p>
+<p>The marks the end of our guide on the installation of MariaDB 10.5 on Amazon Linux 2 server.</p>
+<p> </p>
+<p>Creat DB:</p>
+<p>CREATE DATABASE dbname;</p>
+<p>CREATE USER  'username'@'localhost' IDENTIFIED BY 'password';</p>
+<p>GRANT ALL ON dbname.* to 'username'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;</p>
+<p>FLUSH PRIVILEGES;</p>
+<p>EXIT;</p>
+<div id="gtx-trans" style="position: absolute; left: 180px; top: 6791px;">
+<div class="gtx-trans-icon"> </div>
+</div>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Install Nginx on Amazon Linux 2</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/install-nginx-on-amazon-linux-2/index.html"/>
+        <id>https://ddtrungit.github.io/install-nginx-on-amazon-linux-2/index.html</id>
+            <category term="Linux"/>
+            <category term="Aws"/>
+
+        <updated>2022-06-13T14:26:10+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/103/tai-xuong-1-1.png" alt="" />
+                    # Install linux update, followed by GCC and Make sudo yum -y update sudo yum install -y gcc make #&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/103/tai-xuong-1-1.png" alt="" />
+                <p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"># Install linux update, followed by GCC and Make</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum -y update</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum install -y gcc make</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"># Install Nginx and PHP-FPM</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo amazon-linux-extras install nginx</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum list php*-fpm</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum install php-fpm</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo chkconfig php-fpm on</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo service php-fpm restart</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"># Install PHP extensions</p>
+<p>sudo yum clean metadata</p>
+<p>sudo yum install php-cli php-pdo php-fpm php-json php-mysqlnd -y</p>
+<p>sudo yum install php php-{pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,fpm,intl,zip,imap}</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo chkconfig nginx on</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo chkconfig php-fpm on</p>
+<p lang="vi">#Edit Nginx.conf</p>
+<p lang="vi">sudo vi /etc/nginx/nginx.conf</p>
+<p style="padding-left: 80px;"><em># For more information on configuration, see:</em> <em># * Official English Documentation: http://nginx.org/en/docs/</em> <em># * Official Russian Documentation: http://nginx.org/ru/docs/</em></p>
+<p style="padding-left: 80px;"><em>user nginx;</em> <em>worker_processes auto;</em> <em>error_log /var/log/nginx/error.log;</em> <em>pid /run/nginx.pid;</em></p>
+<p style="padding-left: 80px;"><em># Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.</em> <em>include /usr/share/nginx/modules/*.conf;</em></p>
+<p style="padding-left: 80px;"><em>events {</em> <em>worker_connections 1024;</em> <em>}</em></p>
+<p style="padding-left: 80px;"><em>http {</em> <em>log_format main '$remote_addr - $remote_user [$time_local] "$request" '</em> <em>'$status $body_bytes_sent "$http_referer" '</em> <em>'"$http_user_agent" "$http_x_forwarded_for"';</em></p>
+<p style="padding-left: 80px;"><em>access_log /var/log/nginx/access.log main;</em></p>
+<p style="padding-left: 80px;"><em>sendfile on;</em> <em>tcp_nopush on;</em> <em>tcp_nodelay on;</em> <em>keepalive_timeout 65;</em> <em>types_hash_max_size 4096;</em></p>
+<p style="padding-left: 80px;"><em>include /etc/nginx/mime.types;</em> <em>default_type application/octet-stream;</em></p>
+<p style="padding-left: 80px;"><em># Load modular configuration files from the /etc/nginx/conf.d directory.</em> <em># See http://nginx.org/en/docs/ngx_core_module.html#include</em> <em># for more information.</em> <em>include /etc/nginx/conf.d/*.conf;</em> <em>server_tokens off;</em> <em>client_max_body_size 20m;</em> <em>client_body_buffer_size 128k;</em> <em>gzip on;</em> <em>gzip_disable "msie6";</em> <em>gzip_vary on;</em> <em>gzip_proxied any;</em> <em>gzip_comp_level 6;</em> <em>gzip_min_length 1100;</em> <em>gzip_buffers 16 8k;</em> <em>gzip_http_version 1.1;</em> <em>gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;</em> <em>open_file_cache max=2000 inactive=20s;</em> <em>open_file_cache_valid 60s;</em> <em>open_file_cache_min_uses 5;</em> <em>open_file_cache_errors off;</em> <em># DDoS Protection Settings</em> <em>large_client_header_buffers 4 256k;</em> <em>limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:20m;</em> <em>limit_req_zone $binary_remote_addr zone=req_limit_per_ip:10m rate=50r/s;</em> <em>limit_conn conn_limit_per_ip 50;</em> <em>limit_req zone=req_limit_per_ip burst=50;</em></p>
+<p style="padding-left: 80px;"><em>}</em></p>
+<p>#Edit php.conf nginx:</p>
+<p>sudo vi /etc/nginx/default.d/php.conf</p>
+<p style="padding-left: 80px;"><em># pass the PHP scripts to FastCGI server</em> <em>#</em> <em># See conf.d/php-fpm.conf for socket configuration</em> <em>#</em> <em>index index.php index.html index.htm;</em></p>
+<p style="padding-left: 80px;"><em>location ~ \.(php|phar)(/.*)?$ {</em> <em>fastcgi_split_path_info ^(.+\.(?:php|phar))(/.*)$;</em> <em>fastcgi_pass 127.0.0.1:9000;</em> <em>fastcgi_intercept_errors on;</em> <em>fastcgi_index index.php;</em> <em>include fastcgi_params;</em> <em>fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</em> <em>fastcgi_param PATH_INFO $fastcgi_path_info;</em> <em>#fastcgi_pass php-fpm;</em> <em>}</em></p>
+<p>#edit php-fpm.conf:</p>
+<p>sudo vi /etc/php-fpm.conf</p>
+<p style="padding-left: 80px;"><em>;;;;;;;;;;;;;;;;;;;;;</em> <em>; FPM Configuration ;</em> <em>;;;;;;;;;;;;;;;;;;;;;</em></p>
+<p style="padding-left: 80px;"><em>; All relative paths in this configuration file are relative to PHP's install</em> <em>; prefix.</em></p>
+<p style="padding-left: 80px;"><em>; Include one or more files. If glob(3) exists, it is used to include a bunch of</em> <em>; files from a glob(3) pattern. This directive can be used everywhere in the</em> <em>; file.</em> <em>include=/etc/php-fpm.d/*.conf</em></p>
+<p style="padding-left: 80px;"><em>;;;;;;;;;;;;;;;;;;</em> <em>; Global Options ;</em> <em>;;;;;;;;;;;;;;;;;;</em></p>
+<p style="padding-left: 80px;"><em>[global]</em> <em>; Pid file</em> <em>; Default Value: none</em> <em>;pid = /run/php-fpm/php-fpm.pid</em></p>
+<p style="padding-left: 80px;"><em>; Error log file</em> <em>; If it's set to "syslog", log is sent to syslogd instead of being written</em> <em>; in a local file.</em> <em>; Default Value: /var/log/php-fpm.log</em> <em>error_log = /var/log/php-fpm/error.log</em></p>
+<p style="padding-left: 80px;"><em>; syslog_facility is used to specify what type of program is logging the</em> <em>; message. This lets syslogd specify that messages from different facilities</em> <em>; will be handled differently.</em> <em>; See syslog(3) for possible values (ex daemon equiv LOG_DAEMON)</em> <em>; Default Value: daemon</em> <em>;syslog.facility = daemon</em></p>
+<p style="padding-left: 80px;"><em>; syslog_ident is prepended to every message. If you have multiple FPM</em> <em>; instances running on the same server, you can change the default value</em> <em>; which must suit common needs.</em> <em>; Default Value: php-fpm</em> <em>;syslog.ident = php-fpm</em></p>
+<p style="padding-left: 80px;"><em>; Log level</em> <em>; Possible Values: alert, error, warning, notice, debug</em> <em>; Default Value: notice</em> <em>;log_level = notice</em></p>
+<p style="padding-left: 80px;"><em>; If this number of child processes exit with SIGSEGV or SIGBUS within the time</em> <em>; interval set by emergency_restart_interval then FPM will restart. A value</em> <em>; of '0' means 'Off'.</em> <em>; Default Value: 0</em> <em>emergency_restart_threshold = 10</em></p>
+<p style="padding-left: 80px;"><em>; Interval of time used by emergency_restart_interval to determine when</em> <em>; a graceful restart will be initiated. This can be useful to work around</em> <em>; accidental corruptions in an accelerator's shared memory.</em> <em>; Available Units: s(econds), m(inutes), h(ours), or d(ays)</em> <em>; Default Unit: seconds</em> <em>; Default Value: 0</em> <em>emergency_restart_interval = 1m</em></p>
+<p style="padding-left: 80px;"><em>; Time limit for child processes to wait for a reaction on signals from master.</em> <em>; Available units: s(econds), m(inutes), h(ours), or d(ays)</em> <em>; Default Unit: seconds</em> <em>; Default Value: 0</em> <em>process_control_timeout = 10s</em></p>
+<p style="padding-left: 80px;"><em>; The maximum number of processes FPM will fork. This has been designed to control</em> <em>; the global number of processes when using dynamic PM within a lot of pools.</em> <em>; Use it with caution.</em> <em>; Note: A value of 0 indicates no limit</em> <em>; Default Value: 0</em> <em>;process.max = 128</em></p>
+<p style="padding-left: 80px;"><em>; Specify the nice(2) priority to apply to the master process (only if set)</em> <em>; The value can vary from -19 (highest priority) to 20 (lowest priority)</em> <em>; Note: - It will only work if the FPM master process is launched as root</em> <em>; - The pool process will inherit the master process priority</em> <em>; unless specified otherwise</em> <em>; Default Value: no set</em> <em>;process.priority = -19</em></p>
+<p style="padding-left: 80px;"><em>; Send FPM to background. Set to 'no' to keep FPM in foreground for debugging.</em> <em>; Default Value: yes</em> <em>daemonize = yes</em></p>
+<p style="padding-left: 80px;"><em>; Set open file descriptor rlimit for the master process.</em> <em>; Default Value: system defined value</em> <em>;rlimit_files = 1024</em></p>
+<p style="padding-left: 80px;"><em>; Set max core size rlimit for the master process.</em> <em>; Possible Values: 'unlimited' or an integer greater or equal to 0</em> <em>; Default Value: system defined value</em> <em>;rlimit_core = 0</em></p>
+<p style="padding-left: 80px;"><em>; Specify the event mechanism FPM will use. The following is available:</em> <em>; - select (any POSIX os)</em> <em>; - poll (any POSIX os)</em> <em>; - epoll (linux &gt;= 2.5.44)</em> <em>; Default Value: not set (auto detection)</em> <em>;events.mechanism = epoll</em></p>
+<p style="padding-left: 80px;"><em>; When FPM is built with systemd integration, specify the interval,</em> <em>; in seconds, between health report notification to systemd.</em> <em>; Set to 0 to disable.</em> <em>; Available Units: s(econds), m(inutes), h(ours)</em> <em>; Default Unit: seconds</em> <em>; Default value: 10</em> <em>;systemd_interval = 10</em></p>
+<p style="padding-left: 80px;"><em>;;;;;;;;;;;;;;;;;;;;</em> <em>; Pool Definitions ;</em> <em>;;;;;;;;;;;;;;;;;;;;</em></p>
+<p style="padding-left: 80px;"><em>; Multiple pools of child processes may be started with different listening</em> <em>; ports and different management options. The name of the pool will be</em> <em>; used in logs and stats. There is no limitation on the number of pools which</em> <em>; FPM can handle. Your system will tell you anyway :)</em></p>
+<p style="padding-left: 80px;"><em>; See /etc/php-fpm.d/*.conf</em></p>
+<p>#edit www.conf:</p>
+<p>sudo vi /etc/php-fpm.d/www.conf</p>
+<p style="padding-left: 80px;"><em>; Start a new pool named 'www'.</em> <em>[www]</em></p>
+<p style="padding-left: 80px;"><em>; The address on which to accept FastCGI requests.</em> <em>; Valid syntaxes are:</em> <em>; 'ip.add.re.ss:port' - to listen on a TCP socket to a specific address on</em> <em>; a specific port;</em> <em>; 'port' - to listen on a TCP socket to all addresses on a</em> <em>; specific port;</em> <em>; '/path/to/unix/socket' - to listen on a unix socket.</em> <em>; Note: This value is mandatory.</em> <em>listen = 127.0.0.1:9000</em></p>
+<p style="padding-left: 80px;"><em>; Set listen(2) backlog. A value of '-1' means unlimited.</em> <em>; Default Value: -1</em> <em>listen.backlog = -1</em></p>
+<p><em>; List of ipv4 addresses of FastCGI clients which are allowed to connect.</em> <em>; Equivalent to the FCGI_WEB_SERVER_ADDRS environment variable in the original</em> <em>; PHP FCGI (5.2.2+). Makes sense only with a tcp listening socket. Each address</em> <em>; must be separated by a comma. If this value is left blank, connections will be</em> <em>; accepted from any ip address.</em> <em>; Default Value: any</em> <em>listen.allowed_clients = 127.0.0.1</em></p>
+<p style="padding-left: 80px;"><em>; Set permissions for unix socket, if one is used. In Linux, read/write</em> <em>; permissions must be set in order to allow connections from a web server. Many</em> <em>; BSD-derived systems allow connections regardless of permissions. </em> <em>; Default Values: user and group are set as the running user</em> <em>; mode is set to 0666</em> <em>;nobody</em> <em>listen.owner = nginx</em> <em>listen.group = nginx</em> <em>;0666</em> <em>listen.mode = 0664</em></p>
+<p style="padding-left: 80px;"><em>; Unix user/group of processes</em> <em>; Note: The user is mandatory. If the group is not set, the default user's group</em> <em>; will be used.</em> <em>; RPM: apache Choosed to be able to access some dir as httpd</em> <em>;apache</em> <em>user = nginx</em> <em>; RPM: Keep a group allowed to write in log dir.</em> <em>;nginx</em> <em>group = nginx</em></p>
+<p style="padding-left: 80px;"><em>; Choose how the process manager will control the number of child processes.</em> <em>; Possible Values:</em> <em>; static - a fixed number (pm.max_children) of child processes;</em> <em>; dynamic - the number of child processes are set dynamically based on the</em> <em>; following directives:</em> <em>; pm.max_children - the maximum number of children that can</em> <em>; be alive at the same time.</em> <em>; pm.start_servers - the number of children created on startup.</em> <em>; pm.min_spare_servers - the minimum number of children in 'idle'</em> <em>; state (waiting to process). If the number</em> <em>; of 'idle' processes is less than this</em> <em>; number then some children will be created.</em> <em>; pm.max_spare_servers - the maximum number of children in 'idle'</em> <em>; state (waiting to process). If the number</em> <em>; of 'idle' processes is greater than this</em> <em>; number then some children will be killed.</em> <em>; Note: This value is mandatory.</em> <em>pm = dynamic</em></p>
+<p style="padding-left: 80px;"><em>; The number of child processes to be created when pm is set to 'static' and the</em> <em>; maximum number of child processes to be created when pm is set to 'dynamic'.</em> <em>; This value sets the limit on the number of simultaneous requests that will be</em> <em>; served. Equivalent to the ApacheMaxClients directive with mpm_prefork.</em> <em>; Equivalent to the PHP_FCGI_CHILDREN environment variable in the original PHP</em> <em>; CGI.</em> <em>; Note: Used when pm is set to either 'static' or 'dynamic'</em> <em>; Note: This value is mandatory.</em> <em>pm.max_children = 50</em></p>
+<p style="padding-left: 80px;"><em>; The number of child processes created on startup.</em> <em>; Note: Used only when pm is set to 'dynamic'</em> <em>; Default Value: min_spare_servers + (max_spare_servers - min_spare_servers) / 2</em> <em>pm.start_servers = 5</em></p>
+<p style="padding-left: 80px;"><em>; The desired minimum number of idle server processes.</em> <em>; Note: Used only when pm is set to 'dynamic'</em> <em>; Note: Mandatory when pm is set to 'dynamic'</em> <em>pm.min_spare_servers = 5</em></p>
+<p style="padding-left: 80px;"><em>; The desired maximum number of idle server processes.</em> <em>; Note: Used only when pm is set to 'dynamic'</em> <em>; Note: Mandatory when pm is set to 'dynamic'</em> <em>pm.max_spare_servers = 35</em></p>
+<p><em>; The number of requests each child process should execute before respawning.</em> <em>; This can be useful to work around memory leaks in 3rd party libraries. For</em> <em>; endless request processing specify '0'. Equivalent to PHP_FCGI_MAX_REQUESTS.</em> <em>; Default Value: 0</em> <em>pm.max_requests = 200</em></p>
+<p style="padding-left: 80px;"><em>; The URI to view the FPM status page. If this value is not set, no URI will be</em> <em>; recognized as a status page. By default, the status page shows the following</em> <em>; information:</em> <em>; accepted conn - the number of request accepted by the pool;</em> <em>; pool - the name of the pool;</em> <em>; process manager - static or dynamic;</em> <em>; idle processes - the number of idle processes;</em> <em>; active processes - the number of active processes;</em> <em>; total processes - the number of idle + active processes.</em> <em>; The values of 'idle processes', 'active processes' and 'total processes' are</em> <em>; updated each second. The value of 'accepted conn' is updated in real time.</em> <em>; Example output:</em> <em>; accepted conn: 12073</em> <em>; pool: www</em> <em>; process manager: static</em> <em>; idle processes: 35</em> <em>; active processes: 65</em> <em>; total processes: 100</em> <em>; By default the status page output is formatted as text/plain. Passing either</em> <em>; 'html' or 'json' as a query string will return the corresponding output</em> <em>; syntax. Example:</em> <em>; http://www.foo.bar/status</em> <em>; http://www.foo.bar/status?json</em> <em>; http://www.foo.bar/status?html</em> <em>; Note: The value must start with a leading slash (/). The value can be</em> <em>; anything, but it may not be a good idea to use the .php extension or it</em> <em>; may conflict with a real PHP file.</em> <em>; Default Value: not set </em> <em>pm.status_path = /status</em></p>
+<p><em>; The ping URI to call the monitoring page of FPM. If this value is not set, no</em> <em>; URI will be recognized as a ping page. This could be used to test from outside</em> <em>; that FPM is alive and responding, or to</em> <em>; - create a graph of FPM availability (rrd or such);</em> <em>; - remove a server from a group if it is not responding (load balancing);</em> <em>; - trigger alerts for the operating team (24/7).</em> <em>; Note: The value must start with a leading slash (/). The value can be</em> <em>; anything, but it may not be a good idea to use the .php extension or it</em> <em>; may conflict with a real PHP file.</em> <em>; Default Value: not set</em> <em>;ping.path = /ping</em></p>
+<p style="padding-left: 80px;"><em>; This directive may be used to customize the response of a ping request. The</em> <em>; response is formatted as text/plain with a 200 response code.</em> <em>; Default Value: pong</em> <em>;ping.response = pong</em></p>
+<p><em>; The timeout for serving a single request after which the worker process will</em> <em>; be killed. This option should be used when the 'max_execution_time' ini option</em> <em>; does not stop script execution for some reason. A value of '0' means 'off'.</em> <em>; Available units: s(econds)(default), m(inutes), h(ours), or d(ays)</em> <em>; Default Value: 0</em> <em>request_terminate_timeout = 60s</em></p>
+<p><em>; The timeout for serving a single request after which a PHP backtrace will be</em> <em>; dumped to the 'slowlog' file. A value of '0s' means 'off'.</em> <em>; Available units: s(econds)(default), m(inutes), h(ours), or d(ays)</em> <em>; Default Value: 0</em> <em>;request_slowlog_timeout = 0</em></p>
+<p><em>; The log file for slow requests</em> <em>; Default Value: not set</em> <em>; Note: slowlog is mandatory if request_slowlog_timeout is set</em> <em>slowlog = /var/log/php-fpm/www-slow.log</em></p>
+<p><em>; Set open file descriptor rlimit.</em> <em>; Default Value: system defined value</em> <em>rlimit_files = 131072</em></p>
+<p><em>; Set max core size rlimit.</em> <em>; Possible Values: 'unlimited' or an integer greater or equal to 0</em> <em>; Default Value: system defined value</em> <em>rlimit_core = unlimited</em></p>
+<p><em>; Chroot to this directory at the start. This value must be defined as an</em> <em>; absolute path. When this value is not set, chroot is not used.</em> <em>; Note: chrooting is a great security feature and should be used whenever </em> <em>; possible. However, all PHP paths will be relative to the chroot</em> <em>; (error_log, sessions.save_path, ...).</em> <em>; Default Value: not set</em> <em>;chroot = </em></p>
+<p><em>; Chdir to this directory at the start. This value must be an absolute path.</em> <em>; Default Value: current directory or / when chroot</em> <em>;chdir = /var/www</em></p>
+<p><em>; Redirect worker stdout and stderr into main error log. If not set, stdout and</em> <em>; stderr will be redirected to /dev/null according to FastCGI specs.</em> <em>; Default Value: no</em> <em>catch_workers_output = yes</em></p>
+<p><em>; Limits the extensions of the main script FPM will allow to parse. This can</em> <em>; prevent configuration mistakes on the web server side. You should only limit</em> <em>; FPM to .php extensions to prevent malicious users to use other extensions to</em> <em>; exectute php code.</em> <em>; Note: set an empty value to allow all extensions.</em> <em>; Default Value: .php</em> <em>;security.limit_extensions = .php .php3 .php4 .php5</em></p>
+<p style="padding-left: 80px;"><em>; Pass environment variables like LD_LIBRARY_PATH. All $VARIABLEs are taken from</em> <em>; the current environment.</em> <em>; Default Value: clean env</em> <em>env[HOSTNAME] = $HOSTNAME</em> <em>;env[PATH] = /usr/local/bin:/usr/bin:/bin</em> <em>env[TMP] = /tmp</em> <em>env[TMPDIR] = /tmp</em> <em>env[TEMP] = /tmp</em></p>
+<p style="padding-left: 80px;"><em>; Additional php.ini defines, specific to this pool of workers. These settings</em> <em>; overwrite the values previously defined in the php.ini. The directives are the</em> <em>; same as the PHP SAPI:</em> <em>; php_value/php_flag - you can set classic ini defines which can</em> <em>; be overwritten from PHP call 'ini_set'. </em> <em>; php_admin_value/php_admin_flag - these directives won't be overwritten by</em> <em>; PHP call 'ini_set'</em> <em>; For php_*flag, valid values are on, off, 1, 0, true, false, yes or no.</em></p>
+<p style="padding-left: 80px;"><em>; Defining 'extension' will load the corresponding shared extension from</em> <em>; extension_dir. Defining 'disable_functions' or 'disable_classes' will not</em> <em>; overwrite previously defined php.ini values, but will append the new value</em> <em>; instead.</em></p>
+<p style="padding-left: 80px;"><em>; Default Value: nothing is defined by default except the values in php.ini and</em> <em>; specified at startup with the -d argument</em> <em>;php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f www@my.domain.com</em> <em>;php_flag[display_errors] = off</em> <em>php_admin_value[error_log] = /var/log/php-fpm/www-error.log</em> <em>php_admin_flag[log_errors] = on</em> <em>;php_admin_value[memory_limit] = 128M</em></p>
+<p style="padding-left: 80px;"><em>; Set session path to a directory owned by process user</em> <em>php_value[session.save_handler] = files</em> <em>php_value[session.save_path] = /var/lib/php/session</em></p>
+<p>sudo systemctl restart php-fpm</p>
+<p>sudo nginx -t</p>
+<p>sudo systemctl restart nginx</p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Một số thông số kernel mẫu</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/mot-so-thong-so-kernel-mau/index.html"/>
+        <id>https://ddtrungit.github.io/mot-so-thong-so-kernel-mau/index.html</id>
+            <category term="Linux"/>
+
+        <updated>2022-06-13T14:26:17+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/102/centos-la-gi.jpg" alt="" />
+                    Một số thông số kernel mẫu ####### Tested in CentOS7 ####### # Reference # https://klaver.it/linux/sysctl.conf # https://wiki.archlinux.org/index.php/Sysctl # https://www.kernel.org/doc/Documentation/sysctl/ #&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/102/centos-la-gi.jpg" alt="" />
+                <div style="direction: ltr; border-width: 100%;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 7.0784in;">
+<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 7.0784in;">
+<p style="margin-top: 0pt; margin-bottom: 11pt; font-family: Tahoma; font-size: 27.0pt; color: #333333;"><span style="font-weight: bold; background: white;">Một số thông số kernel mẫu</span></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">#######        Tested in CentOS7 #######</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Reference # <a href="https://klaver.it/linux/sysctl.conf">https://klaver.it/linux/sysctl.conf</a> # <a href="https://wiki.archlinux.org/index.php/Sysctl">https://wiki.archlinux.org/index.php/Sysctl</a> # <a href="https://www.kernel.org/doc/Documentation/sysctl/">https://www.kernel.org/doc/Documentation/sysctl/</a> # <a href="https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt">https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt</a></p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">#### Show all parameters of Linux kernel #### sysctl -a</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">#### Backup sysctl.conf before changing anything #### sysctl -a &gt; /etc/sysctl_backup.conf</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">#### Edit /etc/sysctl.conf to modify kernel parameters #### vi /etc/sysctl.conf</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">### Improving Network Performance ###</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Congestion control ## # Congestion control protocol can be changed between cubic and htcp (Hamilton TCP) # # Enable timestamps, this may cause overhead because it adds 10 bytes to each packets # # Enable window scaling (default = 1) net.ipv4.tcp_congestion_control = htcp net.ipv4.tcp_timestamps = 1 net.ipv4.tcp_window_scaling = 1 # Enable TCP SACK, which allow client to resend only lost packets, not all of them # # However, in some cases, TCP may consume more resources (CPU, RAM) and decrease network performance # net.ipv4.tcp_sack = 1</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Increase socket buffer ## # Increase Read Memory Buffer # # TCP Read Memory: Min - Default - Max # net.ipv4.tcp_rmem = 8192 87380 16777216 net.ipv4.udp_rmem_min = 16384 # Default read memory buffer of all receiving sockets (except TCP and UDP) net.core.rmem_default = 262144 net.core.rmem_max = 16777216</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Increase Write Memory Buffer # # TCP Write Memory: Min - Default - Max # net.ipv4.tcp_wmem = 8192 65536 16777216 net.ipv4.udp_wmem_min = 16384 # Default read memory buffer of all sending sockets (except TCP and UDP) net.core.wmem_default = 262144 net.core.wmem_max = 16777216</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Increase connection queue # net.core.somaxconn = 16384</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Improve packet processing queue, speed # net.core.netdev_max_backlog = 16384 net.core.dev_weight = 64</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Improve connection tracking ## # For high-loaded servers # net.nf_conntrack_max = 100000 #or net.netfilter.nf_conntrack_max = 100000</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Decrease connection timeout in netfilter table # net.netfilter.nf_conntrack_tcp_timeout_established = 600</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Improving Network Security ## # Prevent SYN Attack # net.ipv4.tcp_syncookies = 1 net.ipv4.tcp_max_syn_backlog = 4096 net.ipv4.tcp_syn_retries = 2 net.ipv4.tcp_synack_retries = 2</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Disable packet forwarding # net.ipv4.ip_forward = 0 net.ipv4.conf.all.forwarding = 0 net.ipv4.conf.default.forwarding = 0 net.ipv6.conf.all.forwarding = 0 net.ipv6.conf.default.forwarding = 0</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Disable IP source routing # net.ipv4.conf.all.accept_source_route = 0 net.ipv4.conf.default.accept_source_route = 0 net.ipv6.conf.all.accept_source_route = 0 net.ipv6.conf.default.accept_source_route = 0</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Block ICMP redirect packets to prevent MITM attacks # net.ipv4.conf.all.accept_redirects = 0 net.ipv4.conf.default.accept_redirects = 0 net.ipv4.conf.all.send_redirects = 0 net.ipv4.conf.default.send_redirects = 0</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Prevent IP spoofing ## # Enable reverse path filter to verify IPs # net.ipv4.conf.all.rp_filter = 1 net.ipv4.conf.default.rp_filter = 1 net.ipv4.conf.all.log_martians = 1 net.ipv4.conf.default.log_martians = 1</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Decrease TCP FIN timeout ## net.ipv4.tcp_fin_timeout = 7</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Decrease keep alive waiting time ## net.ipv4.tcp_keepalive_time = 300 net.ipv4.tcp_keepalive_probes = 5 net.ipv4.tcp_keepalive_intvl = 15</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Configure ICMP ## net.ipv4.icmp_echo_ignore_all = 0 # Avoid smurf attack # net.ipv4.icmp_echo_ignore_broadcasts = 1 net.ipv4.icmp_ignore_bogus_error_responses = 1</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Disable Proxy ARP # net.ipv4.conf.all.proxy_arp = 0</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Configure local port range (only if server had a lot outbound connections) # net.ipv4.ip_local_port_range = 16384 65535</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Protect against TIME WAIT ASSASSINATION followed up RFC 1337 # net.ipv4.tcp_rfc1337 = 1</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">### Filesystem Tuning ### ## Increase open file limit ## # For web/database/log servers which need a lot of open files # fs.file-max = 300000</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">### Memory Tuning ### ## Decrease swapping ## vm.swappiness = 10 vm.dirty_background_ratio = 5 vm.dirty_ratio = 10 vm.overcommit_memory = 0 vm.overcommit_ratio = 50</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## Kernel Hardening ## # Prevent buffer/stack/heap exploits # # In CentOS7/RHEL7 exec-shield has been enabled by default and removed from /proc # Use this option in CentOS 6 or other distro #kernel.exec-shield = 1 kernel.randomize_va_space = 2 # kernel.pid_max = 4194303</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;">## IPv6 ## # Disable IPv6 by default # net.ipv6.conf.all.autoconf=0 net.ipv6.conf.all.accept_ra=0 net.ipv6.conf.default.autoconf=0 net.ipv6.conf.default.accept_ra=0 ---------------------------------------</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: black;"># Reload changes # sysctl -p</p>
+<p style="margin-top: 0pt; margin-bottom: 11pt; font-family: Calibri; font-size: 11.0pt;"><a href="https://raw.githubusercontent.com/hautph/gocit.vn/master/Tuning_Kernel.txt">https://raw.githubusercontent.com/hautph/gocit.vn/master/Tuning_Kernel.txt</a></p>
+</div>
+</div>
+</div>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Tuned – Automatic Performance Tuning of CentOS/RHEL Servers</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/tuned-automatic-performance-tuning-of-centosrhel-servers/index.html"/>
+        <id>https://ddtrungit.github.io/tuned-automatic-performance-tuning-of-centosrhel-servers/index.html</id>
+            <category term="Tip"/>
+            <category term="Linux"/>
+
+        <updated>2022-06-13T14:26:52+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/101/centos-la-gi.jpg" alt="" />
+                    https://github.com/redhat-performance/tuned service tuned status tuned-adm active tuned-adm profile network-latency latency-performance Centos6: wget http://centos-hn.viettelidc.com.vn/6.10/os/x86_64/Packages/tuned-0.2.19-18.el6.noarch.rpm Tuned is a powerful daemon for dynamically auto-tuning&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/101/centos-la-gi.jpg" alt="" />
+                <p><a href="https://github.com/redhat-performance/tuned"><strong>https://github.com/redhat-performance/tuned</strong></a></p>
+<p> </p>
+<p><strong>service tuned status</strong></p>
+<p><strong>tuned-adm active</strong></p>
+<p><strong>tuned-adm  profile network-latency</strong></p>
+<p><strong>latency-performance</strong></p>
+<p> </p>
+<p><strong>Centos6: wget </strong><a href="http://centos-hn.viettelidc.com.vn/6.10/os/x86_64/Packages/tuned-0.2.19-18.el6.noarch.rpm"><strong>http://centos-hn.viettelidc.com.vn/6.10/os/x86_64/Packages/tuned-0.2.19-18.el6.noarch.rpm</strong></a></p>
+<p> </p>
+<p><strong>Tuned</strong> is a powerful daemon for dynamically auto-tuning Linux server performance based on information it gathers from monitoring use of system components, to squeeze maximum performance out of a server.</p>
+<p>It does this by tuning system settings dynamically on the fly depending on system activity, using tuning profiles. Tuning profiles include sysctl configs, disk-elevators configs, transparent hugepages, power management options and your custom scripts.</p>
+<p>By default <strong>tuned</strong> will not dynamically adjust system settings, but you can modify how the tuned daemon operates and allow it to dynamically alter settings based on system usage. You can use the <strong>tuned-adm</strong> command-line tool to manage the daemon once it is running.</p>
+<p>How to Install Tuned on CentOS/RHEL &amp; Fedora</p>
+<p>On <strong>CentOS/RHEL 7</strong> and <strong>Fedora</strong>, <strong>tuned</strong> comes pre-installed and activated by default, but on older version of <strong>CentOS/RHEL 6.x</strong>, you need to install it using the following <a href="https://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">yum command</a>.</p>
+<p># yum install tuned</p>
+<p>After the installation, you will find following important tuned configuration files.</p>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li><strong>/etc/tuned</strong> – tuned configuration directory.</li>
+<li><strong>/etc/tuned/tuned-main.conf</strong>– tuned mail configuration file.</li>
+<li><strong>/usr/lib/tuned/</strong> – stores a sub-directory for all tuning profiles.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Now you can start or manage the <strong>tuned</strong> service using following commands.</p>
+<p>--------------- On RHEL/CentOS 7 --------------- # systemctl start tuned # systemctl enable tuned # systemctl status tuned # systemctl stop tuned</p>
+<p>--------------- On RHEL/CentOS 6 --------------- # service tuned start # chkconfig tuned on # service tuned status # service tuned stop</p>
+<p>Now you can control tuned using the <strong>tunde-adm</strong> tool. There are a number of predefined tuning profiles already included for some common use cases. You can check the current active profile with following command.</p>
+<p># tuned-adm active</p>
+<p>From the output of the above command, the test system (which is a <a href="https://linode.gvw92c.net/tecmint">Linode VPS</a>) is optimized for running as a virtual guest.</p>
+<p>Check Current Tuned Profile</p>
+<p>You can get a list of available tuning profiles using following command.</p>
+<p># tuned-adm list</p>
+<p>List Available Tuned Profiles</p>
+<p>To switch to any of the available profiles for example <strong>throughput-performance</strong> – a tuning which results into excellent performance across a variety of common server workloads.</p>
+<p># tuned-adm  profile throughput-performance # tuned-adm active</p>
+<p>Switch to Tuning Profile</p>
+<p>To use the recommended profile for your system, run the following command.</p>
+<p># tuned-adm recommend</p>
+<p>And you can disable all tuning as shown.</p>
+<p># tuned-adm off</p>
+<p>How To Create Custom Tuning Profiles</p>
+<p>You can also create new profiles, we will create a new profile called <strong>test-performance</strong> which will use settings from an existing profile called <strong>latency-performance</strong>.</p>
+<p>Switch into the path which stores sub-directories for all tuning profiles, create a new sub-directory called <strong>test-performance</strong> for your custom tuning profile there.</p>
+<p># cd /usr/lib/tuned/ # mkdir test-performance</p>
+<p>Then create a <strong>tuned.conf</strong> configuration file in the directory.</p>
+<p># vim test-performance/tuned.conf</p>
+<p>Copy and paste the following configuration in the file.</p>
+<p>[main] include=latency-performance summary=Test profile that uses settings for latency-performance tuning profile</p>
+<p>Save the file and close it.</p>
+<p>If you run the tuned-adm list command again, the new tuning profile should exist in the list of available profiles.</p>
+<p># tuned-adm list</p>
+<p>Check New Tuned Profile</p>
+<p>To activate new tuned profile, issue following command.</p>
+<p># tuned-adm  profile test-performance</p>
+<p>For more information and further tinkering options, see the <strong>tuned</strong> and <strong>tuned-adm</strong> man pages.</p>
+<p># man tuned # man tuned-adm</p>
+<p><strong>Tuned Github repository</strong>: <a href="https://github.com/fcelda/tuned">https://github.com/fcelda/tuned</a></p>
+<p>That’s all for now! <strong>Tuned</strong> is a daemon that monitors usage of system components and dynamically auto-tunes a Linux server for maximum performance. If you have any questions or thoughts to share, use the feedback form below to reach us.</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><a href="https://www.tecmint.com/tuned-automatic-performance-tuning-of-centos-rhel-servers/">https://www.tecmint.com/tuned-automatic-performance-tuning-of-centos-rhel-servers/</a></p>
+            ]]>
+        </content>
+    </entry>
+</feed>
