@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hiểu rõ về quyền truy cập tệp trong linux - TRUNG DUONG</title><meta name="robots" content="noindex,nofollow"><meta name="generator" content="Publii Open-Source CMS for Static Site"><link rel="alternate" type="application/atom+xml" href="https://ddtrungit.github.io/feed.xml"><link rel="alternate" type="application/json" href="https://ddtrungit.github.io/feed.json"><link rel="shortcut icon" href="https://ddtrungit.github.io/media/website/cropped-2019-09-16-32x32.png" type="image/x-icon"><link rel="shortcut icon" href="https://ddtrungit.github.io/media/website/cropped-2019-09-16-32x32.png" type="image/x-icon"><link rel="stylesheet" href="https://ddtrungit.github.io/assets/css/style.css?v=4becd99c93342dd7c117b97188f052e6"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://ddtrungit.github.io/hieu-ro-ve-quyen-truy-cap-tep-trong-linux/index.html"},"headline":"Hiểu rõ về quyền truy cập tệp trong linux","datePublished":"2022-06-13T15:25","dateModified":"2022-06-13T15:29","image":{"@type":"ImageObject","url":"https://ddtrungit.github.io/media/posts/111/setfacl.webp","height":300,"width":300},"description":"Khi làm việc với điều hành Linux thi thoảng bạn nhận được message tựa tựa thế này 'Permission denied' và&hellip;","author":{"@type":"Person","name":"Duong Dinh Trung","url":"https://ddtrungit.github.io/authors/dtrungit/"},"publisher":{"@type":"Organization","name":"Duong Dinh Trung","logo":{"@type":"ImageObject","url":"https://ddtrungit.github.io/media/website/Background_2.png","height":800,"width":834}}}</script></head><body><header class="header" id="js-header"><a href="https://ddtrungit.github.io/index.html" class="logo"><img src="https://ddtrungit.github.io/media/website/Background_2.png" alt="TRUNG DUONG"></a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu"><span class="navbar__toggle-box"><span class="navbar__toggle-inner">Menu</span></span></button><ul class="navbar__menu"><li><a href="https://ddtrungit.github.io/index.html" target="_self">Home</a></li><li><a href="https://ddtrungit.github.io/lien-he/index.html" target="_self">Contact</a></li><li><a href="https://ddtrungit.github.io/gioi-thieu/index.html" target="_self">About</a></li><li><a href="https://ddtrungit.github.io/tags/ansible/index.html" target="_self">Ansible</a></li><li><a href="https://ddtrungit.github.io/tags/aws/index.html" target="_self">AWS</a></li><li><a href="https://ddtrungit.github.io/tags/oracle/index.html" target="_self">Oracle</a></li><li><a href="https://ddtrungit.github.io/tags/linux/index.html" target="_self">Linux</a></li><li><a href="https://ddtrungit.github.io/tags/zimbra/index.html" target="_self">Zimbra</a></li><li><a href="https://ddtrungit.github.io/tags/tip/index.html" target="_self">TIP</a></li></ul></nav></header><main><div class="wrapper"><article class="post"><header class="post__header"><a href="https://ddtrungit.github.io/tags/tip/index.html" class="post__maintag">Tip</a><h1 class="post__title">Hiểu rõ về quyền truy cập tệp trong linux</h1><div class="post__meta"><div class="post__author">By <a href="https://ddtrungit.github.io/authors/dtrungit/index.html" class="invert" rel="author" title="Duong Dinh Trung">Duong Dinh Trung</a></div></div></header><figure class="post__featured-image"><img src="https://ddtrungit.github.io/media/posts/111/setfacl.webp" srcset="https://ddtrungit.github.io/media/posts/111/responsive/setfacl-xs.webp 300w, https://ddtrungit.github.io/media/posts/111/responsive/setfacl-sm.webp 480w, https://ddtrungit.github.io/media/posts/111/responsive/setfacl-md.webp 768w, https://ddtrungit.github.io/media/posts/111/responsive/setfacl-lg.webp 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="eager" height="300" width="300" alt=""></figure><div class="post__inner"><div class="post__entry"><p>Khi làm việc với điều hành Linux thi thoảng bạn nhận được message tựa tựa thế này 'Permission denied' và bạn thường sẽ lên mạng tìm cách sửa hoặc sẽ sử dụng kiểu như 'sudo chmod -R 777' hoặc 'chmod 777' để giải quyết, tuy nhiên bạn đã thực sự hiểu về những câu lên trên? Bài viết này sẽ giúp bạn hiểu rõ những câu lệnh đó. Để hiểu hơn về bài viết bạn nên nhớ lại hoặc tìm hiểu một số kiến thức như</p><ol><li>Chuyển số thập phân sang nhị phân hoặc ngược lại</li><li>Phép bù của một số nhị phân</li><li>Phép toán &amp; giữa hai số nhị phân</li></ol><h1 id="_1-gioi-thieu-quyen-truy-xuat-0">1. Giới thiệu quyền truy xuất</h1><p>Quyền là thuộc tính của tệp và thư mục. Nó cho biết từng đối tượng người dùng (chủ sở hữu - owner, người cùng nhóm - group, người dùng khác - other) có quyền gì (đọc - read, ghi - write, thực thi - execute) trên tệp và thư mục. Linux sử dụng 9 bit cho việc này, trong đó 3 bit đầu cho biết quyền đọc, ghi, thực thi của owner, 3 bit tiếp theo cho biết quyền của group, 3 bit cuối cho biết quyền của other. Ví dụ, 111110100 hay rwxrw-r-- cho biết owner có cả ba quyền, group có thể đọc và ghi nhưng không được thực thi, other chỉ được đọc. Trong các lệnh, 3 bit xác định quyền cho một đối tượng người dùng được biểu diễn bằng một số nguyên (có giá trị từ 0 đến 7), quyền được biểu diễn bằng ba số nguyên liên tiếp. Ví dụ, 764 là biểu diễn của rwxrw-r-- ở trên.</p><h1 id="_2-quyen-cho-tep-va-thu-muc-duoc-tao-moi-1">2. Quyền cho tệp và thư mục được tạo mới</h1><p>Với các tệp và thu mục được tạo mới, quyền được xác định dựa trên quyền cơ sở (base permission) và <code>user mask</code>.</p><p>Base permission được thiết lập sẵn, không thể thay đổi</p><ul><li>Đối với file thông thường giá trị BS là 666 (111 111 110) (rw-rw-rw-)</li><li>Đối với thư mục (file đặc biệt) giá trị BS là 777 (111 111 111) (rwxrwxrwx)</li></ul><p>User mask sẽ “che đi” một số bit trong Base Permission để tạo ra quyền truy cập chính thức cho file (tương tự như cơ chế của subnet mask). Cụ thể, quyền truy cập được tính bằng “Base permission” &amp; “biểu diễn bù 1 của user mask”. Ví dụ, Base Permission là 666 (tức 110110110 khi chuyển sang dạng nhị phân), nên nếu giá trị user mask là 022 (có dạng nhị phân là 000010010 =&gt; dạng bù 1 của nó thì chuyển 1-&gt;0, 0-&gt;1 nên ta được 111101101) thì quyền truy nhập chính thức của file sẽ là:</p><p><code>110 110 110 &amp; 111 101 101 = 110 100 100 = 644 (rw-r–r–)</code></p><p>Có thể tính nhanh quyền truy xuất tệp và thư mục theo các công thức sau:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">Permit of file = 666 - umask
+Permit of directory = 777 - umask
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="Permit of file = 666 - umask
+Permit of directory = 777 - umask
+"></button></div><p>Giá trị user mask mặc định cho người dùng thông thường là <strong>002</strong></p><p>Với mask này thì quyền hạn truy cập mặc định cho thư mục là <strong>775</strong> và file là <strong>664</strong></p><p>Giá trị mask mặc định cho root là <strong>022</strong></p><p>Với mask này thì quyền hạn truy cập mặc định cho thư mục là <strong>755</strong> và file là <strong>644</strong></p><p>Sử dụng chương trình <strong>umask</strong> để thay đổi user mask. <strong>Các tệp và thư mục được tạo ra sau lệnh umask sẽ chịu tác động của giá trị mask mới.</strong></p><h1 id="_3-thay-doi-quyen-cua-tep-va-thu-muc-da-ton-tai-2">3. Thay đổi quyền của tệp và thư mục đã tồn tại</h1><p>Có thể sử dụng chương trình <strong>umask</strong> để thay đổi user mask, sau đó dùng chương trình touch để cập nhật quyền của tệp theo user mask mới . Dưới đây là một ví dụ minh họa việc giá trị user mask quyết định các quyền hạn trên file.txt như thế nào.</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">umask 077
+touch test_file.txt
+ls -l test_file.txt
+
+&gt; -rw——- 1 uit uit 0 2020-02-01 11:10 test_file.txt
+</code></pre><button class="v-markdown-it-code-copy" style="box-sizing: border-box; border-radius: 5px; margin: 0px; font-family: inherit; font-size: inherit; line-height: inherit; overflow: visible; text-transform: none; appearance: button; position: absolute; display: flex; align-items: center; justify-content: center; top: 7.5px; right: 6px; cursor: pointer; outline: none; border: none; background: #655454; height: 25px; opacity: 0.5;" title="Sao chép" data-clipboard-text="umask 077
+touch test_file.txt
+ls -l test_file.txt
+
+&gt; -rw——- 1 uit uit 0 2020-02-01 11:10 test_file.txt
+"></button></div><p>Note: <em>Cơ chế làm việc của umask khiến chúng ta không thể tạo ra các file với quyền execute. Vì Base permission của file luôn là 666, tức các bit ứng với quyền execute đều bằng 0, nên bất kể giá trị mask bằng bao nhiêu thì quyền của file đều không có execute.</em></p><p>Cách khác để thay đổi quyền của tệp và thư mục đã tồn tại là sử dụng chmod. Sử dụng chmod có thể thêm quyền thực thi cho tệp và thư mục.</p><p><code>chmod [OPTION] MODE FILE</code></p><p>trong đó:</p><ul><li><p>OPTION hay được dùng nhất là -R hoặc --recursive (đệ quy) khi muốn áp dụng quyền cho tất cả tệp và các thư mục con.</p></li><li><p>MODE cho biết đối tượng người dùng nào (u: user sở hữu; g: group; o: other, a: all) được cấp/thu hồi/gán (+-=) quyền gì (rwxXst hoặc [0-7]+)</p></li><li><p>File là file hoặc folder bạn muốn thay đổi quyền</p></li></ul><p>Đến đây ta có thể hiểu tại sao ta lại cần sử dụng chmod khi có lỗi 'File deny permission', và tại sao lại là -R. Chúng ta cùng tìm hiểu thêm qua một vài ví dụ:</p><ul><li><p>Thêm quyền ghi tệp files1.txt cho người dùng hiện tại: <code>chmod u+w file1.txt</code></p></li><li><p>Thêm đủ các quyền cho tất cả các đối tượng người dùng: <code>chmod a+rwx file1.txt</code> hoặc <code>chmod +777 file1.txt</code></p></li><li><p>Thu cả ba quyền của người dùng khác: <code>chmod 770 file1.tx</code></p></li><li><p>Thu quyền thực thi của người dùng nhóm: <code>chmod g-x file1.txt</code></p></li></ul><h1 id="_4-thay-doi-chu-so-huu-cua-tep-va-thu-muc-3">4. Thay đổi chủ sở hữu của tệp và thư mục</h1><p>Người tạo ra tệp hay thư mục là chủ sở hữu (owner) mặc định của tệp hay thư mục. Quyền sở hữu của tệp hay thư mục còn thuộc owning group. Owner hoặc root có thể thay đổi chủ sở hữu của tệp và thư mục bằng dùng chương trình chown.</p><p><code>chown [OPTION] [OWNER][:[GROUP]] FILE</code></p><p>Ví dụ:</p><ul><li><p>Thay owner của /lab cho root: <code>chown root /lab</code></p></li><li><p>Thay owner của /lab cho root, đồng thời chuyển quyền sở hữu về nhóm staff: <code>chown root:staff /lab</code></p></li><li><p>Thay owner của /lab cùng các tệp và thư mục con cho root: <code>chown -hR root /lab</code></p></li></ul><h1 id="_5-suid-sgid-sticky-bit-4">5. SUID, SGID, Sticky bit</h1><p>Ngoài 9 bits cơ bản xác định các quyền rwx của owner, group và other, Linux sử dụng 3 bit khác để định nghĩa quyền trên tệp và thư mục. Các bit này lần lượt là SUID, SGID, Sticky. Trong các lệnh, một số nguyên nữa có giá trị từ 0 đến 7 được dùng để xác định ba quyền này. Ví dụ, trong lệnh</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">chmod 6750 file1.txt
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="chmod 6750 file1.txt
+"></button></div><p>số 6 (nhị phân là 110) đầu tiên trong quyền xác định SUID, SGID được bật, sticky không được bật.</p><p>Ý nghĩa của ba bit SUID, SGID, Sticky được giải thích lần lượt như sau.</p><h2 id="_suid-set-owner-user-id-up-on-execution-5"><strong>SUID</strong> (<strong>S</strong>et owner <strong>U</strong>ser <strong>ID</strong> up on execution)</h2><p>Thông thường, khi một chương trình/tệp/lệnh chạy, nó sử dụng các quyền của người dùng hiện tại, hay người dùng chạy nó. Nếu SUID được đặt, chương trình sẽ sử dụng quyền của owner chứ không phải quyền của người dùng hiện tại. Ví dụ, owner của /etc/passwd, /etc/shadow là root. Người dùng thông thường không có quyền ghi các tệp này. Nếu các tệp này không được đặt quyền SUID, khi người dùng chạy lệnh passwd sẽ xuất hiện lỗi do không mở và ghi vào tệp /etc/shadow được. Ngược lại, khi các tệp này được đặt quyền SUID, người dùng thông thường cũng có thể chạy lệnh passwd.</p><p>Ví dụ</p><ul><li>Đặt quyền SUID của tệp cho người dùng hiện tại: <code>chmod u+s file1.txt</code> hoặc <code>chmod 4750 file1.txt</code></li><li>Bỏ quyền SUID trên tệp đối với người dùng hiện tại: <code>chmod u-s file1.txt</code></li><li>Để tìm các tệp có quyền SUID, chạy lệnh: <code>find / -perm +4000</code></li><li>Kiểm tra bit SUID được bật hay không bằng cách chạy: <code>ls -l files.txt</code></li></ul><p>Khi SUID được bật, bit x của owner được hiển thị là s nếu owner có quyền thực thi . Nếu owner không có quyền thực thi, bit x của owner được hiển thị là S. Ví dụ, -rwSrw-r-- có nghĩa là bit SUID đã được bật nhưng bit x của owner không được bật, -rwsrw-r-- có nghĩa là bit SUID đã được bật và bit x của owner được bật, rwxrw-r-- nghĩa là bit SUID không được bật và owner có quyền thực thi.</p><h2 id="_sgid-set-group-id-up-on-execution-6">SGID (Set Group ID up on execution)</h2><p>Tương tự SUID, nhưng thay owner là group. Nếu SGID được đặt, chương trình sẽ sử dụng quyền của group, chứ không phải quyền của người dùng hiện tại.</p><p>Sử dụng chmod để đặt quyền SGID cho tệp như các ví dụ sau: <code>chmod g+s file1.txt</code> hoặc <code>chmod 2750 file1.txt</code></p><p>Bỏ quyền SGID, như ví dụ sau: <code>chmod g-s file1.txt</code></p><p>Để tìm các tệp có quyền SGID, chạy lệnh: <code>find / -perm +2000</code></p><p>Kiểm tra bit SGID được bật hay không bằng cách chạy: <code>ls -l files.txt</code></p><p>Khi SGID được bật, bit x của group được hiển thị là s nếu group có quyền thực thi. Nếu group không có quyền thực thi, bit x của group được hiển thị là S. Ví dụ, -rwxrwSr-- có nghĩa là bit SGID đã được bật nhưng bit x của group không được bật, -rwxrwsr-- có nghĩa là bit SGID đã được bật và bit x của group được bật, rwxrwxr-- nghĩa là bit SGID không được bật và owner có quyền thực thi.</p><h2 id="_sticky-bit-7">Sticky bit</h2><p>Sticky bit áp dụng cho thư mục. Nếu bit này được bật, chỉ owner và root có thể xóa nội dung của thư mục. Sử dụng bit này để thiết lập cấu hình ngăn người dùng xóa dữ liệu của người khác.</p><p>Ví dụ:</p><ul><li><p>Bật sticky bit trên thư mục /important: <code>chmod o+t /important</code> hoặc <code>chmod +t /important</code> hoặc <code>chmod 1757 /important</code></p></li><li><p>Tắt sticky bit trên thư mục /lab: <code>chmod o-t /important</code></p></li><li><p>Để tìm các tệp có quyền sticky, chạy lệnh: <code>find / -perm +1000</code></p></li></ul><p>Kiểm tra bit sticky được bật hay không bằng cách chạy: <code>ls -l files.txt</code></p><p>Khi sticky được bật, bit x của other được hiển thị là t nếu other có quyền thực thi. Nếu other không có quyền thực thi, bit x của other được hiển thị là T. Ví dụ, -rwxrw-r-T có nghĩa là sticky đã được bật nhưng bit x của other không được bật.</p><h1 id="_6-access-control-list-8">6. Access Control List</h1><p>ACLs là cách khác để xác định quyên trên tệp và thư mục. Chúng cho phép gán quyền cho một người dùng hoặc một nhóm bất kỳ, thậm chí không tương ứng với owner hoặc owning group. ACLs hỗ trợ các hệ thống file ReiserFS, Ext2, Ext3, JFS, XFS. Một tệp hoặc thư mục có thể có nhiều ACL.</p><p>Dùng ls -dl để kiểm tra quyền:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-bash" tabindex="0" data-filename=""><code class="language-bash">$ <span class="token function">ls</span> -dl mydir/
+
+<span class="token operator">&gt;</span> drwxr-xr-x <span class="token number">2</span> quanta quanta <span class="token number">4096</span> <span class="token number">2007</span>-12-29 <span class="token number">22</span>:53 mydir/
+</code></pre><button class="v-markdown-it-code-copy" style="box-sizing: border-box; border-radius: 5px; margin: 0px; font-family: inherit; font-size: inherit; line-height: inherit; overflow: visible; text-transform: none; appearance: button; position: absolute; display: flex; align-items: center; justify-content: center; top: 7.5px; right: 6px; cursor: pointer; outline: none; border: none; background: #655454; height: 25px; opacity: 0.5;" title="Sao chép" data-clipboard-text="$ ls -dl mydir/
+
+&gt; drwxr-xr-x 2 quanta quanta 4096 2007-12-29 22:53 mydir/
+"></button></div><p>Kiểm tra trạng thái khởi đầu của ACL:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-bash" tabindex="0" data-filename=""><code class="language-bash">$ getfacl mydir/
+<span class="token comment"># file: mydir</span>
+<span class="token comment"># owner: quanta</span>
+<span class="token comment"># group: quanta</span>
+user::rwx
+group::r-x
+other::---
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ getfacl mydir/
+# file: mydir
+# owner: quanta
+# group: quanta
+user::rwx
+group::r-x
+other::---
+"></button></div><p>Gán quyền đọc, ghi, thi hành cho user kitty và group friends:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-bash" tabindex="0" data-filename=""><code class="language-bash">$ setfacl -m user:kitty:rwx,group:friends:rwx mydir/
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ setfacl -m user:kitty:rwx,group:friends:rwx mydir/
+"></button></div><p>Tuỳ chọn <strong>-m</strong> sẽ nhắc <strong>setfacl</strong> chỉnh sửa một ACL đã tồn tại.</p><p>Xem lại ACL với lệnh <strong>getfacl</strong>:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-bash" tabindex="0" data-filename=""><code class="language-bash">$ getfacl mydir/
+<span class="token comment"># file: mydir</span>
+<span class="token comment"># owner: quanta</span>
+<span class="token comment"># group: quanta</span>
+user::rwx
+user:kitty:rwx
+group::r-x
+group:friends:rwx
+mask::rwx
+other::---
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ getfacl mydir/
+# file: mydir
+# owner: quanta
+# group: quanta
+user::rwx
+user:kitty:rwx
+group::r-x
+group:friends:rwx
+mask::rwx
+other::---
+"></button></div><p>Ngoài các mục (entries) cho user kitty và group friends, mask entry cũng được tạo ra. mask định nghĩa quyền truy cập có hiệu lực lớn nhất cho tất cả các entries của group.</p><p>Bây giờ thử dùng <strong>chmod</strong> để bỏ quyền write của group, output của lệnh ls cho thấy mask bits đã được điều chỉnh với chmod:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">$ sudo chmod g-w mydir/
+$ getfacl mydir/
+# file: mydir
+# owner: quanta
+# group: quanta
+user::rwx
+user:kitty:rwx                  #effective:r-x
+group::r-x
+group:friends:rwx               #effective:r-x
+mask::r-x
+other::---
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ sudo chmod g-w mydir/
+$ getfacl mydir/
+# file: mydir
+# owner: quanta
+# group: quanta
+user::rwx
+user:kitty:rwx                  #effective:r-x
+group::r-x
+group:friends:rwx               #effective:r-x
+mask::r-x
+other::---
+"></button></div><p><strong>Default ACLs</strong> Default ACL ảnh hưởng đến các thư mục con cũng như là các files. Nói cách khác, các thư mục con và tệp kế thừa default ACL của thư mục cha.</p><p>Xét ví dụ sau:</p><p>Thêm một default ACLs vào một thư mục mydir:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">$ setfacl -d -m group:friends:r-x mydir/
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ setfacl -d -m group:friends:r-x mydir/
+"></button></div><p>Tuỳ chọn <strong>-d</strong> sẽ nhắc setfacl thực hiện một "chỉnh sửa" trên <strong>default ACLs</strong></p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">$ getfacl mydir/
+# file: mydir
+# owner: quanta
+# group: quanta
+user::rwx
+user:kitty:rwx                  #effective:r-x
+group::r-x
+group:friends:rwx               #effective:r-x
+mask::r-x
+other::---
+default:user::rwx
+default:group::r-x
+default:group:friends:r-x
+default:mask::r-x
+default:other::---
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ getfacl mydir/
+# file: mydir
+# owner: quanta
+# group: quanta
+user::rwx
+user:kitty:rwx                  #effective:r-x
+group::r-x
+group:friends:rwx               #effective:r-x
+mask::r-x
+other::---
+default:user::rwx
+default:group::r-x
+default:group:friends:r-x
+default:mask::r-x
+default:other::---
+"></button><div class="v-content-flex-center"> </div></div><p><strong>getfacl</strong> sẽ trả về cả <strong>access ACL</strong> và <strong>default ACL</strong>.</p><p>Nếu tạo một thư mục con trong mydir, thư mục con này kế thừa <strong>default ACL</strong> từ <strong>mydir</strong>:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">$ mkdir mydir/mysubdir
+$ getfacl mydir/mysubdir/
+# file: mydir/mysubdir
+# owner: quanta
+# group: quanta
+user::rwx
+group::r-x
+group:friends:r-x
+mask::r-x
+other::---
+default:user::rwx
+default:group::r-x
+default:group:friends:r-x
+default:mask::r-x
+default:other::---
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ mkdir mydir/mysubdir
+$ getfacl mydir/mysubdir/
+# file: mydir/mysubdir
+# owner: quanta
+# group: quanta
+user::rwx
+group::r-x
+group:friends:r-x
+mask::r-x
+other::---
+default:user::rwx
+default:group::r-x
+default:group:friends:r-x
+default:mask::r-x
+default:other::---
+"></button><div class="v-content-flex-center"> </div></div><p><strong>access ACL</strong> của <strong>mysubdir</strong> phản ánh chính xác d<strong>efault ACL</strong> của mydir.</p><p>Nếu tạo một tệp trong mydir, tệp này kế thừa default ACL từ mydir:</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">$ touch mydir/myfile
+$ ls -l mydir/myfile
+-rw-r-----+ 1 quanta quanta 0 2008-01-07 00:59 mydir/myfile
+$ getfacl mydir/myfile
+# file: mydir/myfile
+# owner: quanta
+# group: quanta
+user::rw-
+group::r-x                      #effective:r--
+group:friends:r-x               #effective:r--
+mask::r--
+other::---
+</code></pre><button class="v-markdown-it-code-copy" title="Sao chép" data-clipboard-text="$ touch mydir/myfile
+$ ls -l mydir/myfile
+-rw-r-----+ 1 quanta quanta 0 2008-01-07 00:59 mydir/myfile
+$ getfacl mydir/myfile
+# file: mydir/myfile
+# owner: quanta
+# group: quanta
+user::rw-
+group::r-x                      #effective:r--
+group:friends:r-x               #effective:r--
+mask::r--
+other::---
+"></button></div><p>Ví dụ khác, giả sử /public là thư mục dùng chung cho mọi người trong công ty, hãy thiết lập để sao cho bất kỳ ai thuộc bất kỳ nhóm nào cũng có khả năng đọc file va chuyển vào trong thư mục này nhưng chỉ có người dùng trong nhóm quantri mới có thể ghi vào các file trong thư mục này.</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">mkdir /public
+chmod 777 /public
+groupadd quantri
+setfacl -d --set u::rx,g::rx,o::rx,g:quantri:rwx,m:rwx /public
+getfacl /public
+useradd user1; useradd user2; usermod -G quantri user1
+su user2
+cd /public
+touch user2_file.txt
+echo "Them noi dung" &gt; user2_file.tx
+ exit
+su user1
+cd /public
+echo "Them noi dung" &gt; user2_file.txt  -&gt; permit denie
+</code></pre><button class="v-markdown-it-code-copy" style="box-sizing: border-box; border-radius: 5px; margin: 0px; font-family: inherit; font-size: inherit; line-height: inherit; overflow: visible; text-transform: none; appearance: button; position: absolute; display: flex; align-items: center; justify-content: center; top: 7.5px; right: 6px; cursor: pointer; outline: none; border: none; background: #655454; height: 25px; opacity: 0.5;" title="Sao chép" data-clipboard-text="mkdir /public
+chmod 777 /public
+groupadd quantri
+setfacl -d --set u::rx,g::rx,o::rx,g:quantri:rwx,m:rwx /public
+getfacl /public
+useradd user1; useradd user2; usermod -G quantri user1
+su user2
+cd /public
+touch user2_file.txt
+echo &quot;Them noi dung&quot; &gt; user2_file.tx
+ exit
+su user1
+cd /public
+echo &quot;Them noi dung&quot; &gt; user2_file.txt  -&gt; permit denie
+"></button><div class="v-content-flex-center"> </div></div><p>Ví dụ khác, giả sử file mark.doc nằm trong thư mục /data đã được thiết lập quyền truy xuất chuẩn nhưng người quản trị cần thêm hai quyền ACL nữa cho file này (người dùng dev có quyền đọc ghi và nhóm qa có quyền đọc). Hãy thiết lập chính xác hai quyền trên cho file mark.doc. Nếu muốn việc thiết lập quyền ACL luôn sẵn sàng khi khởi động máy trên phân vùng /dev/hda1 thì phải làm gì?</p><div style="box-sizing: border-box; color: #1b1b1b; font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; position: relative;"><pre class="language-none" tabindex="0" data-filename=""><code class="language-none">useradd dev
+useradd qa
+setfacl -m u:dev:rw,g:qa:r,m:rwx /public/mark.doc
+getfacl /public/mark.doc
+su k50
+echo "Them noi dung" &gt; /public/mark.doc
+exit
+su k50d
+cat /public/mark.doc
+echo "Them noi dung" &gt; /public/mark.doc
+</code></pre><button class="v-markdown-it-code-copy" style="box-sizing: border-box; border-radius: 5px; margin: 0px; font-family: inherit; font-size: inherit; line-height: inherit; overflow: visible; text-transform: none; appearance: button; position: absolute; display: flex; align-items: center; justify-content: center; top: 7.5px; right: 6px; cursor: pointer; outline: none; border: none; background: #655454; height: 25px; opacity: 0.5;" title="Sao chép" data-clipboard-text="useradd dev
+useradd qa
+setfacl -m u:dev:rw,g:qa:r,m:rwx /public/mark.doc
+getfacl /public/mark.doc
+su k50
+echo &quot;Them noi dung&quot; &gt; /public/mark.doc
+exit
+su k50d
+cat /public/mark.doc
+echo &quot;Them noi dung&quot; &gt; /public/mark.doc
+"></button></div><h1 id="_6-quyen-truy-cap-tren-file-duoc-tao-boi-mot-so-lenh-pho-bien-9">6. Quyền truy cập trên file được tạo bởi một số lệnh phổ biến</h1><ul><li><p>Lệnh cp: Khi được sao chép sang vị trí mới, quyền truy cập chính thức của file được tính theo công thức trình bày ở trên với giá trị mask tại vị trí đích. Trong trường hợp trùng tên file và bạn quyết định ghi đè thì quyền truy cập của file ở vị trí đích sẽ được bảo lưu. Sử dụng tùy chọn –p trong lệnh cp để lấy quyền truy cập của file nguồn.</p></li><li><p>Lệnh tar: Khi giải nén các file, lệnh tar lấy quyền truy cập của từng file làm quyền truy nhập cơ sở cho file đó.</p></li></ul></div><footer><div class="post__tags-share"><ul class="post__tag"><li><a href="https://ddtrungit.github.io/tags/tip/index.html">Tip</a></li></ul><aside class="post__share"></aside></div></footer></div></article></div><div class="post__related"><div class="wrapper"><h2 class="h5">Related posts</h2><div class="l-grid l-grid--4"><article class="c-card"><a href="https://ddtrungit.github.io/truy-tim-nguyen-nhan-loi-error-establishing-a-database-connection-cua-wordpress/index.html" class="c-card__image"><img src="https://ddtrungit.github.io/media/posts/86/best-ways-to-speed-up-wp-site.jpg" srcset="https://ddtrungit.github.io/media/posts/86/responsive/best-ways-to-speed-up-wp-site-xs.jpg 300w, https://ddtrungit.github.io/media/posts/86/responsive/best-ways-to-speed-up-wp-site-sm.jpg 480w, https://ddtrungit.github.io/media/posts/86/responsive/best-ways-to-speed-up-wp-site-md.jpg 768w, https://ddtrungit.github.io/media/posts/86/responsive/best-ways-to-speed-up-wp-site-lg.jpg 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="lazy" height="1080" width="1920" alt=""></a><div class="c-card__wrapper"><header class="c-card__header"><div class="c-card__tag"><a href="https://ddtrungit.github.io/tags/tip/index.html">Tip</a></div><h3 class="c-card__title"><a href="https://ddtrungit.github.io/truy-tim-nguyen-nhan-loi-error-establishing-a-database-connection-cua-wordpress/index.html" class="invert">Truy tìm nguyên nhân lỗi “Error establishing a database connection” của WordPress</a></h3></header><p class="c-card__text">Website đang chạy bình thường, bỗng nhiên xuất hiện lỗi “Error establishing a database connection”, lỗi này cho thấy WordPress&hellip;</p></div></article><article class="c-card"><a href="https://ddtrungit.github.io/linux-server-performance-tips/index.html" class="c-card__image"><img src="https://ddtrungit.github.io/media/posts/77/selecting-the-best-linux-dedicated-server.png" srcset="https://ddtrungit.github.io/media/posts/77/responsive/selecting-the-best-linux-dedicated-server-xs.png 300w, https://ddtrungit.github.io/media/posts/77/responsive/selecting-the-best-linux-dedicated-server-sm.png 480w, https://ddtrungit.github.io/media/posts/77/responsive/selecting-the-best-linux-dedicated-server-md.png 768w, https://ddtrungit.github.io/media/posts/77/responsive/selecting-the-best-linux-dedicated-server-lg.png 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="lazy" height="407" width="809" alt=""></a><div class="c-card__wrapper"><header class="c-card__header"><div class="c-card__tag"><a href="https://ddtrungit.github.io/tags/tip/index.html">Tip</a></div><h3 class="c-card__title"><a href="https://ddtrungit.github.io/linux-server-performance-tips/index.html" class="invert">Linux Server Performance Tips</a></h3></header><p class="c-card__text">Network – Improving Performance Những thông số dưới đây nhằm tối ưu kết nối mạng trên các hệ điều hành&hellip;</p></div></article><article class="c-card"><a href="https://ddtrungit.github.io/linux-25-php-security-best-practices-for-sys-admins/index.html" class="c-card__image"><img src="https://ddtrungit.github.io/media/posts/69/1_kn9bfTW1lcX5gIItjtqw3A.png" srcset="https://ddtrungit.github.io/media/posts/69/responsive/1_kn9bfTW1lcX5gIItjtqw3A-xs.png 300w, https://ddtrungit.github.io/media/posts/69/responsive/1_kn9bfTW1lcX5gIItjtqw3A-sm.png 480w, https://ddtrungit.github.io/media/posts/69/responsive/1_kn9bfTW1lcX5gIItjtqw3A-md.png 768w, https://ddtrungit.github.io/media/posts/69/responsive/1_kn9bfTW1lcX5gIItjtqw3A-lg.png 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="lazy" height="350" width="750" alt=""></a><div class="c-card__wrapper"><header class="c-card__header"><div class="c-card__tag"><a href="https://ddtrungit.github.io/tags/tip/index.html">Tip</a></div><h3 class="c-card__title"><a href="https://ddtrungit.github.io/linux-25-php-security-best-practices-for-sys-admins/index.html" class="invert">Linux 25 PHP Security Best Practices For Sys Admins</a></h3></header><p class="c-card__text">PHP is an open-source server-side scripting language, and it is a widely used. The Apache/Nginx/Lighttpd web server provides access to&hellip;</p></div></article></div></div></div></main><footer class="footer"><div class="footer__social"><a href="https://facebook.com/duongtrung2103" aria-label="Facebook" class="facebook"><svg><use xlink:href="https://ddtrungit.github.io/assets/svg/svg-map.svg#facebook"/></svg></a></div><div class="footer__copyright">"DO THE THINGS YOU LOVE!"</div></footer><script>window.publiiThemeMenuConfig = {    
+      mobileMenuMode: 'sidebar',
+      animationSpeed: 300,
+      submenuWidth: 'auto',
+      doubleClickTime: 500,
+      mobileMenuExpandableSubmenus: true, 
+      relatedContainerForOverlayMenuSelector: '.navbar',
+   };</script><script defer="defer" src="https://ddtrungit.github.io/assets/js/scripts.min.js?v=d78591855e0ce96bf51239b499260e20"></script><script>var images = document.querySelectorAll('img[loading]');
+
+      for (var i = 0; i < images.length; i++) {
+         if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+         } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+               }, false);
+         }
+      }</script></body></html>
