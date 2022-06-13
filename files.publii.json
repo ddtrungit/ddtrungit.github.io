@@ -7,12 +7,12 @@
     {
         "path": "/20-ways-to-secure-your-apache-configuration/index.html",
         "type": "file",
-        "md5": "a12261871938d288935bb1eeae076086"
+        "md5": "3ccec296eae56fef9a847f91ccb3ccd8"
     },
     {
         "path": "404.html",
         "type": "file",
-        "md5": "126abb78717664f543bf11360d21cbfe"
+        "md5": "c557debc623cd7dd5867577ebdaaa101"
     },
     {
         "path": "amp",
@@ -27,7 +27,7 @@
     {
         "path": "/amp/20-ways-to-secure-your-apache-configuration/index.html",
         "type": "file",
-        "md5": "c20d404e1b7061717568871315ff9735"
+        "md5": "eb460c5f7fa04bad8f16a8158188ef60"
     },
     {
         "path": "amp/ansible-la-gi-huong-dan-cai-dat-ansible",
@@ -37,7 +37,7 @@
     {
         "path": "/amp/ansible-la-gi-huong-dan-cai-dat-ansible/index.html",
         "type": "file",
-        "md5": "ef229a9254a44063d786cd5b8fbdff0a"
+        "md5": "7b422b0e632c9e77340f1372f5002e62"
     },
     {
         "path": "amp/ap-dung-watch-de-theo-doi-mysql-query",
@@ -47,7 +47,7 @@
     {
         "path": "/amp/ap-dung-watch-de-theo-doi-mysql-query/index.html",
         "type": "file",
-        "md5": "084a19b1f641e71c23c7804f671ea43d"
+        "md5": "918a35e51428a67630eb47351951beaa"
     },
     {
         "path": "amp/authors",
@@ -62,7 +62,7 @@
     {
         "path": "/amp/authors/dtrungit/index.html",
         "type": "file",
-        "md5": "bef292d7417f3c3bf0e627b7de1115e3"
+        "md5": "34b262e07a0f4bb1cb6938545ddb714f"
     },
     {
         "path": "amp/byobu",
@@ -72,7 +72,7 @@
     {
         "path": "/amp/byobu/index.html",
         "type": "file",
-        "md5": "28ee0f561a67da735841ae9efd16c4bf"
+        "md5": "d3e557ffa6272fb907a2b5fe66dbeede"
     },
     {
         "path": "amp/cac-buoc-rebuild-zimbra-server-ng-backup",
@@ -82,7 +82,7 @@
     {
         "path": "/amp/cac-buoc-rebuild-zimbra-server-ng-backup/index.html",
         "type": "file",
-        "md5": "579b32f1d2fcaebb4269ab29e565eac5"
+        "md5": "eb1f0d7209075fe70ac3213f5778137e"
     },
     {
         "path": "amp/cai-dat-modsecurity",
@@ -92,7 +92,7 @@
     {
         "path": "/amp/cai-dat-modsecurity/index.html",
         "type": "file",
-        "md5": "41085623daa87b1d7e7996bb348daec7"
+        "md5": "238f2104587902eac304c9a2abe0dbbf"
     },
     {
         "path": "amp/centos-6-how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file",
@@ -102,7 +102,7 @@
     {
         "path": "/amp/centos-6-how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file/index.html",
         "type": "file",
-        "md5": "7eadaa52775fb26d0b4b38e9cc64044b"
+        "md5": "3a6d36ec24f832948c451c4f8176b522"
     },
     {
         "path": "amp/creat-user-admin-mongodb",
@@ -112,7 +112,7 @@
     {
         "path": "/amp/creat-user-admin-mongodb/index.html",
         "type": "file",
-        "md5": "6fac5249563173f83b98262305771d9e"
+        "md5": "1f4cfcb77283e9cedbbdf5af99e311c1"
     },
     {
         "path": "amp/csf-and-zimbra-mail",
@@ -122,7 +122,7 @@
     {
         "path": "/amp/csf-and-zimbra-mail/index.html",
         "type": "file",
-        "md5": "2d82fe3bc20905d81f746210ecbba68a"
+        "md5": "9f1029329d057e44e9554d9e6e9d4acf"
     },
     {
         "path": "amp/csf-cai-dat-cau-hinh-firewall-cho-server",
@@ -132,7 +132,7 @@
     {
         "path": "/amp/csf-cai-dat-cau-hinh-firewall-cho-server/index.html",
         "type": "file",
-        "md5": "41d89111aac9ca9491c5af7c957f835c"
+        "md5": "58845a3a996cac995b7da603a87a17af"
     },
     {
         "path": "amp/csf-error",
@@ -142,7 +142,7 @@
     {
         "path": "/amp/csf-error/index.html",
         "type": "file",
-        "md5": "09528a9ddfd9a7d902dc1b58ebd510df"
+        "md5": "22412fc56adf7595991ac6b0186f0634"
     },
     {
         "path": "amp/gioi-thieu",
@@ -152,7 +152,7 @@
     {
         "path": "/amp/gioi-thieu/index.html",
         "type": "file",
-        "md5": "3dd1e377d7dc659d525d1220f7aba6e3"
+        "md5": "118eb2647cebac1555a13142d1c721e8"
     },
     {
         "path": "amp/gioi-thieu-ve-lamp-lemp-reverse-proxy-mo-hinh-he-thong-web",
@@ -162,7 +162,7 @@
     {
         "path": "/amp/gioi-thieu-ve-lamp-lemp-reverse-proxy-mo-hinh-he-thong-web/index.html",
         "type": "file",
-        "md5": "b215641534135d01c6f0a461d3027805"
+        "md5": "5585a73c86e8aba8ed10face8e564dec"
     },
     {
         "path": "amp/how-to-check-rman-backup-status-and-timings",
@@ -172,7 +172,7 @@
     {
         "path": "/amp/how-to-check-rman-backup-status-and-timings/index.html",
         "type": "file",
-        "md5": "45859a8bba441080ae1ec59f765a7ede"
+        "md5": "2ca65d549699280e0dc33b3a14e056b8"
     },
     {
         "path": "amp/how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file",
@@ -182,7 +182,7 @@
     {
         "path": "/amp/how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file/index.html",
         "type": "file",
-        "md5": "98fa495ed3e391b9a8efea28461facbf"
+        "md5": "9f6452bccddfb64f8c738a4e32ca9eb9"
     },
     {
         "path": "amp/how-to-restore-archive-logs-from-rman-backup",
@@ -192,7 +192,7 @@
     {
         "path": "/amp/how-to-restore-archive-logs-from-rman-backup/index.html",
         "type": "file",
-        "md5": "7f3cc124966512da780f33bdebe5ce3a"
+        "md5": "1c1f4a8e0a1e83053d88b3ab45d58b63"
     },
     {
         "path": "amp/how-to-restore-rman-backup-with-a-different-database-name",
@@ -202,7 +202,7 @@
     {
         "path": "/amp/how-to-restore-rman-backup-with-a-different-database-name/index.html",
         "type": "file",
-        "md5": "d8383be953644ce1f6e4807ecb578232"
+        "md5": "09815f0e59c7469cf2f4c5386ac54883"
     },
     {
         "path": "amp/huong-dan-chong-tan-cong-ddos-bang-nginx",
@@ -212,7 +212,7 @@
     {
         "path": "/amp/huong-dan-chong-tan-cong-ddos-bang-nginx/index.html",
         "type": "file",
-        "md5": "bac91036993550d12a7ab4145e59ad52"
+        "md5": "4c8f63d40f91413dee40f1ec2d26c60e"
     },
     {
         "path": "amp/huong-dan-debug-bang-strace-url-wordpress",
@@ -222,12 +222,12 @@
     {
         "path": "/amp/huong-dan-debug-bang-strace-url-wordpress/index.html",
         "type": "file",
-        "md5": "a758947032a7fb122aac0960ef7c5824"
+        "md5": "1ec9cf807a4dea98e7edc514f61048b5"
     },
     {
         "path": "/amp/index.html",
         "type": "file",
-        "md5": "898b693e40a09cc394fa41663190b406"
+        "md5": "d219a0f00963bd188c5b9a57ea3f20a7"
     },
     {
         "path": "amp/install-and-configure-openvpn-server-on-ubuntu-linux",
@@ -237,7 +237,7 @@
     {
         "path": "/amp/install-and-configure-openvpn-server-on-ubuntu-linux/index.html",
         "type": "file",
-        "md5": "4b7d80ab8e4996f1555d42965c4a32ba"
+        "md5": "b71c8d34c3b5c7db5845662175d582c7"
     },
     {
         "path": "amp/install-and-configure-redis-on-amazon-linux-2",
@@ -247,7 +247,7 @@
     {
         "path": "/amp/install-and-configure-redis-on-amazon-linux-2/index.html",
         "type": "file",
-        "md5": "296ba7672cb08dac56ca50d5dfdd760e"
+        "md5": "fb51214fc21e1cc7cda77f6418d11713"
     },
     {
         "path": "amp/install-mariadb-105-on-amazon-linux-2",
@@ -257,7 +257,7 @@
     {
         "path": "/amp/install-mariadb-105-on-amazon-linux-2/index.html",
         "type": "file",
-        "md5": "19c6738398c99d8b1c01c2a02c5757ef"
+        "md5": "055fee63f5cb20763ef46d6a99a051a2"
     },
     {
         "path": "amp/install-mongodb-community-edition-on-amazon-linux",
@@ -267,7 +267,7 @@
     {
         "path": "/amp/install-mongodb-community-edition-on-amazon-linux/index.html",
         "type": "file",
-        "md5": "3b5337e8381dc91a9aa86e17a8771902"
+        "md5": "2534e53f0d54f73793144bbfdeb99621"
     },
     {
         "path": "amp/install-mysql-cluster-4-node",
@@ -277,7 +277,7 @@
     {
         "path": "/amp/install-mysql-cluster-4-node/index.html",
         "type": "file",
-        "md5": "3e310c151d9890befca57bf512051581"
+        "md5": "2c452be7db5e05c8f9ffb27dd1259305"
     },
     {
         "path": "amp/install-nginx-on-amazon-linux-2",
@@ -287,7 +287,7 @@
     {
         "path": "/amp/install-nginx-on-amazon-linux-2/index.html",
         "type": "file",
-        "md5": "228569cc416a04114d0c6adcebf61782"
+        "md5": "4a1fe9f4e685e3b481b760e8b3ade1d2"
     },
     {
         "path": "amp/laravel-horizon",
@@ -297,7 +297,7 @@
     {
         "path": "/amp/laravel-horizon/index.html",
         "type": "file",
-        "md5": "7a96d7d5d0e94d8c5fe08e0da0d19ff0"
+        "md5": "8814e0bc44e40932cbf5f7e6d896c304"
     },
     {
         "path": "amp/lien-he",
@@ -307,7 +307,7 @@
     {
         "path": "/amp/lien-he/index.html",
         "type": "file",
-        "md5": "19d266ca7fe20acc50a4b15f6514b019"
+        "md5": "06075ce519f75d1a6b093786613eeb88"
     },
     {
         "path": "amp/liet-ke-danh-sach-process-su-dung-nhieu-ram-nhat-bang-tophtop",
@@ -317,7 +317,7 @@
     {
         "path": "/amp/liet-ke-danh-sach-process-su-dung-nhieu-ram-nhat-bang-tophtop/index.html",
         "type": "file",
-        "md5": "602a210a2f241a5d9d7de8974a92a040"
+        "md5": "dd78b7d3fd598f80e1561f7a019aa8f9"
     },
     {
         "path": "amp/linux-25-php-security-best-practices-for-sys-admins",
@@ -327,7 +327,7 @@
     {
         "path": "/amp/linux-25-php-security-best-practices-for-sys-admins/index.html",
         "type": "file",
-        "md5": "2d1539fdfe6c69e514602eeca88fe4dd"
+        "md5": "4cf37c82b3a833827bdca8fa402c5503"
     },
     {
         "path": "amp/linux-backup-and-restore",
@@ -337,7 +337,7 @@
     {
         "path": "/amp/linux-backup-and-restore/index.html",
         "type": "file",
-        "md5": "b9705d99137b32d37d9273b29ec99ae1"
+        "md5": "2e60d2f6d211d2be2af5a5f990cce6ae"
     },
     {
         "path": "amp/linux-server-performance-tips",
@@ -347,7 +347,7 @@
     {
         "path": "/amp/linux-server-performance-tips/index.html",
         "type": "file",
-        "md5": "3f7a936f6ffc3948615e127fc2aa9fc8"
+        "md5": "dc42e36a3ae558b02f8f3e6e876d14db"
     },
     {
         "path": "amp/loi-khi-thay-doi-thong-so-phan-cung",
@@ -357,7 +357,7 @@
     {
         "path": "/amp/loi-khi-thay-doi-thong-so-phan-cung/index.html",
         "type": "file",
-        "md5": "64510b1d11ff2377539710b024c01afc"
+        "md5": "15ce6cbe4f36956b1fe214c8f943a4ec"
     },
     {
         "path": "amp/mot-so-thong-so-kernel-mau",
@@ -367,7 +367,7 @@
     {
         "path": "/amp/mot-so-thong-so-kernel-mau/index.html",
         "type": "file",
-        "md5": "575d9cf06606731373a47a462715ce53"
+        "md5": "a1f470c5b2309b4ef3c3728dc682f54c"
     },
     {
         "path": "amp/mot-so-thuat-ngu-tren-aws",
@@ -377,7 +377,7 @@
     {
         "path": "/amp/mot-so-thuat-ngu-tren-aws/index.html",
         "type": "file",
-        "md5": "855273c8c7b42e1942e325d04e53de1f"
+        "md5": "2036baa764c4bf2b86217a42c9ca0c60"
     },
     {
         "path": "amp/multitail-theo-doi-nhieu-file-log-cung-luc",
@@ -387,7 +387,7 @@
     {
         "path": "/amp/multitail-theo-doi-nhieu-file-log-cung-luc/index.html",
         "type": "file",
-        "md5": "f7610f504ea7b8758b24c8bf2202eaef"
+        "md5": "fb9e7648d6200c7f09d9555204b21105"
     },
     {
         "path": "amp/page",
@@ -402,7 +402,7 @@
     {
         "path": "/amp/page/2/index.html",
         "type": "file",
-        "md5": "e608bbc388813cfbc845ad59a5b4c6ff"
+        "md5": "9fae337a4870a291a4920954184cc970"
     },
     {
         "path": "amp/page/3",
@@ -412,7 +412,7 @@
     {
         "path": "/amp/page/3/index.html",
         "type": "file",
-        "md5": "065d0a2143fd35058f0ec5c9903f3fa0"
+        "md5": "b416b6cafac846d7d46281abbe9dbb8a"
     },
     {
         "path": "amp/page/4",
@@ -422,7 +422,7 @@
     {
         "path": "/amp/page/4/index.html",
         "type": "file",
-        "md5": "c3f0d5126c5d71c665cafb89dbe3d794"
+        "md5": "778b217a89786d6ad924043ae45150e5"
     },
     {
         "path": "amp/restore-the-spfile-from-the-controlfile-autobackup",
@@ -432,7 +432,7 @@
     {
         "path": "/amp/restore-the-spfile-from-the-controlfile-autobackup/index.html",
         "type": "file",
-        "md5": "7794972877da13c432c8aa1a0e930419"
+        "md5": "76741e8b6dad918d3aaca1332eea9bf4"
     },
     {
         "path": "amp/storing-rman-output-in-a-logfile",
@@ -442,7 +442,7 @@
     {
         "path": "/amp/storing-rman-output-in-a-logfile/index.html",
         "type": "file",
-        "md5": "7afe1d6daf761958c9ba2a81a7d039ca"
+        "md5": "31a910d70a3c0e131c1303cab3415dbd"
     },
     {
         "path": "amp/su-dung-ansible-thong-qua-bastion-host",
@@ -452,7 +452,7 @@
     {
         "path": "/amp/su-dung-ansible-thong-qua-bastion-host/index.html",
         "type": "file",
-        "md5": "0ad870122d5c6da23f074dbdfa552fcb"
+        "md5": "5f3fc1f0a9e4833789a02ef70ea526c6"
     },
     {
         "path": "amp/su-dung-vim-de-chinh-sua-noi-dung-file",
@@ -462,7 +462,7 @@
     {
         "path": "/amp/su-dung-vim-de-chinh-sua-noi-dung-file/index.html",
         "type": "file",
-        "md5": "e5f6a761294a1f456cd8390bd98b9d88"
+        "md5": "44a3377a45815739fc9f5f39172c2d84"
     },
     {
         "path": "amp/supervisor",
@@ -472,7 +472,7 @@
     {
         "path": "/amp/supervisor/index.html",
         "type": "file",
-        "md5": "f76d50a81ec0811a116b45a5a43a1e2d"
+        "md5": "fd55d23acc5f532c491ab29456c925a6"
     },
     {
         "path": "amp/tags",
@@ -487,7 +487,7 @@
     {
         "path": "/amp/tags/ansible/index.html",
         "type": "file",
-        "md5": "f1498466dc2525381de071733837c33d"
+        "md5": "fad6c14b152f793fdaa55f8a48c861ad"
     },
     {
         "path": "amp/tags/aws",
@@ -497,7 +497,17 @@
     {
         "path": "/amp/tags/aws/index.html",
         "type": "file",
-        "md5": "789a71070fbb43899c78391102ba65d9"
+        "md5": "f59a46cda5d211f50d6fa528741bd410"
+    },
+    {
+        "path": "amp/tags/contact",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/amp/tags/contact/index.html",
+        "type": "file",
+        "md5": "3ac1d1170dd4ebee093b15fb7823159c"
     },
     {
         "path": "amp/tags/db",
@@ -507,7 +517,7 @@
     {
         "path": "/amp/tags/db/index.html",
         "type": "file",
-        "md5": "da78b402021640b14c16939af75df119"
+        "md5": "05b07a47cb106c062e04fdce1aba6682"
     },
     {
         "path": "amp/tags/introduce",
@@ -517,7 +527,7 @@
     {
         "path": "/amp/tags/introduce/index.html",
         "type": "file",
-        "md5": "12cd0bc5babaaa6e6e24c32ceba8f985"
+        "md5": "fbdadcf6f6e2b3a183aa0f7922401450"
     },
     {
         "path": "amp/tags/linux",
@@ -527,7 +537,7 @@
     {
         "path": "/amp/tags/linux/index.html",
         "type": "file",
-        "md5": "318489db5108d88470a0caf3fa19d3bf"
+        "md5": "433ee07a3fbcc5f68a72e94572bec3ea"
     },
     {
         "path": "amp/tags/oracle",
@@ -537,7 +547,7 @@
     {
         "path": "/amp/tags/oracle/index.html",
         "type": "file",
-        "md5": "658cb534829b84361f4b17157e995fea"
+        "md5": "bf2d698c79335d41e2348eb63d1c1026"
     },
     {
         "path": "amp/tags/tip",
@@ -547,7 +557,7 @@
     {
         "path": "/amp/tags/tip/index.html",
         "type": "file",
-        "md5": "55fef6a6ab51c7d2346c14827e351d83"
+        "md5": "0b28c4f62cedc8639240799c859c46e1"
     },
     {
         "path": "amp/tags/zabbix",
@@ -557,7 +567,7 @@
     {
         "path": "/amp/tags/zabbix/index.html",
         "type": "file",
-        "md5": "73ffc39d00579460104b7116e5c86f96"
+        "md5": "309245e848e9c3aeeef5d9dd2fbd7a85"
     },
     {
         "path": "amp/tags/zimbra",
@@ -567,7 +577,7 @@
     {
         "path": "/amp/tags/zimbra/index.html",
         "type": "file",
-        "md5": "88f191743b0e017904593d0b87f7c039"
+        "md5": "7302ce3bc6c680bf97962560e618dacd"
     },
     {
         "path": "amp/tar-ssh-backup-du-lieu-khi-khong-con-dung-luong-o-cung-trong",
@@ -577,7 +587,7 @@
     {
         "path": "/amp/tar-ssh-backup-du-lieu-khi-khong-con-dung-luong-o-cung-trong/index.html",
         "type": "file",
-        "md5": "39d0aa695858982e6e8ea218324bebf4"
+        "md5": "2079b2a08f40f3e22e7ec27142f4bf0b"
     },
     {
         "path": "amp/thiet-lap-canh-bao-qua-telegram",
@@ -587,7 +597,7 @@
     {
         "path": "/amp/thiet-lap-canh-bao-qua-telegram/index.html",
         "type": "file",
-        "md5": "ea14f77361b77e346c1a2d43eb8f2159"
+        "md5": "5bbbc1004bcb8fa10545ae9f93a4f3ca"
     },
     {
         "path": "amp/toi-da-toi-uu-wordpress-nhanh-hon-18-lan-nhu-the-nao",
@@ -597,7 +607,7 @@
     {
         "path": "/amp/toi-da-toi-uu-wordpress-nhanh-hon-18-lan-nhu-the-nao/index.html",
         "type": "file",
-        "md5": "d3fb6d79e31f02a904bf8f2c99b0c6e2"
+        "md5": "390f267faff5d14a5c29417e2dcf14b6"
     },
     {
         "path": "amp/toi-uu-wordpress-bi-cham",
@@ -607,7 +617,7 @@
     {
         "path": "/amp/toi-uu-wordpress-bi-cham/index.html",
         "type": "file",
-        "md5": "7e5ad7096e3ef5fd876cb2ca0ec285b7"
+        "md5": "e684653d9d2a3c8fa8b38b03858c32d4"
     },
     {
         "path": "amp/truy-tim-nguyen-nhan-loi-error-establishing-a-database-connection-cua-wordpress",
@@ -617,7 +627,7 @@
     {
         "path": "/amp/truy-tim-nguyen-nhan-loi-error-establishing-a-database-connection-cua-wordpress/index.html",
         "type": "file",
-        "md5": "5b39919ab4d536749d1e47592ec35b52"
+        "md5": "130848203377b7c4938e00cffd12d2bd"
     },
     {
         "path": "amp/tuned-automatic-performance-tuning-of-centosrhel-servers",
@@ -627,7 +637,7 @@
     {
         "path": "/amp/tuned-automatic-performance-tuning-of-centosrhel-servers/index.html",
         "type": "file",
-        "md5": "40c92aafaaeb11b500f91c50982a7bc1"
+        "md5": "d69d5db94197cfbaab4defae1e02ffd3"
     },
     {
         "path": "amp/upgrade-zimbra-86-to-88-centos",
@@ -637,7 +647,7 @@
     {
         "path": "/amp/upgrade-zimbra-86-to-88-centos/index.html",
         "type": "file",
-        "md5": "e7a1f962c6f18e36ac28ef900d4db0e1"
+        "md5": "0605519fc5c7d9dcb7eb177703e04c90"
     },
     {
         "path": "amp/use-rman-in-noarchive",
@@ -647,7 +657,7 @@
     {
         "path": "/amp/use-rman-in-noarchive/index.html",
         "type": "file",
-        "md5": "827777bb38b3e6cff8d5986e482fb405"
+        "md5": "1e6613a9e598da991de501823ea75a19"
     },
     {
         "path": "amp/watch-thuc-thi-lai-va-theo-doi-output-cua-lenh-lien-tuc",
@@ -657,7 +667,7 @@
     {
         "path": "/amp/watch-thuc-thi-lai-va-theo-doi-output-cua-lenh-lien-tuc/index.html",
         "type": "file",
-        "md5": "136d5802dde1c183206196ce6bbe8d6c"
+        "md5": "24a1f44b7ce7143af09b54baefeef92e"
     },
     {
         "path": "amp/xac-dinh-ip-va-ung-dung-ngon-nhieu-bang-thong-nhat",
@@ -667,7 +677,7 @@
     {
         "path": "/amp/xac-dinh-ip-va-ung-dung-ngon-nhieu-bang-thong-nhat/index.html",
         "type": "file",
-        "md5": "703e7016c965ae2a3362883cb43ff6df"
+        "md5": "4ea767498473fee5aabe9dee202e3088"
     },
     {
         "path": "amp/xac-dinh-tien-trinh-dang-docghi-o-cung-nhieu-nhat",
@@ -677,7 +687,7 @@
     {
         "path": "/amp/xac-dinh-tien-trinh-dang-docghi-o-cung-nhieu-nhat/index.html",
         "type": "file",
-        "md5": "1dd256331e54b16eb1b5b41207581fab"
+        "md5": "e4055d83d01c8b80a98e054fd49567a5"
     },
     {
         "path": "ansible-la-gi-huong-dan-cai-dat-ansible",
@@ -687,7 +697,7 @@
     {
         "path": "/ansible-la-gi-huong-dan-cai-dat-ansible/index.html",
         "type": "file",
-        "md5": "2adc646948c6899f1c3238f214eb0277"
+        "md5": "20da501a42b0261840fb701ae852a8c0"
     },
     {
         "path": "ap-dung-watch-de-theo-doi-mysql-query",
@@ -697,7 +707,7 @@
     {
         "path": "/ap-dung-watch-de-theo-doi-mysql-query/index.html",
         "type": "file",
-        "md5": "f38ebfb67cd7d287abe5664c23f57105"
+        "md5": "e68b98d276f960f198fbeb9f59b30dba"
     },
     {
         "path": "assets",
@@ -802,7 +812,7 @@
     {
         "path": "/authors/dtrungit/index.html",
         "type": "file",
-        "md5": "ecbab4ffb0e430c8a151c8bc75923576"
+        "md5": "b233409b444ebd6e46bef48cac8ba063"
     },
     {
         "path": "byobu",
@@ -812,7 +822,7 @@
     {
         "path": "/byobu/index.html",
         "type": "file",
-        "md5": "324dd5c05775514c6b8654c0dee78bf4"
+        "md5": "099dab077da6ffa1c76b3c1486299c05"
     },
     {
         "path": "cac-buoc-rebuild-zimbra-server-ng-backup",
@@ -822,7 +832,7 @@
     {
         "path": "/cac-buoc-rebuild-zimbra-server-ng-backup/index.html",
         "type": "file",
-        "md5": "049b4b9a8cdffd30505af8e2313ea12c"
+        "md5": "7eef532c36990878e790199c209e9be4"
     },
     {
         "path": "cai-dat-modsecurity",
@@ -832,7 +842,7 @@
     {
         "path": "/cai-dat-modsecurity/index.html",
         "type": "file",
-        "md5": "f4af096c74feb2ca0cb48c280891c95b"
+        "md5": "4fdb6ccf2342f899b9b3e2883d0e621b"
     },
     {
         "path": "centos-6-how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file",
@@ -842,7 +852,7 @@
     {
         "path": "/centos-6-how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file/index.html",
         "type": "file",
-        "md5": "83d990013ebeea8f779080852953264f"
+        "md5": "9758f52c888df9b33482cde47f78bee9"
     },
     {
         "path": "creat-user-admin-mongodb",
@@ -852,7 +862,7 @@
     {
         "path": "/creat-user-admin-mongodb/index.html",
         "type": "file",
-        "md5": "6097acc7d1818886db155211d3064cb2"
+        "md5": "688712aae6ef45b10cef7914e23bb149"
     },
     {
         "path": "csf-and-zimbra-mail",
@@ -862,7 +872,7 @@
     {
         "path": "/csf-and-zimbra-mail/index.html",
         "type": "file",
-        "md5": "18591854b409b5880e4c4b524a077ce6"
+        "md5": "0b9fef735cde3e6c5828cf19db943459"
     },
     {
         "path": "csf-cai-dat-cau-hinh-firewall-cho-server",
@@ -872,7 +882,7 @@
     {
         "path": "/csf-cai-dat-cau-hinh-firewall-cho-server/index.html",
         "type": "file",
-        "md5": "6fabb696c7a3d2774e77c107b0fa27e3"
+        "md5": "f37d50def409a2ff12d2b0d367b23ffe"
     },
     {
         "path": "csf-error",
@@ -882,7 +892,7 @@
     {
         "path": "/csf-error/index.html",
         "type": "file",
-        "md5": "2af8ae20b281731d3e66d85ead44e8a6"
+        "md5": "6bdd57314cf2ce921647bebf0c1b6974"
     },
     {
         "path": "feed.json",
@@ -902,7 +912,7 @@
     {
         "path": "/gioi-thieu/index.html",
         "type": "file",
-        "md5": "c1dcc58d94ae3f60fc6d72e8cf427aa5"
+        "md5": "c58dfc78a661adc5424963bf33fd5b2b"
     },
     {
         "path": "gioi-thieu-ve-lamp-lemp-reverse-proxy-mo-hinh-he-thong-web",
@@ -912,7 +922,7 @@
     {
         "path": "/gioi-thieu-ve-lamp-lemp-reverse-proxy-mo-hinh-he-thong-web/index.html",
         "type": "file",
-        "md5": "339acc760d07df2dea0c9059936ee663"
+        "md5": "cfdf7bae8ea59ef15895a57f246dccad"
     },
     {
         "path": "how-to-check-rman-backup-status-and-timings",
@@ -922,7 +932,7 @@
     {
         "path": "/how-to-check-rman-backup-status-and-timings/index.html",
         "type": "file",
-        "md5": "dd231e6fcad43925be923110b13df21e"
+        "md5": "13a198399454a526aece86aafaceb9f1"
     },
     {
         "path": "how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file",
@@ -932,7 +942,7 @@
     {
         "path": "/how-to-fix-centos-6-end-of-line-error-yumrepo-error-all-mirror-urls-are-not-using-ftp-https-or-file/index.html",
         "type": "file",
-        "md5": "e55d605328e8f0947e696e53e89130d5"
+        "md5": "9f758f79bbedfeb44ba88a6ac2ac392d"
     },
     {
         "path": "how-to-restore-archive-logs-from-rman-backup",
@@ -942,7 +952,7 @@
     {
         "path": "/how-to-restore-archive-logs-from-rman-backup/index.html",
         "type": "file",
-        "md5": "54af530faa1ec5c89ec62773df76f323"
+        "md5": "b4b8f0ed0e520ad3c0138576d8b39717"
     },
     {
         "path": "how-to-restore-rman-backup-with-a-different-database-name",
@@ -952,7 +962,7 @@
     {
         "path": "/how-to-restore-rman-backup-with-a-different-database-name/index.html",
         "type": "file",
-        "md5": "2a8c79220e88bdb31dbe9431bf50b380"
+        "md5": "5dd97fbd3b143d40dd10092d725411cf"
     },
     {
         "path": "huong-dan-chong-tan-cong-ddos-bang-nginx",
@@ -962,7 +972,7 @@
     {
         "path": "/huong-dan-chong-tan-cong-ddos-bang-nginx/index.html",
         "type": "file",
-        "md5": "fb370504979ae7fa291372b4a3e14430"
+        "md5": "a52955007e454329b741eb7bff0ba305"
     },
     {
         "path": "huong-dan-debug-bang-strace-url-wordpress",
@@ -972,12 +982,12 @@
     {
         "path": "/huong-dan-debug-bang-strace-url-wordpress/index.html",
         "type": "file",
-        "md5": "9dd233780c3522d94ae3a26f77b79932"
+        "md5": "09b5f387149989d5ac457b6a86e2eb93"
     },
     {
         "path": "index.html",
         "type": "file",
-        "md5": "9b181d5bd935a0c8687edc2cf7bf0488"
+        "md5": "49af4ca39132146fa116207e6aa943a5"
     },
     {
         "path": "install-and-configure-openvpn-server-on-ubuntu-linux",
@@ -987,7 +997,7 @@
     {
         "path": "/install-and-configure-openvpn-server-on-ubuntu-linux/index.html",
         "type": "file",
-        "md5": "a4aaa9e2deaf135d903f2ec1492c5dfa"
+        "md5": "b961c09cd149e1c9354ca2a587aa6e6e"
     },
     {
         "path": "install-and-configure-redis-on-amazon-linux-2",
@@ -997,7 +1007,7 @@
     {
         "path": "/install-and-configure-redis-on-amazon-linux-2/index.html",
         "type": "file",
-        "md5": "88614a3e1cc20d5830adfc23ad0246de"
+        "md5": "916290b3081bded31cd7ae855e9030ca"
     },
     {
         "path": "install-mariadb-105-on-amazon-linux-2",
@@ -1007,7 +1017,7 @@
     {
         "path": "/install-mariadb-105-on-amazon-linux-2/index.html",
         "type": "file",
-        "md5": "29902c0b03b9adecf76e375ee6c69b91"
+        "md5": "81296f96a93aed1427dfa30f5b4535d8"
     },
     {
         "path": "install-mongodb-community-edition-on-amazon-linux",
@@ -1017,7 +1027,7 @@
     {
         "path": "/install-mongodb-community-edition-on-amazon-linux/index.html",
         "type": "file",
-        "md5": "d5fed719132ef246ed144965ed97254c"
+        "md5": "7aab4e92181771d7ca99bc1f7a014d31"
     },
     {
         "path": "install-mysql-cluster-4-node",
@@ -1027,7 +1037,7 @@
     {
         "path": "/install-mysql-cluster-4-node/index.html",
         "type": "file",
-        "md5": "8844099fcdedc7eb55ed58f918cafcf0"
+        "md5": "00a142357f60159572643bc10d4a352c"
     },
     {
         "path": "install-nginx-on-amazon-linux-2",
@@ -1037,7 +1047,7 @@
     {
         "path": "/install-nginx-on-amazon-linux-2/index.html",
         "type": "file",
-        "md5": "cdedf42da6388c28a093e844d8f3d964"
+        "md5": "aff82b854e0290653f9f686b43f14018"
     },
     {
         "path": "laravel-horizon",
@@ -1047,7 +1057,7 @@
     {
         "path": "/laravel-horizon/index.html",
         "type": "file",
-        "md5": "151eeb92ba887125b868fa25edd9530b"
+        "md5": "59db4e01f265696417e5f5eb2222f13b"
     },
     {
         "path": "lien-he",
@@ -1057,7 +1067,7 @@
     {
         "path": "/lien-he/index.html",
         "type": "file",
-        "md5": "cb67c5beec03dfb8ac3c9beaba8d71a5"
+        "md5": "716b52f858b135709047177332e423c5"
     },
     {
         "path": "liet-ke-danh-sach-process-su-dung-nhieu-ram-nhat-bang-tophtop",
@@ -1067,7 +1077,7 @@
     {
         "path": "/liet-ke-danh-sach-process-su-dung-nhieu-ram-nhat-bang-tophtop/index.html",
         "type": "file",
-        "md5": "61ae9dce813b0fa42b41a8d06e9f4523"
+        "md5": "f683a09f7f4471a587aa26fa25b221c5"
     },
     {
         "path": "linux-25-php-security-best-practices-for-sys-admins",
@@ -1077,7 +1087,7 @@
     {
         "path": "/linux-25-php-security-best-practices-for-sys-admins/index.html",
         "type": "file",
-        "md5": "f256fabb10efbfc2341abd5272090921"
+        "md5": "001086852e0e2e45a41a8ca52d02a34d"
     },
     {
         "path": "linux-backup-and-restore",
@@ -1087,7 +1097,7 @@
     {
         "path": "/linux-backup-and-restore/index.html",
         "type": "file",
-        "md5": "9a130323bff95de128c47c6c1fe2ecd8"
+        "md5": "eaa102cd93ebd00f9d98973787b0e323"
     },
     {
         "path": "linux-server-performance-tips",
@@ -1097,7 +1107,7 @@
     {
         "path": "/linux-server-performance-tips/index.html",
         "type": "file",
-        "md5": "95be5323f01e9cd3ddb6e32a9aa6e190"
+        "md5": "c8528757cdf2838eb5058261a44a91c0"
     },
     {
         "path": "loi-khi-thay-doi-thong-so-phan-cung",
@@ -1107,7 +1117,7 @@
     {
         "path": "/loi-khi-thay-doi-thong-so-phan-cung/index.html",
         "type": "file",
-        "md5": "41c33a8d0586d677992297ac190c6758"
+        "md5": "2e0758564994090fd413795b5e28cbfc"
     },
     {
         "path": "media",
@@ -4777,7 +4787,7 @@
     {
         "path": "/mot-so-thong-so-kernel-mau/index.html",
         "type": "file",
-        "md5": "eb18c09f345c192fe13c7fc127b7eb01"
+        "md5": "1b52075979e01c2d9bc6dadbb5bf3401"
     },
     {
         "path": "mot-so-thuat-ngu-tren-aws",
@@ -4787,7 +4797,7 @@
     {
         "path": "/mot-so-thuat-ngu-tren-aws/index.html",
         "type": "file",
-        "md5": "9e23ca8223d78f273fb2b67f34a7d0af"
+        "md5": "47f6e7b54d745878d0aff4de5b4b94e3"
     },
     {
         "path": "multitail-theo-doi-nhieu-file-log-cung-luc",
@@ -4797,7 +4807,7 @@
     {
         "path": "/multitail-theo-doi-nhieu-file-log-cung-luc/index.html",
         "type": "file",
-        "md5": "e437bfaca60ad03b0e105b31e7e23fb1"
+        "md5": "d4ee0c12f1f2f041b70f9873322423e8"
     },
     {
         "path": "page",
@@ -4812,7 +4822,7 @@
     {
         "path": "/page/2/index.html",
         "type": "file",
-        "md5": "68d014591dc6d67cff961bd147c9a36f"
+        "md5": "7737a2b31b0d8643924161980351e653"
     },
     {
         "path": "page/3",
@@ -4822,7 +4832,7 @@
     {
         "path": "/page/3/index.html",
         "type": "file",
-        "md5": "e5ac5568fcb0911275aca82da0ac871e"
+        "md5": "ea3390562641cc45acf9b9b71a48579d"
     },
     {
         "path": "page/4",
@@ -4832,7 +4842,7 @@
     {
         "path": "/page/4/index.html",
         "type": "file",
-        "md5": "d2335160fb6f1c118b188a3a718516ba"
+        "md5": "0d6030a112703eb9ebc9aa5ef82ea4de"
     },
     {
         "path": "restore-the-spfile-from-the-controlfile-autobackup",
@@ -4842,7 +4852,7 @@
     {
         "path": "/restore-the-spfile-from-the-controlfile-autobackup/index.html",
         "type": "file",
-        "md5": "49121a63238a1c16b6c0fc053e0c2d34"
+        "md5": "9b6a7d0adff4f4f19542cd309d0b634e"
     },
     {
         "path": "robots.txt",
@@ -4857,7 +4867,7 @@
     {
         "path": "/storing-rman-output-in-a-logfile/index.html",
         "type": "file",
-        "md5": "9efbc14cf523c0eeb22adda8b9602a5b"
+        "md5": "d195c6e745ab076ce5f4b33dc2172cbd"
     },
     {
         "path": "su-dung-ansible-thong-qua-bastion-host",
@@ -4867,7 +4877,7 @@
     {
         "path": "/su-dung-ansible-thong-qua-bastion-host/index.html",
         "type": "file",
-        "md5": "62fdc6d1766696a172828a2e25c281da"
+        "md5": "a5e185b992ffe3b0696310ce8d430236"
     },
     {
         "path": "su-dung-vim-de-chinh-sua-noi-dung-file",
@@ -4877,7 +4887,7 @@
     {
         "path": "/su-dung-vim-de-chinh-sua-noi-dung-file/index.html",
         "type": "file",
-        "md5": "4da6f84b12096c965fde5b27a0d75a62"
+        "md5": "52fcb6c6b48997f47fc2af6bc9889804"
     },
     {
         "path": "supervisor",
@@ -4887,7 +4897,7 @@
     {
         "path": "/supervisor/index.html",
         "type": "file",
-        "md5": "d8746b850577852df15a23b0913a419d"
+        "md5": "3517ec799865e99b7d259671fd65500f"
     },
     {
         "path": "tags",
@@ -4902,7 +4912,7 @@
     {
         "path": "/tags/ansible/index.html",
         "type": "file",
-        "md5": "68a52a912cdca0dbb8e956f24233cce1"
+        "md5": "7ea001032836f3320570bd12698a3f7d"
     },
     {
         "path": "tags/aws",
@@ -4912,7 +4922,17 @@
     {
         "path": "/tags/aws/index.html",
         "type": "file",
-        "md5": "f48482ac89cfe2b2a674c87ebe5da64f"
+        "md5": "b54a9bf3b6d29d03c628f0c7c1d9dfd5"
+    },
+    {
+        "path": "tags/contact",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/tags/contact/index.html",
+        "type": "file",
+        "md5": "fd3de21da796e9f66d7378f76ea96d73"
     },
     {
         "path": "tags/db",
@@ -4922,12 +4942,12 @@
     {
         "path": "/tags/db/index.html",
         "type": "file",
-        "md5": "4c546b5ddad6af744606aefb671eab1c"
+        "md5": "e75035f2b55a0de95636f925315f7a6c"
     },
     {
         "path": "/tags/index.html",
         "type": "file",
-        "md5": "d445a41251a54c65fd4d6628253152ef"
+        "md5": "d51b9a65b28d7615d78fd52f0488c16f"
     },
     {
         "path": "tags/introduce",
@@ -4937,7 +4957,7 @@
     {
         "path": "/tags/introduce/index.html",
         "type": "file",
-        "md5": "0676a017dd27f68fa03dd13e929f875d"
+        "md5": "d0e5da8136daae96fcb4587af6d0ddf1"
     },
     {
         "path": "tags/linux",
@@ -4947,7 +4967,7 @@
     {
         "path": "/tags/linux/index.html",
         "type": "file",
-        "md5": "78ece1d52aceb8f1cd51149fe2669105"
+        "md5": "efb9f4ec8f8fabffd99c31a9fbaf1e6c"
     },
     {
         "path": "tags/oracle",
@@ -4957,7 +4977,7 @@
     {
         "path": "/tags/oracle/index.html",
         "type": "file",
-        "md5": "fe54b2099ab369fc4010ab164d52eb26"
+        "md5": "e85bd1f3d718c26685e1966b9d53ed66"
     },
     {
         "path": "tags/tip",
@@ -4967,7 +4987,7 @@
     {
         "path": "/tags/tip/index.html",
         "type": "file",
-        "md5": "a0404a7371b867b2652ee0a6e7d7fa6e"
+        "md5": "fe89952bd47fa1c0b97988187cc03750"
     },
     {
         "path": "tags/zabbix",
@@ -4977,7 +4997,7 @@
     {
         "path": "/tags/zabbix/index.html",
         "type": "file",
-        "md5": "8112ccf50cfd56759430db60dc83fbcf"
+        "md5": "b0a2e5e33c6df63be0ecf4cb7db68dd5"
     },
     {
         "path": "tags/zimbra",
@@ -4987,7 +5007,7 @@
     {
         "path": "/tags/zimbra/index.html",
         "type": "file",
-        "md5": "a753017d5ee4ccc7bc77cfb4f18e7fa0"
+        "md5": "ebb610070cd2c608973af9e579c54347"
     },
     {
         "path": "tar-ssh-backup-du-lieu-khi-khong-con-dung-luong-o-cung-trong",
@@ -4997,7 +5017,7 @@
     {
         "path": "/tar-ssh-backup-du-lieu-khi-khong-con-dung-luong-o-cung-trong/index.html",
         "type": "file",
-        "md5": "ea73032d98019bc77afb9ae47d1ebe5a"
+        "md5": "5fcdf083491e62a66e16b18f58781041"
     },
     {
         "path": "thiet-lap-canh-bao-qua-telegram",
@@ -5007,7 +5027,7 @@
     {
         "path": "/thiet-lap-canh-bao-qua-telegram/index.html",
         "type": "file",
-        "md5": "9cb1e6003fc8a56f7084905b6df4b255"
+        "md5": "a0702f47cd9f615e28a0ddfd3c20d57c"
     },
     {
         "path": "toi-da-toi-uu-wordpress-nhanh-hon-18-lan-nhu-the-nao",
@@ -5017,7 +5037,7 @@
     {
         "path": "/toi-da-toi-uu-wordpress-nhanh-hon-18-lan-nhu-the-nao/index.html",
         "type": "file",
-        "md5": "c9172b5526bc19255aa4d2308c4e68cc"
+        "md5": "80b4f1eb16b78e05f141ac9ba4371826"
     },
     {
         "path": "toi-uu-wordpress-bi-cham",
@@ -5027,7 +5047,7 @@
     {
         "path": "/toi-uu-wordpress-bi-cham/index.html",
         "type": "file",
-        "md5": "d266f9de08744c1cc4e8824ea0d4cafe"
+        "md5": "2a671867fa020a2d2ac43808a85883d9"
     },
     {
         "path": "truy-tim-nguyen-nhan-loi-error-establishing-a-database-connection-cua-wordpress",
@@ -5037,7 +5057,7 @@
     {
         "path": "/truy-tim-nguyen-nhan-loi-error-establishing-a-database-connection-cua-wordpress/index.html",
         "type": "file",
-        "md5": "7092777870d50aaa46cf47e9dd875ae7"
+        "md5": "97e5518bc2f972dcbc8d5d972d89b5c9"
     },
     {
         "path": "tuned-automatic-performance-tuning-of-centosrhel-servers",
@@ -5047,7 +5067,7 @@
     {
         "path": "/tuned-automatic-performance-tuning-of-centosrhel-servers/index.html",
         "type": "file",
-        "md5": "33cc055cda2d3f48c0c9d6e51febfbd9"
+        "md5": "12e26aa82638ef347d5670b95b8cd8c2"
     },
     {
         "path": "upgrade-zimbra-86-to-88-centos",
@@ -5057,7 +5077,7 @@
     {
         "path": "/upgrade-zimbra-86-to-88-centos/index.html",
         "type": "file",
-        "md5": "b5f60e9cf6d5577ce3e1182a9fdcb3eb"
+        "md5": "a64a0df7314cfeedf9975a5797543025"
     },
     {
         "path": "use-rman-in-noarchive",
@@ -5067,7 +5087,7 @@
     {
         "path": "/use-rman-in-noarchive/index.html",
         "type": "file",
-        "md5": "a5e1129bdc74a707fd4b68005846003f"
+        "md5": "609870bea2ee54fc80352c1a96812c1a"
     },
     {
         "path": "watch-thuc-thi-lai-va-theo-doi-output-cua-lenh-lien-tuc",
@@ -5077,7 +5097,7 @@
     {
         "path": "/watch-thuc-thi-lai-va-theo-doi-output-cua-lenh-lien-tuc/index.html",
         "type": "file",
-        "md5": "fd040f05acde87a7b4cf212833abb73e"
+        "md5": "cb49a480a6503c38704c5015d91075df"
     },
     {
         "path": "xac-dinh-ip-va-ung-dung-ngon-nhieu-bang-thong-nhat",
@@ -5087,7 +5107,7 @@
     {
         "path": "/xac-dinh-ip-va-ung-dung-ngon-nhieu-bang-thong-nhat/index.html",
         "type": "file",
-        "md5": "48326ae94670c0efba27cec5bb768dd8"
+        "md5": "bf4f2d59a888b7da9c6e1a95f94e7101"
     },
     {
         "path": "xac-dinh-tien-trinh-dang-docghi-o-cung-nhieu-nhat",
@@ -5097,6 +5117,6 @@
     {
         "path": "/xac-dinh-tien-trinh-dang-docghi-o-cung-nhieu-nhat/index.html",
         "type": "file",
-        "md5": "6550b9658b89e909fd19de4266ec5915"
+        "md5": "b00278e8ff0e6be6d17df4de9ec7ea49"
     }
 ]
