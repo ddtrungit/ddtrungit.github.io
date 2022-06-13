@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Zabbix Archives -</title>
+	<atom:link href="https://ddtrungit.github.io/linux/zabbix/feed/" rel="self" type="application/rss+xml" />
+	<link>https://ddtrungit.github.io</link>
+	<description>DUONG TRUNG</description>
+	<lastBuildDate>Thu, 28 Jan 2021 01:57:52 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.9.3</generator>
+
+<image>
+	<url>https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-32x32.png</url>
+	<title>Zabbix Archives -</title>
+	<link>https://ddtrungit.github.io</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Thiết lập cảnh báo qua telegram</title>
+		<link>https://ddtrungit.github.io/linux/zabbix/thiet-lap-canh-bao-qua-telegram/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 27 Jan 2021 08:29:12 +0000</pubDate>
+				<category><![CDATA[Zabbix]]></category>
+		<category><![CDATA[slide1]]></category>
+		<category><![CDATA[slide2]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=189</guid>
+
+					<description><![CDATA[<p>Zabbix hỗ trợ cảnh báo qua nhiều kênh khác nhau để người quản trị có&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/linux/zabbix/thiet-lap-canh-bao-qua-telegram/">Thiết lập cảnh báo qua telegram</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+	</channel>
+</rss>

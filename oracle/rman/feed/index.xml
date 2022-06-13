@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Rman Archives -</title>
+	<atom:link href="https://ddtrungit.github.io/oracle/rman/feed/" rel="self" type="application/rss+xml" />
+	<link>https://ddtrungit.github.io</link>
+	<description>DUONG TRUNG</description>
+	<lastBuildDate>Wed, 27 Jan 2021 07:20:36 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.9.3</generator>
+
+<image>
+	<url>https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-32x32.png</url>
+	<title>Rman Archives -</title>
+	<link>https://ddtrungit.github.io</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Storing RMAN output in a logfile</title>
+		<link>https://ddtrungit.github.io/oracle/rman/storing-rman-output-in-a-logfile/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 22 Jan 2021 08:52:45 +0000</pubDate>
+				<category><![CDATA[Rman]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=62</guid>
+
+					<description><![CDATA[<p>Hello, friends in this article we are going to discussed how to Storing RMAN output&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/oracle/rman/storing-rman-output-in-a-logfile/">Storing RMAN output in a logfile</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>How to check RMAN backup status and timings</title>
+		<link>https://ddtrungit.github.io/oracle/rman/how-to-check-rman-backup-status-and-timings/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 22 Jan 2021 08:52:02 +0000</pubDate>
+				<category><![CDATA[Rman]]></category>
+		<category><![CDATA[slide1]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=60</guid>
+
+					<description><![CDATA[<p>Hello friends, in this article we learn how to check RMAN backup status and timings&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/oracle/rman/how-to-check-rman-backup-status-and-timings/">How to check RMAN backup status and timings</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>How to restore archive logs from RMAN backup</title>
+		<link>https://ddtrungit.github.io/oracle/rman/how-to-restore-archive-logs-from-rman-backup/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 22 Jan 2021 08:48:41 +0000</pubDate>
+				<category><![CDATA[Rman]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=58</guid>
+
+					<description><![CDATA[<p>To restore the archive logs from&#160;RMAN&#160;backup, we need to reset the default location of archivelogs&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/oracle/rman/how-to-restore-archive-logs-from-rman-backup/">How to restore archive logs from RMAN backup</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Restore the SPFILE from the controlfile Autobackup</title>
+		<link>https://ddtrungit.github.io/oracle/rman/restore-the-spfile-from-the-controlfile-autobackup/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 22 Jan 2021 08:42:06 +0000</pubDate>
+				<category><![CDATA[Rman]]></category>
+		<category><![CDATA[slide2]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=50</guid>
+
+					<description><![CDATA[<p>If you have lost the SPFILE (server parameter file), and your Database abnormally shutdown then&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/oracle/rman/restore-the-spfile-from-the-controlfile-autobackup/">Restore the SPFILE from the controlfile Autobackup</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>How to Restore RMAN Backup with a Different Database Name</title>
+		<link>https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 22 Jan 2021 08:30:01 +0000</pubDate>
+				<category><![CDATA[Rman]]></category>
+		<category><![CDATA[backup]]></category>
+		<category><![CDATA[oracle]]></category>
+		<category><![CDATA[rman]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=35</guid>
+
+					<description><![CDATA[<p>Hello friends, in this article I’m going to demonstrate to you Restore RMAN Backup with&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/">How to Restore RMAN Backup with a Different Database Name</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+	</channel>
+</rss>

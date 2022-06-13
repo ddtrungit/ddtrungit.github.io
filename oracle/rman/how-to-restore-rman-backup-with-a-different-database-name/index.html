@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]>
+<html class="ie9" lang="vi"> <![endif]--><!--[if (gt IE 9)|!(IE)]><!--><html lang="vi">
+<!--<![endif]-->
+
+<head>
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="template" content="Tracks 1.76">
+
+	<!-- This site is optimized with the Yoast SEO plugin v18.2 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>How to Restore RMAN Backup with a Different Database Name -</title>
+	<link rel="canonical" href="https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/">
+	<meta property="og:locale" content="vi_VN">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="How to Restore RMAN Backup with a Different Database Name -">
+	<meta property="og:description" content="Hello friends, in this article I’m going to demonstrate to you Restore RMAN Backup with&#8230;">
+	<meta property="og:url" content="https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/">
+	<meta property="article:published_time" content="2021-01-22T08:30:01+00:00">
+	<meta property="article:modified_time" content="2021-01-27T07:06:11+00:00">
+	<meta property="og:image" content="https://ddtrungit.github.io/wp-content/uploads/2021/01/What-is-RMAN-Oracle.jpg">
+	<meta property="og:image:width" content="900">
+	<meta property="og:image:height" content="500">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:label1" content="Được viết bởi">
+	<meta name="twitter:data1" content="admin">
+	<meta name="twitter:label2" content="Ước tính thời gian đọc">
+	<meta name="twitter:data2" content="3 phút">
+	<script type="application/ld+json" class="yoast-schema-graph">{
+	    "@context": "https://schema.org",
+	    "@graph": [
+	        {
+	            "@type": "WebSite",
+	            "@id": "https://ddtrungit.github.io/#website",
+	            "url": "https://ddtrungit.github.io/",
+	            "name": "",
+	            "description": "DUONG TRUNG",
+	            "potentialAction": [
+	                {
+	                    "@type": "SearchAction",
+	                    "target": {
+	                        "@type": "EntryPoint",
+	                        "urlTemplate": "https://ddtrungit.github.io/?s={search_term_string}"
+	                    },
+	                    "query-input": "required name=search_term_string"
+	                }
+	            ],
+	            "inLanguage": "vi"
+	        },
+	        {
+	            "@type": "ImageObject",
+	            "@id": "https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/#primaryimage",
+	            "inLanguage": "vi",
+	            "url": "https://ddtrungit.github.io/wp-content/uploads/2021/01/What-is-RMAN-Oracle.jpg",
+	            "contentUrl": "https://ddtrungit.github.io/wp-content/uploads/2021/01/What-is-RMAN-Oracle.jpg",
+	            "width": 900,
+	            "height": 500
+	        },
+	        {
+	            "@type": "WebPage",
+	            "@id": "https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/#webpage",
+	            "url": "https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/",
+	            "name": "How to Restore RMAN Backup with a Different Database Name -",
+	            "isPartOf": {
+	                "@id": "https://ddtrungit.github.io/#website"
+	            },
+	            "primaryImageOfPage": {
+	                "@id": "https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/#primaryimage"
+	            },
+	            "datePublished": "2021-01-22T08:30:01+00:00",
+	            "dateModified": "2021-01-27T07:06:11+00:00",
+	            "author": {
+	                "@id": "https://ddtrungit.github.io/#/schema/person/2ef6acb8c14b3bb1ab9466c551d93e1e"
+	            },
+	            "breadcrumb": {
+	                "@id": "https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/#breadcrumb"
+	            },
+	            "inLanguage": "vi",
+	            "potentialAction": [
+	                {
+	                    "@type": "ReadAction",
+	                    "target": [
+	                        "https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/"
+	                    ]
+	                }
+	            ]
+	        },
+	        {
+	            "@type": "BreadcrumbList",
+	            "@id": "https://ddtrungit.github.io/oracle/rman/how-to-restore-rman-backup-with-a-different-database-name/#breadcrumb",
+	            "itemListElement": [
+	                {
+	                    "@type": "ListItem",
+	                    "position": 1,
+	                    "name": "Home",
+	                    "item": "https://ddtrungit.github.io/"
+	                },
+	                {
+	                    "@type": "ListItem",
+	                    "position": 2,
+	                    "name": "Blog",
+	                    "item": "https://ddtrungit.github.io/blog/"
+	                },
+	                {
+	                    "@type": "ListItem",
+	                    "position": 3,
+	                    "name": "How to Restore RMAN Backup with a Different Database Name"
+	                }
+	            ]
+	        },
+	        {
+	            "@type": "Person",
+	            "@id": "https://ddtrungit.github.io/#/schema/person/2ef6acb8c14b3bb1ab9466c551d93e1e",
+	            "name": "admin",
+	            "url": "https://ddtrungit.github.io/author/admin/"
+	        }
+	    ]
+	}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//s.w.org">
+<link rel="alternate" type="application/rss+xml" title="Dòng thông tin  &raquo;" href="https://ddtrungit.github.io/feed/">
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/localhost\/wp\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.9.3"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="https://ddtrungit.github.io/wp-includes/css/dist/block-library/style.min.css?ver=5.9.3" type="text/css" media="all">
+<style id="global-styles-inline-css" type="text/css">body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 21px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--regular: 16px;--wp--preset--font-size--larger: 30px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}</style>
+<link rel="stylesheet" id="rbuilder-styling-css" href="https://ddtrungit.github.io/wp-content/plugins/resume-builder/dist/main.css?ver=3.1.1" type="text/css" media="all">
+<link rel="stylesheet" id="junkie-shortcodes-css" href="https://ddtrungit.github.io/wp-content/plugins/theme-junkie-shortcodes/assets/css/junkie-shortcodes.css?ver=5.9.3" type="text/css" media="all">
+<link rel="stylesheet" id="ct-tracks-google-fonts-css" href="//fonts.googleapis.com/css?family=Raleway%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.9.3" type="text/css" media="all">
+<link rel="stylesheet" id="ct-tracks-font-awesome-css" href="https://ddtrungit.github.io/wp-content/themes/tracks/assets/font-awesome/css/all.min.css?ver=5.9.3" type="text/css" media="all">
+<link rel="stylesheet" id="ct-tracks-style-css" href="https://ddtrungit.github.io/wp-content/themes/tracks/style.css?ver=5.9.3" type="text/css" media="all">
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/jquery.min.js?ver=3.6.0" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://ddtrungit.github.io/wp-json/">
+<link rel="alternate" type="application/json" href="https://ddtrungit.github.io/wp-json/wp/v2/posts/35">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://ddtrungit.github.io/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://ddtrungit.github.io/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.9.3">
+<link rel="shortlink" href="https://ddtrungit.github.io/?p=35">
+<link rel="alternate" type="application/json+oembed" href="https://ddtrungit.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fddtrungit.github.io%2Foracle%2Frman%2Fhow-to-restore-rman-backup-with-a-different-database-name%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://ddtrungit.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fddtrungit.github.io%2Foracle%2Frman%2Fhow-to-restore-rman-backup-with-a-different-database-name%2F&#038;format=xml">
+            <link rel="alternate" media="only screen and (max-width: 640px)" href="https://ddtrungit.github.io/#article/35">
+<link rel="icon" href="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-32x32.png" sizes="32x32">
+<link rel="icon" href="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-180x180.png">
+<meta name="msapplication-TileImage" content="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-270x270.png">
+</head>
+
+<body id="tracks" class="post-template-default single single-post postid-35 single-format-standard ct-body fpt-template-tracks singular singular-post singular-post-35 not-front standard">
+		<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-dark-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0.49803921568627"></fefuncr><fefuncg type="table" tablevalues="0 0.49803921568627"></fefuncg><fefuncb type="table" tablevalues="0 0.49803921568627"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.54901960784314 0.98823529411765"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.71764705882353 0.25490196078431"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-red"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 0.27843137254902"></fefuncg><fefuncb type="table" tablevalues="0.5921568627451 0.27843137254902"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-midnight"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0"></fefuncr><fefuncg type="table" tablevalues="0 0.64705882352941"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-magenta-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.78039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.94901960784314"></fefuncg><fefuncb type="table" tablevalues="0.35294117647059 0.47058823529412"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-green"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.65098039215686 0.40392156862745"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.44705882352941 0.4"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-orange"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.098039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.66274509803922"></fefuncg><fefuncb type="table" tablevalues="0.84705882352941 0.41960784313725"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg>	<div id="overflow-container" class="overflow-container">
+		<a class="skip-content" href="#main">Skip to content</a>
+				<header id="site-header" class="site-header" role="banner">
+									<div class="container">
+				<div id="title-info" class="title-info">
+					<div id="site-title" class="site-title"><a href="https://ddtrungit.github.io"><span class="screen-reader-text"></span><img class="logo" src="https://ddtrungit.github.io/wp-content/uploads/2022/06/Background_2.png" alt=""></a></div>				</div>
+				<button id="toggle-navigation" class="toggle-navigation">
+	<i class="fas fa-bars"></i>
+</button>
+
+<div id="menu-primary-tracks" class="menu-primary-tracks"></div>
+<div id="menu-primary" class="menu-container menu-primary" role="navigation">
+
+			<p class="site-description tagline">
+			DUONG TRUNG		</p>
+	<div class="menu"><ul id="menu-primary-items" class="menu-primary-items">
+<li id="menu-item-20" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20"><a href="https://dtrungit.ga/">Trang chủ</a></li>
+<li id="menu-item-67" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-has-children menu-item-67">
+<a href="https://ddtrungit.github.io/blog/">Blog ></a>
+<ul class="sub-menu">
+	<li id="menu-item-71" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-has-children menu-item-71">
+<a href="https://ddtrungit.github.io/oracle/">Oracle ></a>
+	<ul class="sub-menu">
+		<li id="menu-item-72" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-72"><a href="https://ddtrungit.github.io/oracle/rman/">Rman</a></li>
+		<li id="menu-item-89" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-89"><a href="https://ddtrungit.github.io/oracle/errore-oracle/">Errore Oracle</a></li>
+	</ul>
+</li>
+	<li id="menu-item-73" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-73"><a href="https://ddtrungit.github.io/vsphere/">vSphere</a></li>
+	<li id="menu-item-74" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-74"><a href="https://ddtrungit.github.io/windows/">Windows</a></li>
+	<li id="menu-item-70" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-70">
+<a href="https://ddtrungit.github.io/linux/">Linux ></a>
+	<ul class="sub-menu">
+		<li id="menu-item-458" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-458"><a href="https://ddtrungit.github.io/linux/ansible/">Ansible</a></li>
+		<li id="menu-item-76" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-76">
+<a href="https://ddtrungit.github.io/linux/security/">Security ></a>
+		<ul class="sub-menu">
+			<li id="menu-item-383" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-383"><a href="https://ddtrungit.github.io/linux/security/csf/">CSF Firewall</a></li>
+		</ul>
+</li>
+		<li id="menu-item-382" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-382"><a href="https://ddtrungit.github.io/linux/zabbix/">Zabbix</a></li>
+		<li id="menu-item-183" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-183"><a href="https://ddtrungit.github.io/linux/zimbra/">Zimbra</a></li>
+	</ul>
+</li>
+	<li id="menu-item-68" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-68">
+<a href="https://ddtrungit.github.io/aws/">AWS ></a>
+	<ul class="sub-menu">
+		<li id="menu-item-444" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-444"><a href="https://ddtrungit.github.io/aws/infra-project/">Infra Project</a></li>
+	</ul>
+</li>
+	<li id="menu-item-69" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69"><a href="https://ddtrungit.github.io/ccna/">CCNA</a></li>
+</ul>
+</li>
+<li id="menu-item-387" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-387">
+<a href="https://ddtrungit.github.io/cluster/">Cluster ></a>
+<ul class="sub-menu">
+	<li id="menu-item-388" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-388"><a href="https://ddtrungit.github.io/cluster/mysql/">Mysql</a></li>
+</ul>
+</li>
+<li id="menu-item-167" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-167"><a href="https://ddtrungit.github.io/tip/">TIP</a></li>
+<li id="menu-item-21" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21"><a href="https://ddtrungit.github.io/gioi-thieu/">Giới thiệu</a></li>
+<li id="menu-item-291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-291"><a href="https://ddtrungit.github.io/contact/">LIÊN HỆ</a></li>
+<li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-rb_resume menu-item-439"><a href="https://ddtrungit.github.io/resume/d%c6%b0%c6%a1ng-%c4%91%c3%acnh-trung/">My CV</a></li>
+</ul></div>
+</div>			</div>
+		</header>
+						<div id="main" class="main" role="main">
+			
+
+	<div id="loop-container" class="loop-container">
+		<div class="post-35 post type-post status-publish format-standard has-post-thumbnail hentry category-rman tag-backup tag-oracle tag-rman entry full-without-featured odd excerpt-1">
+	<div class="featured-image" style="background-image: url(https://ddtrungit.github.io/wp-content/uploads/2021/01/What-is-RMAN-Oracle.jpg)"></div>	<div class="entry-meta">
+			<span class="date">22 Tháng Một, 2021</span>	<span> / </span>	<span class="author"><a href="https://ddtrungit.github.io/author/admin/" title="Đăng bởi admin" rel="author">admin</a></span>	<span> / </span>	<span class="category">
+	<a href="https://ddtrungit.github.io/oracle/rman/">Rman</a>	</span>	</div>
+	<div class="entry-header">
+		<h1 class="entry-title">How to Restore RMAN Backup with a Different Database Name</h1>
+	</div>
+	<div class="entry-container">
+		<div class="entry-content">
+			<article>
+								
+<p>Hello friends, in this article I’m going to demonstrate to you Restore RMAN Backup with a Different Database Name on New Server step by step guide.</p>
+
+
+
+<p></p>
+
+
+
+<h2>
+<strong>Steps</strong>&nbsp;to Clone database to different DB name use RMAN</h2>
+
+
+
+<ol>
+<li><strong>Full or Level 0 Database RMAN backup.</strong></li>
+<li><strong>Controlfile backup.</strong></li>
+<li><strong>spfile backup.</strong></li>
+<li><strong>Password file backup.</strong></li>
+</ol>
+
+
+
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<iframe title="how to restore rman backup on different server" width="500" height="281" src="https://www.youtube.com/embed/IcvAr0TPilA?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div></figure>
+
+
+
+<h3>
+<strong>Taking</strong>&nbsp;<strong>Full or Level 0 Database RMAN backup</strong>
+</h3>
+
+
+
+<p>Before taking RMAN backup need to check datafile, aduit file and controlfile path for knowledge. In my case, the all Datafiles location is:&nbsp;“<strong>/u01/app/oracle/oradata/db11g/</strong>“</p>
+
+
+
+<p><strong>Controlfile Location:</strong></p>
+
+
+
+<pre class="wp-block-code"><code>/u01/app/oracle/oradata/db11g/control01.ctl
+/u01/app/oracle/fast_recovery_area/db11g/control02.ctl
+/u01/app/oracle/control03.ctl</code></pre>
+
+
+
+<p>Audit file Location:&nbsp;“<strong>/u01/app/oracle/admin/db11g/adump/</strong>“</p>
+
+
+
+<p>Now i’m going to taking Database full Backup with controlfile and spfile using RMAN.</p>
+
+
+
+<p><strong>Before executing the backup command, must be checked control file auto backup on or not if not then configure it otherwise you need to take control file backup separately, in my case-control file auto backup is on.</strong></p>
+
+
+
+<pre class="wp-block-code"><code>RMAN&gt; backup database plus archivelog;</code></pre>
+
+
+
+<p>Once your database backup completed successfully,&nbsp;<strong>Now copy the&nbsp;</strong>above backup on New server with a password file if forget to copy the password file then you need to create a&nbsp;<strong>password manually.</strong></p>
+
+
+
+<p>The Newly configured server must have install Oracle binary. Check here how to install Oracle on Linux.</p>
+
+
+
+<h2>We have two ways to restore RMAN Backup</h2>
+
+
+
+<ol>
+<li>
+<strong>With the&nbsp;</strong>same directory structure as our production environment.</li>
+<li>You don’t want to follow the same directory structure then use&nbsp;the&nbsp;<strong>SET NEWNAME&nbsp;parameter.</strong>
+</li>
+</ol>
+
+
+
+<p>After copying the RMAN Backup we need to create few directories which are required if you want the same directory structure as your production otherwise you can ignore safely and go with the second method.</p>
+
+
+
+<p>In my case i’m going with first method.</p>
+
+
+
+<pre class="wp-block-code"><code>mkdir -p /u01/app/oracle/admin/db11g/adump/
+mkdir -p /u01/app/oracle/oradata/db11g/
+mkdir -p /u01/app/oracle/fast_recovery_area/db11g/</code></pre>
+
+
+
+<p>After creating above directories now we start the restoration steps, just follow me.</p>
+
+
+
+<p><strong>Step-1.</strong>&nbsp;Copy spfile and passwordfile on it’s real location.</p>
+
+
+
+<pre class="wp-block-code"><code>$cp /u01/backup/spfiledb11g.ora /u01/app/oracle/product/11.2.0.4/db_1/dbs/
+$cp /u01/backup/orapwdb11g /u01/app/oracle/product/11.2.0.4/db_1/dbs/</code></pre>
+
+
+
+<p>After copying above both files now create a pfile using spfile and check all directory structure, if any directory not available then create it.</p>
+
+
+
+<p><strong>Step-2.&nbsp;</strong>Now start Database at nomount stage.</p>
+
+
+
+<pre class="wp-block-code"><code>$sqlplus / as sysdba
+SQL&gt; startup nomount</code></pre>
+
+
+
+<h2>Restore Controlfile from RMAN backup</h2>
+
+
+
+<p>Now connect with RMAN and restore controlfile from controlfile Backup using following.</p>
+
+
+
+<pre class="wp-block-code"><code>$ rman target/
+
+RMAN&gt; restore controlfile from ‘/u01/backup/o1_mf_s_1013679379_glqyxx3b_.bkp’;
+
+Starting restore at 15-JUL-19
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=20 device type=DISK
+channel ORA_DISK_1: restoring control file
+channel ORA_DISK_1: restore complete, elapsed time: 00:00:03
+output file name=/u01/app/oracle/oradata/db11g/control01.ctl
+output file name=/u01/app/oracle/fast_recovery_area/db11g/control02.ctl
+output file name=/u01/app/oracle/control03.ctl
+Finished restore at 15-JUL-19</code></pre>
+
+
+
+<p>After restoration of controlfile now mount the Database</p>
+
+
+
+<pre class="wp-block-code"><code>RMAN&gt; alter database mount;
+
+database mounted
+released channel: ORA_DISK_1</code></pre>
+
+
+
+<h2>Restore Database from RMAN Backup</h2>
+
+
+
+<p><strong>Step-3.&nbsp;Now Catalog the Database Database start the restoration</strong>.</p>
+
+
+
+<pre class="wp-block-code"><code>RMAN&gt; catalog start with ‘/u01/backup/’;
+
+Do you really want to catalog the above files (enter YES or NO)? yes</code></pre>
+
+
+
+<p>After catalog, start restoration of the database.</p>
+
+
+
+<pre class="wp-block-code"><code>RMAN&gt; restore database;</code></pre>
+
+
+
+<p>Once restoration completed recover the database.</p>
+
+
+
+<p><strong>Step-4.&nbsp;Run Last Command “Recover Database”</strong></p>
+
+
+
+<pre class="wp-block-code"><code>RMAN&gt; recover database;
+
+Starting recover at 15-JUL-19
+using channel ORA_DISK_1
+
+starting media recovery
+
+unable to find archived log
+archived log thread=1 sequence=32
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 07/15/2019 17:26:11
+RMAN-06054: media recovery requesting unknown archived log for thread 1 with sequence 32 and starting SCN of 1505852</code></pre>
+
+
+
+<p>The above error is common, due to missing archive, we do not restore Archive files in this restoration. Now Exit from the RMAN prompt and connect with the SQL prompt.</p>
+
+
+
+<p><strong>Step-5.&nbsp;</strong>Connect with SQL prompt and open your database.</p>
+
+
+
+<pre class="wp-block-code"><code>$ sqlplus / as sysdba
+
+SQL&gt; alter database open;
+alter database open
+*
+ERROR at line 1:
+ORA-01589: must use RESETLOGS or NORESETLOGS option for database open</code></pre>
+
+
+
+<p><strong>After restoration we need to open database with RESETLOGS.</strong></p>
+
+
+
+<pre class="wp-block-code"><code>SQL&gt; alter database open resetlogs;</code></pre>
+
+
+
+<p><strong>Congratulation you have successfully restore Database on a Newly created server.</strong>&nbsp;Please write in comment box if you learn how to Restore RMAN Backup with a Different Database Name.</p>
+
+
+
+<p><strong>Connect with me on:</strong></p>
+
+
+
+<p><strong>Facebook:&nbsp;</strong><a href="https://www.facebook.com/duongtrung2103" target="_blank" rel="noreferrer noopener">https://www.facebook.com/duongtrung2103</a><strong><br>YouTube:</strong><a href="https://www.youtube.com/c/TrungDuongfull" target="_blank" rel="noreferrer noopener">https://www.youtube.com/c/TrungDuongfull</a></p>
+							</article>
+		</div>
+				<div class="entry-meta-bottom">
+			<nav class="further-reading">
+	<p class="prev">
+		<span>No Older Posts</span>
+		<a href="https://ddtrungit.github.io/blog/">Return to Blog</a>
+	</p>
+	<p class="next">
+		<span>Next Post</span>
+		<a href="https://ddtrungit.github.io/oracle/rman/restore-the-spfile-from-the-controlfile-autobackup/">Restore the SPFILE from the controlfile Autobackup</a>
+	</p>
+</nav>			<div class="entry-categories"><p><span>Categories</span><a href="https://ddtrungit.github.io/oracle/rman/" title="View all posts in Rman">Rman</a></p></div>			<div class="entry-tags"><p><span>Tags</span><a href="https://ddtrungit.github.io/tag/backup/" title="View all posts tagged backup">backup</a> <a href="https://ddtrungit.github.io/tag/oracle/" title="View all posts tagged oracle">oracle</a> <a href="https://ddtrungit.github.io/tag/rman/" title="View all posts tagged rman">rman</a></p></div>		</div>
+		<div class="author-meta">
+	<div class="author">
+				<span>
+			Written by:<a href="https://ddtrungit.github.io/author/admin/" title="Đăng bởi admin" rel="author">admin</a>        </span>
+	</div>
+	<div class="bio">
+		<p></p>
+			</div>
+</div>	</div>
+</div>	</div>
+
+</div> <!-- .main -->
+
+<footer id="site-footer" class="site-footer" role="contentinfo">
+	<div class="design-credit">
+		<p>
+			<a target="_blank" href="https://dtrungit.ga/" rel="nofollow">Edit By </a> by TrungDD.		</p>
+	</div>
+</footer>
+
+	<button id="return-top" class="return-top">
+		<i class="fas fa-arrow-up"></i>
+	</button>
+
+</div>
+<!-- .overflow-container -->
+
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/ui/core.min.js?ver=1.13.1" id="jquery-ui-core-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/ui/accordion.min.js?ver=1.13.1" id="jquery-ui-accordion-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/ui/tabs.min.js?ver=1.13.1" id="jquery-ui-tabs-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-content/plugins/theme-junkie-shortcodes/assets/js/junkie-shortcodes.js" id="junkie-shortcodes-js-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-content/themes/tracks/js/build/production.min.js?ver=5.9.3" id="ct-tracks-production-js"></script>
+</body>
+</html>

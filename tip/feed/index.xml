@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>TIP Archives -</title>
+	<atom:link href="https://ddtrungit.github.io/tip/feed/" rel="self" type="application/rss+xml" />
+	<link>https://ddtrungit.github.io</link>
+	<description>DUONG TRUNG</description>
+	<lastBuildDate>Mon, 17 May 2021 08:33:54 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.9.3</generator>
+
+<image>
+	<url>https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-32x32.png</url>
+	<title>TIP Archives -</title>
+	<link>https://ddtrungit.github.io</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Tuned – Automatic Performance Tuning of CentOS/RHEL Servers</title>
+		<link>https://ddtrungit.github.io/linux/tuning-of-centos-rhel-servers/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 17 May 2021 07:56:22 +0000</pubDate>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=404</guid>
+
+					<description><![CDATA[<p>https://github.com/redhat-performance/tuned &#160; service tuned status tuned-adm active tuned-adm&#160; profile network-latency latency-performance &#160; Centos6: wget http://centos-hn.viettelidc.com.vn/6.10/os/x86_64/Packages/tuned-0.2.19-18.el6.noarch.rpm&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/linux/tuning-of-centos-rhel-servers/">Tuned – Automatic Performance Tuning of CentOS/RHEL Servers</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Laravel Horizon</title>
+		<link>https://ddtrungit.github.io/tip/laravel-horizon/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 17 May 2021 07:55:09 +0000</pubDate>
+				<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=402</guid>
+
+					<description><![CDATA[<p>Laravel Horizon&#160;là một hệ thống quản lý, cấu hình Redis queues hoàn toàn mới, vô&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/tip/laravel-horizon/">Laravel Horizon</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Supervisor</title>
+		<link>https://ddtrungit.github.io/tip/supervisor/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 17 May 2021 07:53:38 +0000</pubDate>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=398</guid>
+
+					<description><![CDATA[<p>Supervisor là một công cụ giúp quản lý các process chạy trên Linux. Một số trường&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/tip/supervisor/">Supervisor</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Xác định IP và ứng dụng ngốn nhiều băng thông nhất</title>
+		<link>https://ddtrungit.github.io/linux/xac-dinh-ip-va-ung-dung-ngon-nhieu-bang-thong-nhat/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Jan 2021 04:48:19 +0000</pubDate>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=254</guid>
+
+					<description><![CDATA[<p>Muốn xác định IP hoặc ứng dụng ngốn nhiều băng thông nhất, sử dụng lệnh&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/linux/xac-dinh-ip-va-ung-dung-ngon-nhieu-bang-thong-nhat/">Xác định IP và ứng dụng ngốn nhiều băng thông nhất</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>watch – Thực thi lại và theo dõi output của lệnh liên tục</title>
+		<link>https://ddtrungit.github.io/linux/watch-thuc-thi-lai-va-theo-doi-output-cua-lenh-lien-tuc/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Jan 2021 04:28:16 +0000</pubDate>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=252</guid>
+
+					<description><![CDATA[<p>Lệnh watch sẽ thực thi lặp lại lệnh liên tục và cho phép ta theo&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/linux/watch-thuc-thi-lai-va-theo-doi-output-cua-lenh-lien-tuc/">watch – Thực thi lại và theo dõi output của lệnh liên tục</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Áp dụng watch để theo dõi MySQL Query</title>
+		<link>https://ddtrungit.github.io/tip/ap-dung-watch-de-theo-doi-mysql-query/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Jan 2021 04:20:48 +0000</pubDate>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=250</guid>
+
+					<description><![CDATA[<p>Hôm nay trong Room chat Telegram của nhóm có 1 bạn bị tình trạng process&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/tip/ap-dung-watch-de-theo-doi-mysql-query/">Áp dụng watch để theo dõi MySQL Query</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>tar + ssh: Backup dữ liệu khi không còn dung lượng ổ cứng trống</title>
+		<link>https://ddtrungit.github.io/tip/tar-ssh-backup-du-lieu-khi-khong-con-dung-luong-o-cung-trong/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Jan 2021 04:19:46 +0000</pubDate>
+				<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=248</guid>
+
+					<description><![CDATA[<p>Thông thường, quy trình backup sẽ tạo file nén chứa dữ liệu trên server cần&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/tip/tar-ssh-backup-du-lieu-khi-khong-con-dung-luong-o-cung-trong/">tar + ssh: Backup dữ liệu khi không còn dung lượng ổ cứng trống</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>multitail – theo dõi nhiều file log cùng lúc</title>
+		<link>https://ddtrungit.github.io/tip/multitail-theo-doi-nhieu-file-log-cung-luc/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Jan 2021 04:18:49 +0000</pubDate>
+				<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=246</guid>
+
+					<description><![CDATA[<p>Khi xử lý sự cố, ta thường có nhu cầu theo dõi nhiều log file&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/tip/multitail-theo-doi-nhieu-file-log-cung-luc/">multitail – theo dõi nhiều file log cùng lúc</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Sử dụng vim để chỉnh sửa nội dung file</title>
+		<link>https://ddtrungit.github.io/linux/su-dung-vim-de-chinh-sua-noi-dung-file/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Jan 2021 04:13:33 +0000</pubDate>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=242</guid>
+
+					<description><![CDATA[<p>Trước khi bắt tay vào dựng website, chúng ta cần học cách sửa nội dung&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/linux/su-dung-vim-de-chinh-sua-noi-dung-file/">Sử dụng vim để chỉnh sửa nội dung file</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Giới thiệu về LAMP, LEMP, Reverse Proxy – Mô hình hệ thống Web</title>
+		<link>https://ddtrungit.github.io/linux/gioi-thieu-ve-lamp-lemp-reverse-proxy-mo-hinh-he-thong-web/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Jan 2021 04:11:35 +0000</pubDate>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[TIP]]></category>
+		<guid isPermaLink="false">http://localhost:81/wp/?p=239</guid>
+
+					<description><![CDATA[<p>Mô hình đơn giản của một hệ thống web bao gồm: Trong đó: Client (còn&#8230;</p>
+<p>The post <a rel="nofollow" href="https://ddtrungit.github.io/linux/gioi-thieu-ve-lamp-lemp-reverse-proxy-mo-hinh-he-thong-web/">Giới thiệu về LAMP, LEMP, Reverse Proxy – Mô hình hệ thống Web</a> appeared first on <a rel="nofollow" href="https://ddtrungit.github.io"></a>.</p>
+]]></description>
+		
+		
+		
+			</item>
+	</channel>
+</rss>

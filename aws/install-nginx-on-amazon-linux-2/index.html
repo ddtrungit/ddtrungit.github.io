@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]>
+<html class="ie9" lang="vi"> <![endif]--><!--[if (gt IE 9)|!(IE)]><!--><html lang="vi">
+<!--<![endif]-->
+
+<head>
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="template" content="Tracks 1.76">
+
+	<!-- This site is optimized with the Yoast SEO plugin v18.2 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Install Nginx on Amazon Linux 2 -</title>
+	<link rel="canonical" href="https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/">
+	<meta property="og:locale" content="vi_VN">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Install Nginx on Amazon Linux 2 -">
+	<meta property="og:description" content="# Install linux update, followed by GCC and Make sudo yum -y update sudo yum&#8230;">
+	<meta property="og:url" content="https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/">
+	<meta property="article:published_time" content="2021-05-20T04:54:57+00:00">
+	<meta property="og:image" content="https://ddtrungit.github.io/wp-content/uploads/2021/01/tai-xuong-1-1.png">
+	<meta property="og:image:width" content="330">
+	<meta property="og:image:height" content="153">
+	<meta property="og:image:type" content="image/png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:label1" content="Được viết bởi">
+	<meta name="twitter:data1" content="admin">
+	<meta name="twitter:label2" content="Ước tính thời gian đọc">
+	<meta name="twitter:data2" content="10 phút">
+	<script type="application/ld+json" class="yoast-schema-graph">{
+	    "@context": "https://schema.org",
+	    "@graph": [
+	        {
+	            "@type": "WebSite",
+	            "@id": "https://ddtrungit.github.io/#website",
+	            "url": "https://ddtrungit.github.io/",
+	            "name": "",
+	            "description": "DUONG TRUNG",
+	            "potentialAction": [
+	                {
+	                    "@type": "SearchAction",
+	                    "target": {
+	                        "@type": "EntryPoint",
+	                        "urlTemplate": "https://ddtrungit.github.io/?s={search_term_string}"
+	                    },
+	                    "query-input": "required name=search_term_string"
+	                }
+	            ],
+	            "inLanguage": "vi"
+	        },
+	        {
+	            "@type": "ImageObject",
+	            "@id": "https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/#primaryimage",
+	            "inLanguage": "vi",
+	            "url": "https://ddtrungit.github.io/wp-content/uploads/2021/01/tai-xuong-1-1.png",
+	            "contentUrl": "https://ddtrungit.github.io/wp-content/uploads/2021/01/tai-xuong-1-1.png",
+	            "width": 330,
+	            "height": 153
+	        },
+	        {
+	            "@type": "WebPage",
+	            "@id": "https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/#webpage",
+	            "url": "https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/",
+	            "name": "Install Nginx on Amazon Linux 2 -",
+	            "isPartOf": {
+	                "@id": "https://ddtrungit.github.io/#website"
+	            },
+	            "primaryImageOfPage": {
+	                "@id": "https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/#primaryimage"
+	            },
+	            "datePublished": "2021-05-20T04:54:57+00:00",
+	            "dateModified": "2021-05-20T04:54:57+00:00",
+	            "author": {
+	                "@id": "https://ddtrungit.github.io/#/schema/person/2ef6acb8c14b3bb1ab9466c551d93e1e"
+	            },
+	            "breadcrumb": {
+	                "@id": "https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/#breadcrumb"
+	            },
+	            "inLanguage": "vi",
+	            "potentialAction": [
+	                {
+	                    "@type": "ReadAction",
+	                    "target": [
+	                        "https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/"
+	                    ]
+	                }
+	            ]
+	        },
+	        {
+	            "@type": "BreadcrumbList",
+	            "@id": "https://ddtrungit.github.io/aws/install-nginx-on-amazon-linux-2/#breadcrumb",
+	            "itemListElement": [
+	                {
+	                    "@type": "ListItem",
+	                    "position": 1,
+	                    "name": "Home",
+	                    "item": "https://ddtrungit.github.io/"
+	                },
+	                {
+	                    "@type": "ListItem",
+	                    "position": 2,
+	                    "name": "Blog",
+	                    "item": "https://ddtrungit.github.io/blog/"
+	                },
+	                {
+	                    "@type": "ListItem",
+	                    "position": 3,
+	                    "name": "Install Nginx on Amazon Linux 2"
+	                }
+	            ]
+	        },
+	        {
+	            "@type": "Person",
+	            "@id": "https://ddtrungit.github.io/#/schema/person/2ef6acb8c14b3bb1ab9466c551d93e1e",
+	            "name": "admin",
+	            "url": "https://ddtrungit.github.io/author/admin/"
+	        }
+	    ]
+	}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//s.w.org">
+<link rel="alternate" type="application/rss+xml" title="Dòng thông tin  &raquo;" href="https://ddtrungit.github.io/feed/">
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/localhost\/wp\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.9.3"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="https://ddtrungit.github.io/wp-includes/css/dist/block-library/style.min.css?ver=5.9.3" type="text/css" media="all">
+<style id="global-styles-inline-css" type="text/css">body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 21px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--regular: 16px;--wp--preset--font-size--larger: 30px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}</style>
+<link rel="stylesheet" id="rbuilder-styling-css" href="https://ddtrungit.github.io/wp-content/plugins/resume-builder/dist/main.css?ver=3.1.1" type="text/css" media="all">
+<link rel="stylesheet" id="junkie-shortcodes-css" href="https://ddtrungit.github.io/wp-content/plugins/theme-junkie-shortcodes/assets/css/junkie-shortcodes.css?ver=5.9.3" type="text/css" media="all">
+<link rel="stylesheet" id="ct-tracks-google-fonts-css" href="//fonts.googleapis.com/css?family=Raleway%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.9.3" type="text/css" media="all">
+<link rel="stylesheet" id="ct-tracks-font-awesome-css" href="https://ddtrungit.github.io/wp-content/themes/tracks/assets/font-awesome/css/all.min.css?ver=5.9.3" type="text/css" media="all">
+<link rel="stylesheet" id="ct-tracks-style-css" href="https://ddtrungit.github.io/wp-content/themes/tracks/style.css?ver=5.9.3" type="text/css" media="all">
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/jquery.min.js?ver=3.6.0" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://ddtrungit.github.io/wp-json/">
+<link rel="alternate" type="application/json" href="https://ddtrungit.github.io/wp-json/wp/v2/posts/411">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://ddtrungit.github.io/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://ddtrungit.github.io/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.9.3">
+<link rel="shortlink" href="https://ddtrungit.github.io/?p=411">
+<link rel="alternate" type="application/json+oembed" href="https://ddtrungit.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fddtrungit.github.io%2Faws%2Finstall-nginx-on-amazon-linux-2%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://ddtrungit.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fddtrungit.github.io%2Faws%2Finstall-nginx-on-amazon-linux-2%2F&#038;format=xml">
+            <link rel="alternate" media="only screen and (max-width: 640px)" href="https://ddtrungit.github.io/#article/411">
+<link rel="icon" href="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-32x32.png" sizes="32x32">
+<link rel="icon" href="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-180x180.png">
+<meta name="msapplication-TileImage" content="https://ddtrungit.github.io/wp-content/uploads/2021/01/cropped-2019-09-16-270x270.png">
+</head>
+
+<body id="tracks" class="post-template-default single single-post postid-411 single-format-standard ct-body fpt-template-tracks singular singular-post singular-post-411 not-front standard">
+		<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-dark-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0.49803921568627"></fefuncr><fefuncg type="table" tablevalues="0 0.49803921568627"></fefuncg><fefuncb type="table" tablevalues="0 0.49803921568627"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.54901960784314 0.98823529411765"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.71764705882353 0.25490196078431"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-red"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 0.27843137254902"></fefuncg><fefuncb type="table" tablevalues="0.5921568627451 0.27843137254902"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-midnight"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0"></fefuncr><fefuncg type="table" tablevalues="0 0.64705882352941"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-magenta-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.78039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.94901960784314"></fefuncg><fefuncb type="table" tablevalues="0.35294117647059 0.47058823529412"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-green"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.65098039215686 0.40392156862745"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.44705882352941 0.4"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-orange"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.098039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.66274509803922"></fefuncg><fefuncb type="table" tablevalues="0.84705882352941 0.41960784313725"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg>	<div id="overflow-container" class="overflow-container">
+		<a class="skip-content" href="#main">Skip to content</a>
+				<header id="site-header" class="site-header" role="banner">
+									<div class="container">
+				<div id="title-info" class="title-info">
+					<div id="site-title" class="site-title"><a href="https://ddtrungit.github.io"><span class="screen-reader-text"></span><img class="logo" src="https://ddtrungit.github.io/wp-content/uploads/2022/06/Background_2.png" alt=""></a></div>				</div>
+				<button id="toggle-navigation" class="toggle-navigation">
+	<i class="fas fa-bars"></i>
+</button>
+
+<div id="menu-primary-tracks" class="menu-primary-tracks"></div>
+<div id="menu-primary" class="menu-container menu-primary" role="navigation">
+
+			<p class="site-description tagline">
+			DUONG TRUNG		</p>
+	<div class="menu"><ul id="menu-primary-items" class="menu-primary-items">
+<li id="menu-item-20" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20"><a href="https://dtrungit.ga/">Trang chủ</a></li>
+<li id="menu-item-67" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-has-children menu-item-67">
+<a href="https://ddtrungit.github.io/blog/">Blog ></a>
+<ul class="sub-menu">
+	<li id="menu-item-71" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-71">
+<a href="https://ddtrungit.github.io/oracle/">Oracle ></a>
+	<ul class="sub-menu">
+		<li id="menu-item-72" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-72"><a href="https://ddtrungit.github.io/oracle/rman/">Rman</a></li>
+		<li id="menu-item-89" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-89"><a href="https://ddtrungit.github.io/oracle/errore-oracle/">Errore Oracle</a></li>
+	</ul>
+</li>
+	<li id="menu-item-73" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-73"><a href="https://ddtrungit.github.io/vsphere/">vSphere</a></li>
+	<li id="menu-item-74" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-74"><a href="https://ddtrungit.github.io/windows/">Windows</a></li>
+	<li id="menu-item-70" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-70">
+<a href="https://ddtrungit.github.io/linux/">Linux ></a>
+	<ul class="sub-menu">
+		<li id="menu-item-458" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-458"><a href="https://ddtrungit.github.io/linux/ansible/">Ansible</a></li>
+		<li id="menu-item-76" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-76">
+<a href="https://ddtrungit.github.io/linux/security/">Security ></a>
+		<ul class="sub-menu">
+			<li id="menu-item-383" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-383"><a href="https://ddtrungit.github.io/linux/security/csf/">CSF Firewall</a></li>
+		</ul>
+</li>
+		<li id="menu-item-382" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-382"><a href="https://ddtrungit.github.io/linux/zabbix/">Zabbix</a></li>
+		<li id="menu-item-183" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-183"><a href="https://ddtrungit.github.io/linux/zimbra/">Zimbra</a></li>
+	</ul>
+</li>
+	<li id="menu-item-68" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-68">
+<a href="https://ddtrungit.github.io/aws/">AWS ></a>
+	<ul class="sub-menu">
+		<li id="menu-item-444" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-444"><a href="https://ddtrungit.github.io/aws/infra-project/">Infra Project</a></li>
+	</ul>
+</li>
+	<li id="menu-item-69" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69"><a href="https://ddtrungit.github.io/ccna/">CCNA</a></li>
+</ul>
+</li>
+<li id="menu-item-387" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-387">
+<a href="https://ddtrungit.github.io/cluster/">Cluster ></a>
+<ul class="sub-menu">
+	<li id="menu-item-388" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-388"><a href="https://ddtrungit.github.io/cluster/mysql/">Mysql</a></li>
+</ul>
+</li>
+<li id="menu-item-167" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-167"><a href="https://ddtrungit.github.io/tip/">TIP</a></li>
+<li id="menu-item-21" class="menu-item menu-item-type-post_type menu-item-object-page current-post-parent menu-item-21"><a href="https://ddtrungit.github.io/gioi-thieu/">Giới thiệu</a></li>
+<li id="menu-item-291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-291"><a href="https://ddtrungit.github.io/contact/">LIÊN HỆ</a></li>
+<li id="menu-item-439" class="menu-item menu-item-type-post_type menu-item-object-rb_resume menu-item-439"><a href="https://ddtrungit.github.io/resume/d%c6%b0%c6%a1ng-%c4%91%c3%acnh-trung/">My CV</a></li>
+</ul></div>
+</div>			</div>
+		</header>
+						<div id="main" class="main" role="main">
+			
+
+	<div id="loop-container" class="loop-container">
+		<div class="post-411 post type-post status-publish format-standard has-post-thumbnail hentry category-aws entry full-without-featured odd excerpt-1">
+	<div class="featured-image" style="background-image: url(https://ddtrungit.github.io/wp-content/uploads/2021/01/tai-xuong-1-1.png)"></div>	<div class="entry-meta">
+			<span class="date">20 Tháng Năm, 2021</span>	<span> / </span>	<span class="author"><a href="https://ddtrungit.github.io/author/admin/" title="Đăng bởi admin" rel="author">admin</a></span>	<span> / </span>	<span class="category">
+	<a href="https://ddtrungit.github.io/aws/">AWS</a>	</span>	</div>
+	<div class="entry-header">
+		<h1 class="entry-title">Install Nginx on Amazon Linux 2</h1>
+	</div>
+	<div class="entry-container">
+		<div class="entry-content">
+			<article>
+								<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"># Install linux update, followed by GCC and Make</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum -y update</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum install -y gcc make</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"># Install Nginx and PHP-FPM</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo amazon-linux-extras install nginx</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum list php*-fpm</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum install php-fpm</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo chkconfig php-fpm on</p>
+<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo service php-fpm restart</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"># Install PHP extensions</p>
+<p>sudo yum clean metadata</p>
+<p>sudo yum install php-cli php-pdo php-fpm php-json php-mysqlnd -y</p>
+<p>sudo yum install php php-{pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,fpm,intl,zip,imap}</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo chkconfig nginx on</p>
+<p lang="vi" style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo chkconfig php-fpm on</p>
+<p lang="vi">#Edit Nginx.conf</p>
+<p lang="vi">sudo vi /etc/nginx/nginx.conf</p>
+<p style="padding-left: 80px;"><em># For more information on configuration, see:</em><br>
+<em># * Official English Documentation: http://nginx.org/en/docs/</em><br>
+<em># * Official Russian Documentation: http://nginx.org/ru/docs/</em></p>
+<p style="padding-left: 80px;"><em>user nginx;</em><br>
+<em>worker_processes auto;</em><br>
+<em>error_log /var/log/nginx/error.log;</em><br>
+<em>pid /run/nginx.pid;</em></p>
+<p style="padding-left: 80px;"><em># Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.</em><br>
+<em>include /usr/share/nginx/modules/*.conf;</em></p>
+<p style="padding-left: 80px;"><em>events {</em><br>
+<em>worker_connections 1024;</em><br>
+<em>}</em></p>
+<p style="padding-left: 80px;"><em>http {</em><br>
+<em>log_format main &#8216;$remote_addr &#8211; $remote_user [$time_local] &#8220;$request&#8221; &#8216;</em><br>
+<em>&#8216;$status $body_bytes_sent &#8220;$http_referer&#8221; &#8216;</em><br>
+<em>&#8216;&#8221;$http_user_agent&#8221; &#8220;$http_x_forwarded_for&#8221;&#8216;;</em></p>
+<p style="padding-left: 80px;"><em>access_log /var/log/nginx/access.log main;</em></p>
+<p style="padding-left: 80px;"><em>sendfile on;</em><br>
+<em>tcp_nopush on;</em><br>
+<em>tcp_nodelay on;</em><br>
+<em>keepalive_timeout 65;</em><br>
+<em>types_hash_max_size 4096;</em></p>
+<p style="padding-left: 80px;"><em>include /etc/nginx/mime.types;</em><br>
+<em>default_type application/octet-stream;</em></p>
+<p style="padding-left: 80px;"><em># Load modular configuration files from the /etc/nginx/conf.d directory.</em><br>
+<em># See http://nginx.org/en/docs/ngx_core_module.html#include</em><br>
+<em># for more information.</em><br>
+<em>include /etc/nginx/conf.d/*.conf;</em><br>
+<em>server_tokens off;</em><br>
+<em>client_max_body_size 20m;</em><br>
+<em>client_body_buffer_size 128k;</em><br>
+<em>gzip on;</em><br>
+<em>gzip_disable &#8220;msie6&#8221;;</em><br>
+<em>gzip_vary on;</em><br>
+<em>gzip_proxied any;</em><br>
+<em>gzip_comp_level 6;</em><br>
+<em>gzip_min_length 1100;</em><br>
+<em>gzip_buffers 16 8k;</em><br>
+<em>gzip_http_version 1.1;</em><br>
+<em>gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;</em><br>
+<em>open_file_cache max=2000 inactive=20s;</em><br>
+<em>open_file_cache_valid 60s;</em><br>
+<em>open_file_cache_min_uses 5;</em><br>
+<em>open_file_cache_errors off;</em><br>
+<em># DDoS Protection Settings</em><br>
+<em>large_client_header_buffers 4 256k;</em><br>
+<em>limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:20m;</em><br>
+<em>limit_req_zone $binary_remote_addr zone=req_limit_per_ip:10m rate=50r/s;</em><br>
+<em>limit_conn conn_limit_per_ip 50;</em><br>
+<em>limit_req zone=req_limit_per_ip burst=50;</em></p>
+<p style="padding-left: 80px;"><em>}</em></p>
+<p>#Edit php.conf nginx:</p>
+<p>sudo vi /etc/nginx/default.d/php.conf</p>
+<p style="padding-left: 80px;"><em># pass the PHP scripts to FastCGI server</em><br>
+<em>#</em><br>
+<em># See conf.d/php-fpm.conf for socket configuration</em><br>
+<em>#</em><br>
+<em>index index.php index.html index.htm;</em></p>
+<p style="padding-left: 80px;"><em>location ~ \.(php|phar)(/.*)?$ {</em><br>
+<em>fastcgi_split_path_info ^(.+\.(?:php|phar))(/.*)$;</em><br>
+<em>fastcgi_pass 127.0.0.1:9000;</em><br>
+<em>fastcgi_intercept_errors on;</em><br>
+<em>fastcgi_index index.php;</em><br>
+<em>include fastcgi_params;</em><br>
+<em>fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</em><br>
+<em>fastcgi_param PATH_INFO $fastcgi_path_info;</em><br>
+<em>#fastcgi_pass php-fpm;</em><br>
+<em>}</em></p>
+<p>#edit php-fpm.conf:</p>
+<p>sudo vi /etc/php-fpm.conf</p>
+<p style="padding-left: 80px;"><em>;;;;;;;;;;;;;;;;;;;;;</em><br>
+<em>; FPM Configuration ;</em><br>
+<em>;;;;;;;;;;;;;;;;;;;;;</em></p>
+<p style="padding-left: 80px;"><em>; All relative paths in this configuration file are relative to PHP&#8217;s install</em><br>
+<em>; prefix.</em></p>
+<p style="padding-left: 80px;"><em>; Include one or more files. If glob(3) exists, it is used to include a bunch of</em><br>
+<em>; files from a glob(3) pattern. This directive can be used everywhere in the</em><br>
+<em>; file.</em><br>
+<em>include=/etc/php-fpm.d/*.conf</em></p>
+<p style="padding-left: 80px;"><em>;;;;;;;;;;;;;;;;;;</em><br>
+<em>; Global Options ;</em><br>
+<em>;;;;;;;;;;;;;;;;;;</em></p>
+<p style="padding-left: 80px;"><em>[global]</em><br>
+<em>; Pid file</em><br>
+<em>; Default Value: none</em><br>
+<em>;pid = /run/php-fpm/php-fpm.pid</em></p>
+<p style="padding-left: 80px;"><em>; Error log file</em><br>
+<em>; If it&#8217;s set to &#8220;syslog&#8221;, log is sent to syslogd instead of being written</em><br>
+<em>; in a local file.</em><br>
+<em>; Default Value: /var/log/php-fpm.log</em><br>
+<em>error_log = /var/log/php-fpm/error.log</em></p>
+<p style="padding-left: 80px;"><em>; syslog_facility is used to specify what type of program is logging the</em><br>
+<em>; message. This lets syslogd specify that messages from different facilities</em><br>
+<em>; will be handled differently.</em><br>
+<em>; See syslog(3) for possible values (ex daemon equiv LOG_DAEMON)</em><br>
+<em>; Default Value: daemon</em><br>
+<em>;syslog.facility = daemon</em></p>
+<p style="padding-left: 80px;"><em>; syslog_ident is prepended to every message. If you have multiple FPM</em><br>
+<em>; instances running on the same server, you can change the default value</em><br>
+<em>; which must suit common needs.</em><br>
+<em>; Default Value: php-fpm</em><br>
+<em>;syslog.ident = php-fpm</em></p>
+<p style="padding-left: 80px;"><em>; Log level</em><br>
+<em>; Possible Values: alert, error, warning, notice, debug</em><br>
+<em>; Default Value: notice</em><br>
+<em>;log_level = notice</em></p>
+<p style="padding-left: 80px;"><em>; If this number of child processes exit with SIGSEGV or SIGBUS within the time</em><br>
+<em>; interval set by emergency_restart_interval then FPM will restart. A value</em><br>
+<em>; of &#8216;0&#8217; means &#8216;Off&#8217;.</em><br>
+<em>; Default Value: 0</em><br>
+<em>emergency_restart_threshold = 10</em></p>
+<p style="padding-left: 80px;"><em>; Interval of time used by emergency_restart_interval to determine when</em><br>
+<em>; a graceful restart will be initiated. This can be useful to work around</em><br>
+<em>; accidental corruptions in an accelerator&#8217;s shared memory.</em><br>
+<em>; Available Units: s(econds), m(inutes), h(ours), or d(ays)</em><br>
+<em>; Default Unit: seconds</em><br>
+<em>; Default Value: 0</em><br>
+<em>emergency_restart_interval = 1m</em></p>
+<p style="padding-left: 80px;"><em>; Time limit for child processes to wait for a reaction on signals from master.</em><br>
+<em>; Available units: s(econds), m(inutes), h(ours), or d(ays)</em><br>
+<em>; Default Unit: seconds</em><br>
+<em>; Default Value: 0</em><br>
+<em>process_control_timeout = 10s</em></p>
+<p style="padding-left: 80px;"><em>; The maximum number of processes FPM will fork. This has been designed to control</em><br>
+<em>; the global number of processes when using dynamic PM within a lot of pools.</em><br>
+<em>; Use it with caution.</em><br>
+<em>; Note: A value of 0 indicates no limit</em><br>
+<em>; Default Value: 0</em><br>
+<em>;process.max = 128</em></p>
+<p style="padding-left: 80px;"><em>; Specify the nice(2) priority to apply to the master process (only if set)</em><br>
+<em>; The value can vary from -19 (highest priority) to 20 (lowest priority)</em><br>
+<em>; Note: &#8211; It will only work if the FPM master process is launched as root</em><br>
+<em>; &#8211; The pool process will inherit the master process priority</em><br>
+<em>; unless specified otherwise</em><br>
+<em>; Default Value: no set</em><br>
+<em>;process.priority = -19</em></p>
+<p style="padding-left: 80px;"><em>; Send FPM to background. Set to &#8216;no&#8217; to keep FPM in foreground for debugging.</em><br>
+<em>; Default Value: yes</em><br>
+<em>daemonize = yes</em></p>
+<p style="padding-left: 80px;"><em>; Set open file descriptor rlimit for the master process.</em><br>
+<em>; Default Value: system defined value</em><br>
+<em>;rlimit_files = 1024</em></p>
+<p style="padding-left: 80px;"><em>; Set max core size rlimit for the master process.</em><br>
+<em>; Possible Values: &#8216;unlimited&#8217; or an integer greater or equal to 0</em><br>
+<em>; Default Value: system defined value</em><br>
+<em>;rlimit_core = 0</em></p>
+<p style="padding-left: 80px;"><em>; Specify the event mechanism FPM will use. The following is available:</em><br>
+<em>; &#8211; select (any POSIX os)</em><br>
+<em>; &#8211; poll (any POSIX os)</em><br>
+<em>; &#8211; epoll (linux &gt;= 2.5.44)</em><br>
+<em>; Default Value: not set (auto detection)</em><br>
+<em>;events.mechanism = epoll</em></p>
+<p style="padding-left: 80px;"><em>; When FPM is built with systemd integration, specify the interval,</em><br>
+<em>; in seconds, between health report notification to systemd.</em><br>
+<em>; Set to 0 to disable.</em><br>
+<em>; Available Units: s(econds), m(inutes), h(ours)</em><br>
+<em>; Default Unit: seconds</em><br>
+<em>; Default value: 10</em><br>
+<em>;systemd_interval = 10</em></p>
+<p style="padding-left: 80px;"><em>;;;;;;;;;;;;;;;;;;;;</em><br>
+<em>; Pool Definitions ;</em><br>
+<em>;;;;;;;;;;;;;;;;;;;;</em></p>
+<p style="padding-left: 80px;"><em>; Multiple pools of child processes may be started with different listening</em><br>
+<em>; ports and different management options. The name of the pool will be</em><br>
+<em>; used in logs and stats. There is no limitation on the number of pools which</em><br>
+<em>; FPM can handle. Your system will tell you anyway 🙂</em></p>
+<p style="padding-left: 80px;"><em>; See /etc/php-fpm.d/*.conf</em></p>
+<p>#edit www.conf:</p>
+<p>sudo vi /etc/php-fpm.d/www.conf</p>
+<p style="padding-left: 80px;"><em>; Start a new pool named &#8216;www&#8217;.</em><br>
+<em>[www]</em></p>
+<p style="padding-left: 80px;"><em>; The address on which to accept FastCGI requests.</em><br>
+<em>; Valid syntaxes are:</em><br>
+<em>; &#8216;ip.add.re.ss:port&#8217; &#8211; to listen on a TCP socket to a specific address on</em><br>
+<em>; a specific port;</em><br>
+<em>; &#8216;port&#8217; &#8211; to listen on a TCP socket to all addresses on a</em><br>
+<em>; specific port;</em><br>
+<em>; &#8216;/path/to/unix/socket&#8217; &#8211; to listen on a unix socket.</em><br>
+<em>; Note: This value is mandatory.</em><br>
+<em>listen = 127.0.0.1:9000</em></p>
+<p style="padding-left: 80px;"><em>; Set listen(2) backlog. A value of &#8216;-1&#8217; means unlimited.</em><br>
+<em>; Default Value: -1</em><br>
+<em>listen.backlog = -1</em></p>
+<p><em>; List of ipv4 addresses of FastCGI clients which are allowed to connect.</em><br>
+<em>; Equivalent to the FCGI_WEB_SERVER_ADDRS environment variable in the original</em><br>
+<em>; PHP FCGI (5.2.2+). Makes sense only with a tcp listening socket. Each address</em><br>
+<em>; must be separated by a comma. If this value is left blank, connections will be</em><br>
+<em>; accepted from any ip address.</em><br>
+<em>; Default Value: any</em><br>
+<em>listen.allowed_clients = 127.0.0.1</em></p>
+<p style="padding-left: 80px;"><em>; Set permissions for unix socket, if one is used. In Linux, read/write</em><br>
+<em>; permissions must be set in order to allow connections from a web server. Many</em><br>
+<em>; BSD-derived systems allow connections regardless of permissions. </em><br>
+<em>; Default Values: user and group are set as the running user</em><br>
+<em>; mode is set to 0666</em><br>
+<em>;nobody</em><br>
+<em>listen.owner = nginx</em><br>
+<em>listen.group = nginx</em><br>
+<em>;0666</em><br>
+<em>listen.mode = 0664</em></p>
+<p style="padding-left: 80px;"><em>; Unix user/group of processes</em><br>
+<em>; Note: The user is mandatory. If the group is not set, the default user&#8217;s group</em><br>
+<em>; will be used.</em><br>
+<em>; RPM: apache Choosed to be able to access some dir as httpd</em><br>
+<em>;apache</em><br>
+<em>user = nginx</em><br>
+<em>; RPM: Keep a group allowed to write in log dir.</em><br>
+<em>;nginx</em><br>
+<em>group = nginx</em></p>
+<p style="padding-left: 80px;"><em>; Choose how the process manager will control the number of child processes.</em><br>
+<em>; Possible Values:</em><br>
+<em>; static &#8211; a fixed number (pm.max_children) of child processes;</em><br>
+<em>; dynamic &#8211; the number of child processes are set dynamically based on the</em><br>
+<em>; following directives:</em><br>
+<em>; pm.max_children &#8211; the maximum number of children that can</em><br>
+<em>; be alive at the same time.</em><br>
+<em>; pm.start_servers &#8211; the number of children created on startup.</em><br>
+<em>; pm.min_spare_servers &#8211; the minimum number of children in &#8216;idle&#8217;</em><br>
+<em>; state (waiting to process). If the number</em><br>
+<em>; of &#8216;idle&#8217; processes is less than this</em><br>
+<em>; number then some children will be created.</em><br>
+<em>; pm.max_spare_servers &#8211; the maximum number of children in &#8216;idle&#8217;</em><br>
+<em>; state (waiting to process). If the number</em><br>
+<em>; of &#8216;idle&#8217; processes is greater than this</em><br>
+<em>; number then some children will be killed.</em><br>
+<em>; Note: This value is mandatory.</em><br>
+<em>pm = dynamic</em></p>
+<p style="padding-left: 80px;"><em>; The number of child processes to be created when pm is set to &#8216;static&#8217; and the</em><br>
+<em>; maximum number of child processes to be created when pm is set to &#8216;dynamic&#8217;.</em><br>
+<em>; This value sets the limit on the number of simultaneous requests that will be</em><br>
+<em>; served. Equivalent to the ApacheMaxClients directive with mpm_prefork.</em><br>
+<em>; Equivalent to the PHP_FCGI_CHILDREN environment variable in the original PHP</em><br>
+<em>; CGI.</em><br>
+<em>; Note: Used when pm is set to either &#8216;static&#8217; or &#8216;dynamic&#8217;</em><br>
+<em>; Note: This value is mandatory.</em><br>
+<em>pm.max_children = 50</em></p>
+<p style="padding-left: 80px;"><em>; The number of child processes created on startup.</em><br>
+<em>; Note: Used only when pm is set to &#8216;dynamic&#8217;</em><br>
+<em>; Default Value: min_spare_servers + (max_spare_servers &#8211; min_spare_servers) / 2</em><br>
+<em>pm.start_servers = 5</em></p>
+<p style="padding-left: 80px;"><em>; The desired minimum number of idle server processes.</em><br>
+<em>; Note: Used only when pm is set to &#8216;dynamic&#8217;</em><br>
+<em>; Note: Mandatory when pm is set to &#8216;dynamic&#8217;</em><br>
+<em>pm.min_spare_servers = 5</em></p>
+<p style="padding-left: 80px;"><em>; The desired maximum number of idle server processes.</em><br>
+<em>; Note: Used only when pm is set to &#8216;dynamic&#8217;</em><br>
+<em>; Note: Mandatory when pm is set to &#8216;dynamic&#8217;</em><br>
+<em>pm.max_spare_servers = 35</em></p>
+<p><em>; The number of requests each child process should execute before respawning.</em><br>
+<em>; This can be useful to work around memory leaks in 3rd party libraries. For</em><br>
+<em>; endless request processing specify &#8216;0&#8217;. Equivalent to PHP_FCGI_MAX_REQUESTS.</em><br>
+<em>; Default Value: 0</em><br>
+<em>pm.max_requests = 200</em></p>
+<p style="padding-left: 80px;"><em>; The URI to view the FPM status page. If this value is not set, no URI will be</em><br>
+<em>; recognized as a status page. By default, the status page shows the following</em><br>
+<em>; information:</em><br>
+<em>; accepted conn &#8211; the number of request accepted by the pool;</em><br>
+<em>; pool &#8211; the name of the pool;</em><br>
+<em>; process manager &#8211; static or dynamic;</em><br>
+<em>; idle processes &#8211; the number of idle processes;</em><br>
+<em>; active processes &#8211; the number of active processes;</em><br>
+<em>; total processes &#8211; the number of idle + active processes.</em><br>
+<em>; The values of &#8216;idle processes&#8217;, &#8216;active processes&#8217; and &#8216;total processes&#8217; are</em><br>
+<em>; updated each second. The value of &#8216;accepted conn&#8217; is updated in real time.</em><br>
+<em>; Example output:</em><br>
+<em>; accepted conn: 12073</em><br>
+<em>; pool: www</em><br>
+<em>; process manager: static</em><br>
+<em>; idle processes: 35</em><br>
+<em>; active processes: 65</em><br>
+<em>; total processes: 100</em><br>
+<em>; By default the status page output is formatted as text/plain. Passing either</em><br>
+<em>; &#8216;html&#8217; or &#8216;json&#8217; as a query string will return the corresponding output</em><br>
+<em>; syntax. Example:</em><br>
+<em>; http://www.foo.bar/status</em><br>
+<em>; http://www.foo.bar/status?json</em><br>
+<em>; http://www.foo.bar/status?html</em><br>
+<em>; Note: The value must start with a leading slash (/). The value can be</em><br>
+<em>; anything, but it may not be a good idea to use the .php extension or it</em><br>
+<em>; may conflict with a real PHP file.</em><br>
+<em>; Default Value: not set </em><br>
+<em>pm.status_path = /status</em></p>
+<p><em>; The ping URI to call the monitoring page of FPM. If this value is not set, no</em><br>
+<em>; URI will be recognized as a ping page. This could be used to test from outside</em><br>
+<em>; that FPM is alive and responding, or to</em><br>
+<em>; &#8211; create a graph of FPM availability (rrd or such);</em><br>
+<em>; &#8211; remove a server from a group if it is not responding (load balancing);</em><br>
+<em>; &#8211; trigger alerts for the operating team (24/7).</em><br>
+<em>; Note: The value must start with a leading slash (/). The value can be</em><br>
+<em>; anything, but it may not be a good idea to use the .php extension or it</em><br>
+<em>; may conflict with a real PHP file.</em><br>
+<em>; Default Value: not set</em><br>
+<em>;ping.path = /ping</em></p>
+<p style="padding-left: 80px;"><em>; This directive may be used to customize the response of a ping request. The</em><br>
+<em>; response is formatted as text/plain with a 200 response code.</em><br>
+<em>; Default Value: pong</em><br>
+<em>;ping.response = pong</em></p>
+<p><em>; The timeout for serving a single request after which the worker process will</em><br>
+<em>; be killed. This option should be used when the &#8216;max_execution_time&#8217; ini option</em><br>
+<em>; does not stop script execution for some reason. A value of &#8216;0&#8217; means &#8216;off&#8217;.</em><br>
+<em>; Available units: s(econds)(default), m(inutes), h(ours), or d(ays)</em><br>
+<em>; Default Value: 0</em><br>
+<em>request_terminate_timeout = 60s</em></p>
+<p><em>; The timeout for serving a single request after which a PHP backtrace will be</em><br>
+<em>; dumped to the &#8216;slowlog&#8217; file. A value of &#8216;0s&#8217; means &#8216;off&#8217;.</em><br>
+<em>; Available units: s(econds)(default), m(inutes), h(ours), or d(ays)</em><br>
+<em>; Default Value: 0</em><br>
+<em>;request_slowlog_timeout = 0</em></p>
+<p><em>; The log file for slow requests</em><br>
+<em>; Default Value: not set</em><br>
+<em>; Note: slowlog is mandatory if request_slowlog_timeout is set</em><br>
+<em>slowlog = /var/log/php-fpm/www-slow.log</em></p>
+<p><em>; Set open file descriptor rlimit.</em><br>
+<em>; Default Value: system defined value</em><br>
+<em>rlimit_files = 131072</em></p>
+<p><em>; Set max core size rlimit.</em><br>
+<em>; Possible Values: &#8216;unlimited&#8217; or an integer greater or equal to 0</em><br>
+<em>; Default Value: system defined value</em><br>
+<em>rlimit_core = unlimited</em></p>
+<p><em>; Chroot to this directory at the start. This value must be defined as an</em><br>
+<em>; absolute path. When this value is not set, chroot is not used.</em><br>
+<em>; Note: chrooting is a great security feature and should be used whenever </em><br>
+<em>; possible. However, all PHP paths will be relative to the chroot</em><br>
+<em>; (error_log, sessions.save_path, &#8230;).</em><br>
+<em>; Default Value: not set</em><br>
+<em>;chroot = </em></p>
+<p><em>; Chdir to this directory at the start. This value must be an absolute path.</em><br>
+<em>; Default Value: current directory or / when chroot</em><br>
+<em>;chdir = /var/www</em></p>
+<p><em>; Redirect worker stdout and stderr into main error log. If not set, stdout and</em><br>
+<em>; stderr will be redirected to /dev/null according to FastCGI specs.</em><br>
+<em>; Default Value: no</em><br>
+<em>catch_workers_output = yes</em></p>
+<p><em>; Limits the extensions of the main script FPM will allow to parse. This can</em><br>
+<em>; prevent configuration mistakes on the web server side. You should only limit</em><br>
+<em>; FPM to .php extensions to prevent malicious users to use other extensions to</em><br>
+<em>; exectute php code.</em><br>
+<em>; Note: set an empty value to allow all extensions.</em><br>
+<em>; Default Value: .php</em><br>
+<em>;security.limit_extensions = .php .php3 .php4 .php5</em></p>
+<p style="padding-left: 80px;"><em>; Pass environment variables like LD_LIBRARY_PATH. All $VARIABLEs are taken from</em><br>
+<em>; the current environment.</em><br>
+<em>; Default Value: clean env</em><br>
+<em>env[HOSTNAME] = $HOSTNAME</em><br>
+<em>;env[PATH] = /usr/local/bin:/usr/bin:/bin</em><br>
+<em>env[TMP] = /tmp</em><br>
+<em>env[TMPDIR] = /tmp</em><br>
+<em>env[TEMP] = /tmp</em></p>
+<p style="padding-left: 80px;"><em>; Additional php.ini defines, specific to this pool of workers. These settings</em><br>
+<em>; overwrite the values previously defined in the php.ini. The directives are the</em><br>
+<em>; same as the PHP SAPI:</em><br>
+<em>; php_value/php_flag &#8211; you can set classic ini defines which can</em><br>
+<em>; be overwritten from PHP call &#8216;ini_set&#8217;. </em><br>
+<em>; php_admin_value/php_admin_flag &#8211; these directives won&#8217;t be overwritten by</em><br>
+<em>; PHP call &#8216;ini_set&#8217;</em><br>
+<em>; For php_*flag, valid values are on, off, 1, 0, true, false, yes or no.</em></p>
+<p style="padding-left: 80px;"><em>; Defining &#8216;extension&#8217; will load the corresponding shared extension from</em><br>
+<em>; extension_dir. Defining &#8216;disable_functions&#8217; or &#8216;disable_classes&#8217; will not</em><br>
+<em>; overwrite previously defined php.ini values, but will append the new value</em><br>
+<em>; instead.</em></p>
+<p style="padding-left: 80px;"><em>; Default Value: nothing is defined by default except the values in php.ini and</em><br>
+<em>; specified at startup with the -d argument</em><br>
+<em>;php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f www@my.domain.com</em><br>
+<em>;php_flag[display_errors] = off</em><br>
+<em>php_admin_value[error_log] = /var/log/php-fpm/www-error.log</em><br>
+<em>php_admin_flag[log_errors] = on</em><br>
+<em>;php_admin_value[memory_limit] = 128M</em></p>
+<p style="padding-left: 80px;"><em>; Set session path to a directory owned by process user</em><br>
+<em>php_value[session.save_handler] = files</em><br>
+<em>php_value[session.save_path] = /var/lib/php/session</em></p>
+<p>sudo systemctl restart php-fpm</p>
+<p>sudo nginx -t</p>
+<p>sudo systemctl restart nginx</p>
+							</article>
+		</div>
+				<div class="entry-meta-bottom">
+			<nav class="further-reading">
+	<p class="prev">
+		<span>Previous Post</span>
+		<a href="https://ddtrungit.github.io/oracle/mot-so-thong-so-kernel-mau/">Một số thông số kernel mẫu</a>
+	</p>
+	<p class="next">
+		<span>Next Post</span>
+		<a href="https://ddtrungit.github.io/aws/install-mariadb-10-5-on-amazon-linux-2/">Install MariaDB 10.5 on Amazon Linux 2</a>
+	</p>
+</nav>			<div class="entry-categories"><p><span>Categories</span><a href="https://ddtrungit.github.io/aws/" title="View all posts in AWS">AWS</a></p></div>					</div>
+		<div class="author-meta">
+	<div class="author">
+				<span>
+			Written by:<a href="https://ddtrungit.github.io/author/admin/" title="Đăng bởi admin" rel="author">admin</a>        </span>
+	</div>
+	<div class="bio">
+		<p></p>
+			</div>
+</div>	</div>
+</div>	</div>
+
+</div> <!-- .main -->
+
+<footer id="site-footer" class="site-footer" role="contentinfo">
+	<div class="design-credit">
+		<p>
+			<a target="_blank" href="https://dtrungit.ga/" rel="nofollow">Edit By </a> by TrungDD.		</p>
+	</div>
+</footer>
+
+	<button id="return-top" class="return-top">
+		<i class="fas fa-arrow-up"></i>
+	</button>
+
+</div>
+<!-- .overflow-container -->
+
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/ui/core.min.js?ver=1.13.1" id="jquery-ui-core-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/ui/accordion.min.js?ver=1.13.1" id="jquery-ui-accordion-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-includes/js/jquery/ui/tabs.min.js?ver=1.13.1" id="jquery-ui-tabs-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-content/plugins/theme-junkie-shortcodes/assets/js/junkie-shortcodes.js" id="junkie-shortcodes-js-js"></script>
+<script type="text/javascript" src="https://ddtrungit.github.io/wp-content/themes/tracks/js/build/production.min.js?ver=5.9.3" id="ct-tracks-production-js"></script>
+</body>
+</html>
