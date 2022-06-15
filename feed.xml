@@ -3,12 +3,96 @@
     <title>TRUNG DUONG</title>
     <link href="https://ddtrungit.github.io/feed.xml" rel="self" />
     <link href="https://ddtrungit.github.io" />
-    <updated>2022-06-13T15:31:41+07:00</updated>
+    <updated>2022-06-15T14:55:52+07:00</updated>
     <author>
         <name>Duong Dinh Trung</name>
     </author>
     <id>https://ddtrungit.github.io</id>
 
+    <entry>
+        <title>[Kubernetes] Phần 1: Tổng quan</title>
+        <author>
+            <name>Duong Dinh Trung</name>
+        </author>
+        <link href="https://ddtrungit.github.io/kubernetes-phan-1-tong-quan/index.html"/>
+        <id>https://ddtrungit.github.io/kubernetes-phan-1-tong-quan/index.html</id>
+            <category term="K8s"/>
+
+        <updated>2022-06-15T14:55:52+07:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://ddtrungit.github.io/media/posts/115/k8s.png" alt="" />
+                    Kubernetes là một nền tảng nguồn mở, có thể mở rộng, phát triển với mục tiêu quản lý các ứng&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <img src="https://ddtrungit.github.io/media/posts/115/k8s.png" alt="" />
+                <p>Kubernetes là một nền tảng nguồn mở, có thể mở rộng, phát triển với mục tiêu quản lý các ứng dụng được đóng gói thành container. Kubernetes được xếp vào một trong các orchestration tools nằm trong hệ sinh thái của container hoặc còn gọi là container orchestration system.</p>
+<p><span id="more-437"></span></p>
+<p>Với k8s, chúng ta có thể triển khai, mở rộng, quản lý các ứng dụng hỗ trợ container dễ dàng, tự động. Các đối tượng thuộc k8s được trừ tượng hóa để dễ dàng quản trị, và toàn bộ thao tác quản lý đều thao tác qua Kubernetes API.</p>
+<p>Tên gọi Kubernetes có nguồn gốc từ tiếng Hy Lạp, có ý nghĩa là người lái tàu hoặc hoa tiêu. Google mở mã nguồn Kubernetes từ năm 2014. Kubernetes xây dựng dựa trên một thập kỷ rưỡi kinh nghiệm mà Google có được với việc vận hành một khối lượng lớn workload trong thực tế, kết hợp với các ý tưởng và thực tiễn tốt nhất từ cộng đồng.</p>
+<p>Kubernetes có thể được triển khai trên một hoặc nhiều máy vật lý, máy ảo hoặc cả máy vật lý và máy ảo để tạo thành Kubernetes cluster.</p>
+<h1>1. Kiến trúc</h1>
+<p>Kiến trúc Kubernetes cluster khá đơn giản, người dùng không bao giờ thao tác trực tiếp với Node, toàn bộ hoạt động quản trị sẽ thao tác với <code>control plane</code> bằng API.</p>
+<p>Kiến trúc Kubernetes cluster bao gồm 02 thành phần chính:</p>
+<ul>
+<li>Node (Woker Node)</li>
+<li>Control plane (Master Node)</li>
+</ul>
+<figure class="wp-block-image size-full"><figure class="wp-image-438"><img loading="lazy"  src="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1.png" data-is-external-image="true"  sizes="(max-width: 620px) 100vw, 620px" srcset="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1.png 620w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-300x176.png 300w" alt="" width="620" height="363" loading="lazy"></figure></figure>
+<h2>Node – Worker Node</h2>
+<p>Node – Worker Node có vai trò làm môi trường chạy các container ứng dụng người dùng.</p>
+<p>Yêu cầu 3 thành cơ bản:</p>
+<ul>
+<li><code>Container runtime</code>: Môi trường chạy Container, công nghệ thường thấy nhất là Docker</li>
+<li><code>kubelet</code>: Nhận lệnh từ control plane (Master Node), để tạo mới, thao tác tắt bật các Container ứng dụng theo yêu cầu người dùng</li>
+<li><code>kube-proxy</code>: Cho phép người dùng truy cập vào các ứng dụng đang chạy trong Kubernetes Cluster (trong môi trường Container)</li>
+</ul>
+<h2>Control plane – Master Node</h2>
+<p>Control plane – Master Node đóng vai trò là thành phần điều khiển toàn bộ các hoạt động chung và kiểm soát các container trên node worker.</p>
+<p>Các thành phần chính trên master node bao gồm:</p>
+<ul>
+<li><code>API-server (kube-apiserver)</code>
+<ul>
+<li>Thành phần tiếp nhận yêu cầu người dùng hoặc ứng dụng khác</li>
+<li>Sử dụng khi người dùng hoặc ứng dụng khác muốn ra chị thị đối với Kubernetes Cluster</li>
+<li>Thao tác thông qua API REST</li>
+<li>Hoạt động trên port 6443 (HTTPS) và 8080 (HTTP).</li>
+<li>Nằm tại node Master.</li>
+</ul>
+</li>
+<li><code>Controller manager (kube-controller-manager)</code>
+<ul>
+<li>Thành quản quản lý Kubernetes Cluster</li>
+<li>Xử lý các yêu cầu người dùng hoặc ứng dụng khác, bảo đảm các tiến trình, service chạy trong Kubernetes chạy chính xác</li>
+<li>Sử dụng Port 10252</li>
+</ul>
+</li>
+<li><code>Schedule (kube-scheduler)</code>
+<ul>
+<li>Điều phối các Pods tới các Woker Node</li>
+<li>Sử dụng Port 10251</li>
+</ul>
+</li>
+<li><code>Etcd</code>:
+<ul>
+<li>Database phân tán, sử dụng ghi dữ liệu theo cơ chế key/value trong K8S cluster.</li>
+<li>Etcd được cài trên node master và lưu tất cả các thông tin trong Cluser.</li>
+<li>Etcd sử dụng port 2380 để listening từng request và port 2379 để client gửi request tới.</li>
+</ul>
+</li>
+</ul>
+<h1>2. Kiến trúc tổng quan</h1>
+<figure class="wp-block-image size-large"><figure class="wp-image-439"><img loading="lazy"  src="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-1024x575.png" data-is-external-image="true"  sizes="(max-width: 1024px) 100vw, 1024px" srcset="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-1024x575.png 1024w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-300x168.png 300w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-768x431.png 768w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-816x458.png 816w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2.png 1418w" alt="" width="1024" height="575" loading="lazy"></figure></figure>
+<h1>Tham khảo</h1>
+<p><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/1-introduction-k8s.md">https://github.com/lacoski/kubernetes-note/blob/main/docs/1-introduction-k8s.md</a></p>
+<p><a href="https://kubernetes.io/vi/docs/concepts/overview/what-is-kubernetes/">https://kubernetes.io/vi/docs/concepts/overview/what-is-kubernetes/</a></p>
+<p><a href="https://www.mirantis.com/blog/introduction-to-kubernetes/">https://www.mirantis.com/blog/introduction-to-kubernetes/</a></p>
+<p><a href="https://github.com/hocchudong/ghichep-kubernetes/blob/master/docs/kubernetes-5min/03.Kientrucvacacthanhphan.md">https://github.com/hocchudong/ghichep-kubernetes/blob/master/docs/kubernetes-5min/03.Kientrucvacacthanhphan.md</a></p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Tải khóa học Hacker mũ trắng – Masters In Ethical Hacking</title>
         <author>
@@ -1429,153 +1513,6 @@ $ drill myip.opendns.com @resolver1.opendns.com</code></p>
 <p style="margin: 0in; font-family: 'Courier New'; font-size: 12.0pt; color: black;"><span style="font-style: italic; background: #F9F9F9;">db.auth('admin', 'admin123')</span></p>
 <p style="margin: 0in; font-family: Tahoma; font-size: 10.5pt; color: #474b51;"><span style="background: white;">Now you can see the users with their roles and the privileges.</span></p>
 <p style="margin-top: 7pt; margin-bottom: 7pt; font-family: 'Courier New'; font-size: 12.0pt; color: black;"> </p>
-</div>
-</div>
-</div>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Install MongoDB Community Edition on Amazon Linux</title>
-        <author>
-            <name>Duong Dinh Trung</name>
-        </author>
-        <link href="https://ddtrungit.github.io/install-mongodb-community-edition-on-amazon-linux/index.html"/>
-        <id>https://ddtrungit.github.io/install-mongodb-community-edition-on-amazon-linux/index.html</id>
-            <category term="Linux"/>
-
-        <updated>2022-06-13T14:25:49+07:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/105/images.png" alt="" />
-                    https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/ Configure the package management system (yum). Create a /etc/yum.repos.d/mongodb-org-4.4.repo file so that you can install MongoDB directly using yum: [mongodb-org-4.4] name=MongoDB Repository&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/105/images.png" alt="" />
-                <div style="direction: ltr; border-width: 100%;">
-<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 7.6791in;">
-<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 7.6791in;">
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/</a></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt;"><span style="font-weight: bold; font-family: Akzidenz; font-size: 13.5pt; color: #313030;">Configure the package management system (</span><span style="font-weight: bold; font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">yum</span><span style="font-weight: bold; font-family: Akzidenz; font-size: 13.5pt; color: #313030;">).</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">Create a </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">/etc/yum.repos.d/mongodb-org-4.4.repo</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;"> file so that you can install MongoDB directly using </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">yum</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">:</span></p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"> </p>
-<div style="direction: ltr;">
-<table style="direction: ltr; border-collapse: collapse; border: 0pt solid #A3A3A3;" title="" border="0" summary="" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">[mongodb-org-4.4]</p>
-</td>
-</tr>
-<tr>
-<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">name=MongoDB Repository</p>
-</td>
-</tr>
-<tr>
-<td style="border-width: 0pt; vertical-align: top; width: 5.1715in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.4/x86_64/</p>
-</td>
-</tr>
-<tr>
-<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">gpgcheck=1</p>
-</td>
-</tr>
-<tr>
-<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">enabled=1</p>
-</td>
-</tr>
-<tr>
-<td style="border-width: 0pt; vertical-align: top; width: 5.102in; padding: 2.0pt 3.0pt 2.0pt 3.0pt;">
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc</p>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">You can also download the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">.rpm</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;"> files directly from the </span><a href="https://repo.mongodb.org/yum/amazon/"><span style="font-family: Akzidenz; font-size: 12.0pt;">MongoDB repository</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">. Downloads are organized by Amazon Linux version (e.g. </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">2</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">), then MongoDB </span><a href="https://docs.mongodb.com/manual/reference/versioning/"><span style="font-family: Akzidenz; font-size: 12.0pt;">release version</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;"> (e.g. </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">4.4</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">), then architecture (e.g. </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">x86_64</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">). Odd-numbered MongoDB release versions, such as </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">4.3</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747;">, are development versions and are unsuitable for production deployment.</span></p>
-<p style="margin: 0in; font-family: Akzidenz; font-size: 12.0pt; color: #979797;"><span style="font-weight: bold;">2</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 13.5pt; color: #313030;"><span style="font-weight: bold;">Install the MongoDB packages.</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #494747;">To install the latest stable version of MongoDB, issue the following command:</p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo yum install -y mongodb-org</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Akzidenz; font-size: 18.0pt; color: #313030;"><span style="background: white;">Run MongoDB Community Edition</span></p>
-<p style="margin: 0in; margin-left: .375in; font-family: Akzidenz; font-size: 12.0pt; color: #494747;"><span style="font-weight: bold; background: white;">ulimit Considerations</span></p>
-<p style="margin-left: .75in; margin-top: 2pt; margin-bottom: 7pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">Most Unix-like operating systems limit the system resources that a process may use. These limits may negatively impact MongoDB operation, and should be adjusted. See </span><a href="https://docs.mongodb.com/manual/reference/ulimit/"><span style="font-family: Akzidenz; font-size: 12.0pt; background: white;">UNIX </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; background: white;">ulimit</span><span style="font-family: Akzidenz; font-size: 12.0pt; background: white;"> Settings</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> for the recommended settings for your platform.</span></p>
-<p style="margin: 0in; margin-left: .75in; line-height: 12pt; font-family: Akzidenz; font-size: 9.0pt; color: #1a567e;"><span style="font-weight: bold; background: white;">NOTE</span></p>
-<p style="margin: 0in; margin-left: .75in; line-height: 18pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #0d324f; background: white;">Starting in MongoDB 4.4, a startup error is generated if the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">ulimit</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #0d324f; background: white;"> value for number of open files is under </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">64000</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #0d324f; background: white;">.</span></p>
-<p style="margin: 0in; margin-left: .375in; font-family: Akzidenz; font-size: 12.0pt; color: #494747;"><span style="font-weight: bold; background: white;">Directories</span></p>
-<p style="margin-left: .75in; margin-top: 2pt; margin-bottom: 7pt; font-family: Akzidenz; font-size: 12.0pt; color: #494747;"><span style="background: white;">By default, MongoDB instance stores:</span></p>
-<ul style="margin-left: 1.125in; direction: ltr; unicode-bidi: embed; margin-top: 0in; margin-bottom: 0in;" type="disc">
-<li style="margin-top: 0; margin-bottom: 0; vertical-align: middle; color: #494747;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">its data files in </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/lib/mongo</span></li>
-<li style="margin-top: 0; margin-bottom: 0; vertical-align: middle; color: #494747;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">its log files in </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/log/mongodb</span></li>
-</ul>
-<p style="margin-left: .75in; margin-top: 2pt; margin-bottom: 7pt;"><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">If you installed via the package manager, these default directories are created during the installation.If you installed manually by downloading the tarballs, you can create the directories using </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">mkdir -p &lt;directory&gt;</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> or </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">sudo mkdir -p &lt;directory&gt;</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> depending on the user that will run MongoDB. (See your linux man pages for information on </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">mkdir</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> and </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">sudo</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">.)By default, MongoDB runs using the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">mongod</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> user account. If you change the user that runs the MongoDB process, you </span><span style="font-weight: bold; font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">must</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> also modify the permission to the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/lib/mongo</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> and </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/var/log/mongodb</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> directories to give this user access to these directories.To specify a different log file directory and data file directory, edit the </span><a href="https://docs.mongodb.com/manual/reference/configuration-options/#mongodb-setting-systemLog.path"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; background: white;">systemLog.path</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> and </span><a href="https://docs.mongodb.com/manual/reference/configuration-options/#mongodb-setting-storage.dbPath"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; background: white;">storage.dbPath</span></a><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;"> settings in the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt; color: black; background: white;">/etc/mongod.conf</span><span style="font-family: Akzidenz; font-size: 12.0pt; color: #494747; background: white;">. Ensure that the user running MongoDB has access to these directories.</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 13.5pt; color: #313030;"><span style="font-weight: bold;">Procedure</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">Follow these steps to run MongoDB Community Edition. These instructions assume that you are using the default settings.</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Start MongoDB.</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can start the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process by issuing the following command:</span></p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl start mongod</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">If you receive an error similar to the following when starting </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;">:</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: 'Source Code Pro'; font-size: 10.0pt; color: black;">Failed to start mongod.service: Unit mongod.service not found.</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">Run the following command first:</p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl daemon-reload</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">Then run the start command above again.</p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">2</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Verify that MongoDB has started successfully.</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can verify that the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process has started successfully by issuing the following command:</span></p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl status mongod</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">You can optionally ensure that MongoDB will start following a system reboot by issuing the following command:</p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl enable mongod</p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">3</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Stop MongoDB.</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">As needed, you can stop the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process by issuing the following command:</span></p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl stop mongod</p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">4</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Restart MongoDB.</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can restart the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> process by issuing the following command:</span></p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">sudo systemctl restart mongod</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">You can follow the state of the process for errors or important messages by watching the output in the </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">/var/log/mongodb/mongod.log</span><span style="font-family: Calibri; font-size: 11.0pt;"> file.</span></p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt; color: #979797;"><span style="font-weight: bold;">5</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; line-height: 18pt; font-family: Akzidenz; font-size: 12.0pt; color: #313030;"><span style="font-weight: bold;">Begin using MongoDB.</span></p>
-<p style="margin-top: 0pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">Start a </span><a href="https://docs.mongodb.com/manual/reference/program/mongo/#mongodb-binary-bin.mongo"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> shell on the same host machine as the </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;">. You can run the </span><a href="https://docs.mongodb.com/manual/reference/program/mongo/#mongodb-binary-bin.mongo"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> shell without any command-line options to connect to a </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> that is running on your localhost with default port 27017:</span></p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;">mongo</p>
-<p style="margin-top: 18pt; margin-bottom: 18pt;"><span style="font-family: Calibri; font-size: 11.0pt;">For more information on connecting using the </span><a href="https://docs.mongodb.com/manual/reference/program/mongo/#mongodb-binary-bin.mongo"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> shell, such as to connect to a </span><a href="https://docs.mongodb.com/manual/reference/program/mongod/#mongodb-binary-bin.mongod"><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongod</span></a><span style="font-family: Calibri; font-size: 11.0pt;"> instance running on a different host and/or port, see </span><a href="https://docs.mongodb.com/manual/mongo/"><span style="font-family: Calibri; font-size: 11.0pt;">The </span><span style="font-family: 'Source Code Pro'; font-size: 10.0pt;">mongo</span><span style="font-family: Calibri; font-size: 11.0pt;"> Shell</span></a><span style="font-family: Calibri; font-size: 11.0pt;">.</span></p>
-<p style="margin-top: 18pt; margin-bottom: 18pt; font-family: Calibri; font-size: 11.0pt;">To help you start using MongoDB, MongoDB provides <a href="https://docs.mongodb.com/manual/tutorial/getting-started/#std-label-getting-started">Getting Started Guides</a> in various driver editions. For the driver documentation, see <a href="https://api.mongodb.com/">Start Developing with MongoDB</a>.</p>
-<p style="margin: 0in; font-family: Calibri; font-size: 11.0pt;"> </p>
-</div>
-<hr>
-<div style="direction: ltr; border-width: 100%;">
-<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 2.8118in;">
-<div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 2.8118in;">
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> $mongo – -version</span></p>
-<p style="margin-top: 0pt; margin-bottom: 10pt; font-family: inherit; font-size: 10.0pt; color: #444444;"><span style="background: white;">Some Basic Commands for MongoDB</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">1) To show all databases in MongoDB</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;">   &gt; show dbs ;</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">2)  create a database or switch to already created databases</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;">  &gt; use my-db;</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">  Note: This DB will not show in show dbs; command until we do not insert any data in this. </span></p>
-<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;"> </span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">3) Insert data into the newly created database.</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">$ db.Any data that represents your collection .insert({“data you want “:”value of the data”})</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;">  &gt; db.names.insert({“username_name”:”chandan”})</span></p>
-<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;"> </span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">4) show your collections</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> &gt; show collections;</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">5) Delete your collections</span></p>
-<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;">db.name of your collection.drop();</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> &gt; db.”names”.drop() ;</span></p>
-<p style="margin: 0in; font-family: 'Source Sans Pro'; font-size: 19.9pt; color: black;"><span style="background: white;"> </span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">6) Drop the database</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: black;"><span style="background: white;">Make sure to switch to the database you want to delete and run the following command.</span></p>
-<p style="margin: 0in; font-family: inherit; font-size: 19.9pt; color: navy;"><span style="background: white;"> &gt; db.dropDatabase() ;</span></p>
-<hr>
-<p> </p>
-</div>
-</div>
 </div>
 </div>
 </div>
