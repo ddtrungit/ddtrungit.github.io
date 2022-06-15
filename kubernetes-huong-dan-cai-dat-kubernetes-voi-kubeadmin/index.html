@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>[Kubernetes] Hướng dẫn cài đặt Kubernetes với Kubeadmin - TRUNG DUONG</title><meta name="robots" content="noindex,nofollow"><meta name="generator" content="Publii Open-Source CMS for Static Site"><meta name="theme-color" content="#17181E" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#D73A42" media="(prefers-color-scheme: light)"><meta name="msapplication-navbutton-color" content="#D73A42"><meta name="apple-mobile-web-app-status-bar-style" content="#D73A42"><link rel="alternate" type="application/atom+xml" href="http://blog.dtrungit.ga/feed.xml"><link rel="alternate" type="application/json" href="http://blog.dtrungit.ga/feed.json"><link rel="shortcut icon" href="http://blog.dtrungit.ga/media/website/cropped-2019-09-16-32x32.png" type="image/x-icon"><link rel="shortcut icon" href="http://blog.dtrungit.ga/media/website/cropped-2019-09-16-32x32.png" type="image/x-icon"><link rel="stylesheet" href="http://blog.dtrungit.ga/assets/css/style.css?v=57332019283b097fa755d17b0d684374"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.dtrungit.ga/kubernetes-huong-dan-cai-dat-kubernetes-voi-kubeadmin/index.html"},"headline":"[Kubernetes] Hướng dẫn cài đặt Kubernetes với Kubeadmin","datePublished":"2022-06-15T15:29","dateModified":"2022-06-15T15:29","image":{"@type":"ImageObject","url":"http://blog.dtrungit.ga/media/posts/128/k8s.png","height":458,"width":816},"description":"Phần 1. Chuẩn bị Quy hoạch Mô hình Phần 2. Chuẩn bị môi trường Bước 1: Đặt hostname cho từng&hellip;","author":{"@type":"Person","name":"Duong Dinh Trung","url":"http://blog.dtrungit.ga/authors/dtrungit/"},"publisher":{"@type":"Organization","name":"Duong Dinh Trung","logo":{"@type":"ImageObject","url":"http://blog.dtrungit.ga/media/website/Background_2.png","height":800,"width":834}}}</script></head><body><header class="header" id="js-header"><a href="http://blog.dtrungit.ga/index.html" class="logo"><img src="http://blog.dtrungit.ga/media/website/Background_2.png" alt="TRUNG DUONG"></a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu"><span class="navbar__toggle-box"><span class="navbar__toggle-inner">Menu</span></span></button><ul class="navbar__menu"><li><a href="http://blog.dtrungit.ga/index.html" target="_self">Home</a></li><li><a href="http://blog.dtrungit.ga/lien-he/index.html" target="_self">Contact</a></li><li><a href="http://blog.dtrungit.ga/gioi-thieu/index.html" target="_self">About</a></li><li><a href="http://blog.dtrungit.ga/tags/aws/index.html" target="_self">AWS</a></li><li class="has-submenu"><a href="http://blog.dtrungit.ga/tags/linux/index.html" target="_self" aria-haspopup="true">Linux</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="http://blog.dtrungit.ga/tags/ansible/index.html" target="_self">Ansible</a></li><li><a href="http://blog.dtrungit.ga/tags/k8s/index.html" target="_self">Kubernetes</a></li><li><a href="http://blog.dtrungit.ga/tags/oracle/index.html" target="_self">Oracle</a></li><li><a href="http://blog.dtrungit.ga/tags/zimbra/index.html" target="_self">Zimbra</a></li><li><a href="http://blog.dtrungit.ga/tags/tip/index.html" target="_self">TIP</a></li></ul></li></ul></nav></header><main><div class="wrapper"><article class="post"><header class="post__header"><h1 class="post__title">[Kubernetes] Hướng dẫn cài đặt Kubernetes với Kubeadmin</h1><div class="post__meta"><div class="post__author">By <a href="http://blog.dtrungit.ga/authors/dtrungit/index.html" class="invert" rel="author" title="Duong Dinh Trung">Duong Dinh Trung</a></div><div class="post__comments"><a href="http://blog.dtrungit.ga/kubernetes-huong-dan-cai-dat-kubernetes-voi-kubeadmin/index.html#comments" rel="nofollow" aria-label="Comments"><svg aria-hidden="true"><title>Comments</title><use xlink:href="http://blog.dtrungit.ga/assets/svg/svg-map.svg#comments"/></svg></a></div></div></header><figure class="post__featured-image"><img src="http://blog.dtrungit.ga/media/posts/128/k8s.png" srcset="http://blog.dtrungit.ga/media/posts/128/responsive/k8s-xs.png 300w, http://blog.dtrungit.ga/media/posts/128/responsive/k8s-sm.png 480w, http://blog.dtrungit.ga/media/posts/128/responsive/k8s-md.png 768w, http://blog.dtrungit.ga/media/posts/128/responsive/k8s-lg.png 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="eager" height="458" width="816" alt=""></figure><div class="post__inner"><div class="post__entry"><h2>Phần 1. Chuẩn bị</h2><h3><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/setup/install-k8s-centos7-kubeadm.md#quy-ho%E1%BA%A1ch"></a>Quy hoạch</h3><figure class="wp-block-image size-large"><figure class="wp-image-522"><img loading="lazy" src="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-9-1024x222.png" data-is-external-image="true" sizes="(max-width: 1024px) 100vw, 1024px" srcset="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-9-1024x222.png 1024w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-9-300x65.png 300w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-9-768x167.png 768w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-9-1536x333.png 1536w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-9-816x177.png 816w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic1-9.png 1539w" alt="" width="1024" height="222" loading="lazy"></figure></figure><h2>Mô hình</h2><figure class="wp-block-image size-full"><figure class="wp-image-523"><img loading="lazy" src="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-6.png" data-is-external-image="true" sizes="(max-width: 1016px) 100vw, 1016px" srcset="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-6.png 1016w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-6-300x230.png 300w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-6-768x588.png 768w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic2-6-816x625.png 816w" alt="" width="1016" height="778" loading="lazy"></figure></figure><h2>Phần 2. Chuẩn bị môi trường</h2><h3><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/setup/install-k8s-centos7-kubeadm.md#b%C6%B0%E1%BB%9Bc-1-%C4%91%E1%BA%B7t-hostname-cho-t%E1%BB%ABng-node"></a>Bước 1: Đặt hostname cho từng node</h3><blockquote class="wp-block-quote"><p>Thực hiện trên node Master 1181</p></blockquote><pre class="wp-block-code"><code>hostnamectl set-hostname master1181
+</code></pre><blockquote class="wp-block-quote"><p>Thực hiện trên node Worker 1182</p></blockquote><pre class="wp-block-code"><code>hostnamectl set-hostname worker1182
+</code></pre><blockquote class="wp-block-quote"><p>Thực hiện trên node Worker 1183</p></blockquote><pre class="wp-block-code"><code>hostnamectl set-hostname worker1183
+</code></pre><h3><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/setup/install-k8s-centos7-kubeadm.md#b%C6%B0%E1%BB%9Bc-2-chu%E1%BA%A9n-b%E1%BB%8B-m%C3%B4i-tr%C6%B0%E1%BB%9Dng-tri%E1%BB%83n-khai"></a>Bước 2: Chuẩn bị môi trường triển khai</h3><blockquote class="wp-block-quote"><p>Thực hiện trên tất cả các node</p></blockquote><p>Tắt SELinux, Firewall</p><pre class="wp-block-code"><code>sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+systemctl stop firewalld
+systemctl disable firewalld
+</code></pre><p>Cấu hình đồng bộ thời gian</p><pre class="wp-block-code"><code>timedatectl set-timezone Asia/Ho_Chi_Minh
+
+yum -y install chrony
+systemctl enable chronyd.service
+systemctl restart chronyd.service
+chronyc sources
+</code></pre><p>Disable swap</p><pre class="wp-block-code"><code>sudo sed -i '/swap/d' /etc/fstab
+sudo swapoff -a
+</code></pre><p>Cài đặt môi trường Docker</p><pre class="wp-block-code"><code>curl -fsSL https://get.docker.com/ | sh
+sudo systemctl start docker
+sudo systemctl status docker
+sudo systemctl enable docker
+</code></pre><p>Bổ sung cấu hình net filter</p><pre class="wp-block-code"><code>sudo modprobe br_netfilter
+cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sudo sysctl --system
+</code></pre><p>Cấu hình file host</p><pre class="wp-block-code"><code>echo "
+10.10.11.81 master1181
+10.10.11.82 worker1182
+10.10.11.83 worker1183" &gt;&gt; /etc/hosts
+</code></pre><p>Khởi động lại (Tại bước này nên snapshot lại)</p><pre class="wp-block-code"><code>init 6
+</code></pre><h2>Phần 3. Khởi tạo Cluster Kubernetes</h2><h3><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/setup/install-k8s-centos7-kubeadm.md#b%C6%B0%E1%BB%9Bc-1-c%C3%A0i-%C4%91%E1%BA%B7t-c%C3%A1c-g%C3%B3i-c%E1%BA%A7n-thi%E1%BA%BFt"></a>Bước 1: Cài đặt các gói cần thiết</h3><blockquote class="wp-block-quote"><p>Thực hiện trên tất cả các node</p></blockquote><p>Thiết lập repo k8s</p><pre class="wp-block-code"><code>cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+</code></pre><p>[kubernetes]</p><p>name=Kubernetes baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch enabled=1 gpgcheck=1 repo_gpgcheck=1 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg exclude=kubelet kubeadm kubectl EOF</p><p>Cài đặt kubelet kubeadm kubectl</p><p>Lưu ý:</p><ul><li>docker: để làm môi trường chạy các container.</li><li>kubeadm: Công cụ khởi tạo Cluster k8s.</li><li>kubelet: Thành phần chạy trên các host, có nhiệm vụ kích hoạt các pod và container trong cụm Cluser của K8S.</li><li>kubectl: Công cụ CLI (Giao diện dòng lệnh) để tương tác với K8s.</li></ul><pre class="wp-block-code"><code>sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo systemctl enable --now kubelet</code></pre><p> </p><h3>Bước 2: Khởi tạo Cluster</h3><blockquote class="wp-block-quote"><p>Thực hiện trên node master</p></blockquote><p>Khởi tạo Cluster</p><pre class="wp-block-code"><code>sudo kubeadm init --apiserver-advertise-address 10.10.11.81 --pod-network-cidr=10.244.0.0/16
+</code></pre><p>Lưu ý:</p><ul><li><code>--apiserver-advertise-address</code>: Địa chỉ của node Master</li><li><code>--pod-network-cidr</code>: Dải địa chỉ sử dụng, phụ thuộc vào công nghệ sử dụng, trong bài sử dụng công nghệ network <code>flannel</code> nên giá trị bằng <code>10.244.0.0/16</code></li></ul><p>Kết quả</p><pre class="wp-block-code"><code>[root@master1181 ~]# sudo kubeadm init --apiserver-advertise-address 10.10.11.81 --pod-network-cidr=10.244.0.0/16
+W1015 19:19:17.662622    1680 configset.go:348] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
+[init] Using Kubernetes version: v1.19.3
+[preflight] Running pre-flight checks
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local master1181] and IPs [10.96.0.1 10.10.11.81]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [localhost master1181] and IPs [10.10.11.81 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [localhost master1181] and IPs [10.10.11.81 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[apiclient] All control plane components are healthy after 22.006207 seconds
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.19" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node master1181 as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node master1181 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: yfn8mf.5yckeekleb0yp8m2
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+    --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+</code></pre><p>Lưu ý, ta sẽ dùng câu lệnh này để join càc worker vào cluster k8s</p><pre class="wp-block-code"><code>kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+    --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 </code></pre><p> </p><p>Khởi tạo ENV để sử dụng câu lệnh <code>kubectl</code></p><pre class="wp-block-code"><code>mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre><p>Cấu hình Pod Network, trong bài sẽ sử dụng công nghệ <code>flannel</code></p><pre class="wp-block-code"><code>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</code></pre><p>Kết quả</p><pre class="wp-block-code"><code>[root@master1181 ~]# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+podsecuritypolicy.policy/psp.flannel.unprivileged created
+Warning: rbac.authorization.k8s.io/v1beta1 ClusterRole is deprecated in v1.17+, unavailable in v1.22+; use rbac.authorization.k8s.io/v1 ClusterRole
+clusterrole.rbac.authorization.k8s.io/flannel created
+Warning: rbac.authorization.k8s.io/v1beta1 ClusterRoleBinding is deprecated in v1.17+, unavailable in v1.22+; use rbac.authorization.k8s.io/v1 ClusterRoleBinding
+clusterrolebinding.rbac.authorization.k8s.io/flannel created
+serviceaccount/flannel created
+configmap/kube-flannel-cfg created
+daemonset.apps/kube-flannel-ds created</code></pre><h3>Bước 3: Join worker vào Cluster</h3><blockquote class="wp-block-quote"><p>Thực hiện trên worker1182, worker1183</p></blockquote><p>Thực hiện lần lượt trên worker1182, worker1183</p><pre class="wp-block-code"><code>kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+    --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+</code></pre><p>Kết quả:</p><pre class="wp-block-code"><code>[root@worker1182 ~]# kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+&gt;     --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+[preflight] Running pre-flight checks
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+
+
+[root@worker1183 ~]# kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+&gt;     --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+[preflight] Running pre-flight checks
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+</code></pre><p>Kiểm tra lại trên node master1181</p><pre class="wp-block-code"><code>[root@master1181 ~]# kubectl get nodes
+NAME         STATUS   ROLES    AGE   VERSION
+master1181   Ready    master   11m   v1.19.3
+worker1182   Ready    &lt;none&gt;   77s   v1.19.3
+worker1183   Ready    &lt;none&gt;   73s   v1.19.3
+</code></pre><h2>Phần 4. Join worker vào cluster</h2><h3><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/setup/install-k8s-centos7-kubeadm.md#b%C6%B0%E1%BB%9Bc-1-sinh-c%C3%A2u-l%E1%BB%87nh-join-woker"></a>Bước 1: Sinh câu lệnh join woker</h3><blockquote class="wp-block-quote"><p>Thực hiện trên node master1181</p></blockquote><p>Thực hiện</p><pre class="wp-block-code"><code>sudo kubeadm token create --print-join-command
+</code></pre><p>Kết quả</p><pre class="wp-block-code"><code>[root@master1181 ~]# sudo kubeadm token create --print-join-command
+W1015 20:24:23.607760   27097 configset.go:348] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
+kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2     --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+</code></pre><h3><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/setup/install-k8s-centos7-kubeadm.md#b%C6%B0%E1%BB%9Bc-2-th%E1%BB%B1c-hi%E1%BB%87n-c%C3%A2u-l%E1%BB%87nh-tr%C3%AAn-t%E1%BB%ABng-node-worker"></a>Bước 2: Thực hiện câu lệnh trên từng node worker</h3><pre class="wp-block-code"><code>kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+    --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+</code></pre><p>Kết quả</p><pre class="wp-block-code"><code>[root@worker1182 ~]# kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+&gt;     --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+[preflight] Running pre-flight checks
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+
+[root@worker1183 ~]# kubeadm join 10.10.11.81:6443 --token yfn8mf.5yckeekleb0yp8m2 \
+&gt;     --discovery-token-ca-cert-hash sha256:935f610b57d3c170c9849402bef83226258610535b96823e421c20bdc2f83ce2 
+[preflight] Running pre-flight checks
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+</code></pre><h3><a href="https://github.com/lacoski/kubernetes-note/blob/main/docs/setup/install-k8s-centos7-kubeadm.md#b%C6%B0%E1%BB%9Bc-3-ki%E1%BB%83m-tra-t%E1%BA%A1i-node-master1181"></a>Bước 3: Kiểm tra tại node master1181</h3><pre class="wp-block-code"><code>[root@master1181 ~]# kubectl get nodes
+NAME         STATUS   ROLES    AGE     VERSION
+master1181   Ready    master   7m46s   v1.19.3
+worker1182   Ready    &lt;none&gt;   46s     v1.19.3
+worker1183   Ready    &lt;none&gt;   43s     v1.19.3
+
+[root@master1181 ~]# kubectl get pod --all-namespaces
+NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE
+kube-system   coredns-f9fd979d6-wwbz9              1/1     Running   0          7m35s
+kube-system   coredns-f9fd979d6-x28f7              1/1     Running   0          7m35s
+kube-system   etcd-master1181                      1/1     Running   0          7m45s
+kube-system   kube-apiserver-master1181            1/1     Running   0          7m45s
+kube-system   kube-controller-manager-master1181   1/1     Running   0          7m45s
+kube-system   kube-flannel-ds-mjcgd                1/1     Running   0          56s
+kube-system   kube-flannel-ds-rm5sk                1/1     Running   0          2m19s
+kube-system   kube-flannel-ds-vrwpz                1/1     Running   0          53s
+kube-system   kube-proxy-b7b9t                     1/1     Running   0          7m35s
+kube-system   kube-proxy-fdmlr                     1/1     Running   0          53s
+kube-system   kube-proxy-nx5nq                     1/1     Running   0          56s
+kube-system   kube-scheduler-master1181            1/1     Running   0          7m45s</code></pre><h2>Phần 5: Triển khai ứng dụng demo</h2><blockquote class="wp-block-quote"><p>Thực hiện trên master1181</p></blockquote><p>Tạo mới file <code>hello-app.yml</code> với nội dung</p><pre class="wp-block-code"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-app 
+  template:
+    metadata:
+      labels:
+        app: hello-app
+    spec:
+      containers:
+      - image: gcr.io/google-samples/hello-app:1.0
+        imagePullPolicy: Always
+        name: hello-app
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-app
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30001
+      protocol: TCP
+  selector:
+    app: hello-app
+</code></pre><p>Thực hiện deploy ứng dụng</p><pre class="wp-block-code"><code>kubectl create -f hello-app.yml
+</code></pre><p>Kết quả</p><pre class="wp-block-code"><code>[root@master1181 ~]# kubectl create -f hello-app.yml
+deployment.apps/hello-app created
+service/hello-app created
+</code></pre><p>Kiểm tra</p><pre class="wp-block-code"><code>kubectl get deployments hello-app
+kubectl describe deployments hello-app
+kubectl get replicasets
+kubectl describe replicasets
+kubectl get services hello-app
+</code></pre><p>Kết quả</p><pre class="wp-block-code"><code>[root@master1181 ~]# kubectl get deployments hello-app
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+hello-app   2/2     2            2           25s
+[root@master1181 ~]# kubectl describe deployments hello-app
+Name:                   hello-app
+Namespace:              default
+CreationTimestamp:      Thu, 15 Oct 2020 19:39:29 +0700
+Labels:                 &lt;none&gt;
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=hello-app
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=hello-app
+  Containers:
+   hello-app:
+    Image:        gcr.io/google-samples/hello-app:1.0
+    Port:         8080/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   hello-app-59cb9bf65 (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  30s   deployment-controller  Scaled up replica set hello-app-59cb9bf65 to 2
+[root@master1181 ~]# kubectl get replicasets
+NAME                  DESIRED   CURRENT   READY   AGE
+hello-app-59cb9bf65   2         2         2       34s
+[root@master1181 ~]# kubectl describe replicasets
+Name:           hello-app-59cb9bf65
+Namespace:      default
+Selector:       app=hello-app,pod-template-hash=59cb9bf65
+Labels:         app=hello-app
+                pod-template-hash=59cb9bf65
+Annotations:    deployment.kubernetes.io/desired-replicas: 2
+                deployment.kubernetes.io/max-replicas: 3
+                deployment.kubernetes.io/revision: 1
+Controlled By:  Deployment/hello-app
+Replicas:       2 current / 2 desired
+Pods Status:    2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=hello-app
+           pod-template-hash=59cb9bf65
+  Containers:
+   hello-app:
+    Image:        gcr.io/google-samples/hello-app:1.0
+    Port:         8080/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  41s   replicaset-controller  Created pod: hello-app-59cb9bf65-p2kz9
+  Normal  SuccessfulCreate  41s   replicaset-controller  Created pod: hello-app-59cb9bf65-cx6kg
+[root@master1181 ~]# kubectl get services hello-app
+NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+hello-app   NodePort   10.98.138.202   &lt;none&gt;        8080:30001/TCP   47s
+</code></pre><p>Truy cập web với đường dẫn <a href="http://10.10.11.81:30001/">http://10.10.11.81:30001/</a>, <a href="http://10.10.11.82:30001/">http://10.10.11.82:30001/</a>, <a href="http://10.10.11.83:30001/">http://10.10.11.83:30001/</a></p><p>Kết quả</p><figure class="wp-block-image size-large"><figure class="wp-image-524"><img loading="lazy" src="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic3-6-1024x560.png" data-is-external-image="true" sizes="(max-width: 1024px) 100vw, 1024px" srcset="https://blog.devopsviet.com/wp-content/uploads/2021/08/pic3-6-1024x560.png 1024w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic3-6-300x164.png 300w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic3-6-768x420.png 768w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic3-6-1536x840.png 1536w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic3-6-816x446.png 816w, https://blog.devopsviet.com/wp-content/uploads/2021/08/pic3-6.png 1922w" alt="" width="1024" height="560" loading="lazy"></figure></figure><p> </p><h2>Tài liệu tham khảo</h2><figure class="wp-block-embed"><div class="wp-block-embed__wrapper">https://github.com/hocchudong/ghichep-kubernetes/blob/master/docs/kubernetes-5min/02.Caidat-Kubernetes.md</div></figure><figure class="wp-block-embed"><div class="wp-block-embed__wrapper">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/</div></figure></div><footer><div class="post__tags-share"><aside class="post__share"></aside></div><nav class="post__nav"><div class="post__nav__prev"><a class="post__nav__link" href="http://blog.dtrungit.ga/kubernetes-phan-12-khai-niem-helm/index.html" rel="prev">Previous Post<h3 class="h6">[Kubernetes] Phần 12: Khái niệm Helm</h3></a></div></nav></footer></div></article><div class="comments-area post__inner" id="comments"><div class="comments"><div class="comments-wrapper"><h2>Comments</h2><div class="fb-comments" data-href="http://blog.dtrungit.ga/kubernetes-huong-dan-cai-dat-kubernetes-voi-kubeadmin/" data-width="100%" data-colorscheme="light" data-lazy="true" data-order-by="reverse_time" data-numposts="5"></div><noscript>Please enable JS to use the comments form.</noscript></div></div><div id="fb-root"></div><script type="text/javascript" async defer="defer" crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0">nonce="n4mWU9e7"</script></div></div><div class="post__related"><div class="wrapper"><h2 class="h5">Related posts</h2><div class="l-grid l-grid--4"><article class="c-card"><a href="http://blog.dtrungit.ga/kubernetes-phan-6-khai-niem-scheduling/index.html" class="c-card__image"><img src="http://blog.dtrungit.ga/media/posts/121/k8s.png" srcset="http://blog.dtrungit.ga/media/posts/121/responsive/k8s-xs.png 300w, http://blog.dtrungit.ga/media/posts/121/responsive/k8s-sm.png 480w, http://blog.dtrungit.ga/media/posts/121/responsive/k8s-md.png 768w, http://blog.dtrungit.ga/media/posts/121/responsive/k8s-lg.png 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="lazy" height="458" width="816" alt=""></a><div class="c-card__wrapper"><header class="c-card__header"><div class="c-card__tag"><a href="http://blog.dtrungit.ga/tags/k8s/index.html">K8s</a></div><h3 class="c-card__title"><a href="http://blog.dtrungit.ga/kubernetes-phan-6-khai-niem-scheduling/index.html" class="invert">[Kubernetes] Phần 6: Khái niệm Scheduling</a></h3></header><p class="c-card__text">Tổng quan Kubernetes Scheduler (kube-scheduler) là thành phần core trong k8s. Thành phần này sẽ tính toán để tìm node&hellip;</p><footer class="c-card__meta"><div class="c-card__comments"><a href="http://blog.dtrungit.ga/kubernetes-phan-6-khai-niem-scheduling/index.html#comments" rel="nofollow" aria-label="Comments"><svg aria-hidden="true"><title>Comments</title><use xlink:href="http://blog.dtrungit.ga/assets/svg/svg-map.svg#comments"/></svg></a></div></footer></div></article><article class="c-card"><div class="c-card__wrapper"><header class="c-card__header"><div class="c-card__tag"><a href="http://blog.dtrungit.ga/tags/k8s/index.html">K8s</a></div><h3 class="c-card__title"><a href="http://blog.dtrungit.ga/kubernetes-phan-5-khai-niem-deployment/index.html" class="invert">[Kubernetes] Phần 5: Khái niệm Deployment</a></h3></header><p class="c-card__text">Tổng quan Với ReplicateSet, ta chỉ có thể tăng giảm số lượng Pod, nhưng vấn để của RS là không&hellip;</p><footer class="c-card__meta"><div class="c-card__comments"><a href="http://blog.dtrungit.ga/kubernetes-phan-5-khai-niem-deployment/index.html#comments" rel="nofollow" aria-label="Comments"><svg aria-hidden="true"><title>Comments</title><use xlink:href="http://blog.dtrungit.ga/assets/svg/svg-map.svg#comments"/></svg></a></div></footer></div></article><article class="c-card"><a href="http://blog.dtrungit.ga/kubernetes-phan-4-khai-niem-replicateset/index.html" class="c-card__image"><img src="http://blog.dtrungit.ga/media/posts/119/k8s.png" srcset="http://blog.dtrungit.ga/media/posts/119/responsive/k8s-xs.png 300w, http://blog.dtrungit.ga/media/posts/119/responsive/k8s-sm.png 480w, http://blog.dtrungit.ga/media/posts/119/responsive/k8s-md.png 768w, http://blog.dtrungit.ga/media/posts/119/responsive/k8s-lg.png 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="lazy" height="458" width="816" alt=""></a><div class="c-card__wrapper"><header class="c-card__header"><div class="c-card__tag"><a href="http://blog.dtrungit.ga/tags/k8s/index.html">K8s</a></div><h3 class="c-card__title"><a href="http://blog.dtrungit.ga/kubernetes-phan-4-khai-niem-replicateset/index.html" class="invert">[Kubernetes] Phần 4: Khái niệm ReplicateSet</a></h3></header><p class="c-card__text">Tổng quan ReplicateSet được sử dụng để duy trì một tập replicate các Pod ổn định theo thời gian ReplicateSet&hellip;</p><footer class="c-card__meta"><div class="c-card__comments"><a href="http://blog.dtrungit.ga/kubernetes-phan-4-khai-niem-replicateset/index.html#comments" rel="nofollow" aria-label="Comments"><svg aria-hidden="true"><title>Comments</title><use xlink:href="http://blog.dtrungit.ga/assets/svg/svg-map.svg#comments"/></svg></a></div></footer></div></article><article class="c-card"><a href="http://blog.dtrungit.ga/kubernetes-phan-3-khai-niem-pod/index.html" class="c-card__image"><img src="http://blog.dtrungit.ga/media/posts/118/k8s.png" srcset="http://blog.dtrungit.ga/media/posts/118/responsive/k8s-xs.png 300w, http://blog.dtrungit.ga/media/posts/118/responsive/k8s-sm.png 480w, http://blog.dtrungit.ga/media/posts/118/responsive/k8s-md.png 768w, http://blog.dtrungit.ga/media/posts/118/responsive/k8s-lg.png 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="lazy" height="458" width="816" alt=""></a><div class="c-card__wrapper"><header class="c-card__header"><div class="c-card__tag"><a href="http://blog.dtrungit.ga/tags/k8s/index.html">K8s</a></div><h3 class="c-card__title"><a href="http://blog.dtrungit.ga/kubernetes-phan-3-khai-niem-pod/index.html" class="invert">[Kubernetes] Phần 3: Khái niệm Pod</a></h3></header><p class="c-card__text">1. Tổng quan Trong K8s, Pod là đơn vị nhỏ nhất trong K8s 1 Pod có thể chứa 1 hoặc&hellip;</p><footer class="c-card__meta"><div class="c-card__comments"><a href="http://blog.dtrungit.ga/kubernetes-phan-3-khai-niem-pod/index.html#comments" rel="nofollow" aria-label="Comments"><svg aria-hidden="true"><title>Comments</title><use xlink:href="http://blog.dtrungit.ga/assets/svg/svg-map.svg#comments"/></svg></a></div></footer></div></article></div></div></div></main><footer class="footer"><div class="footer__social"><a href="https://facebook.com/duongtrung2103" aria-label="Facebook" class="facebook"><svg><use xlink:href="http://blog.dtrungit.ga/assets/svg/svg-map.svg#facebook"/></svg></a></div><div class="footer__copyright">"DO THE THINGS YOU LOVE!"</div></footer><script>window.publiiThemeMenuConfig = {    
+      mobileMenuMode: 'sidebar',
+      animationSpeed: 300,
+      submenuWidth: 'auto',
+      doubleClickTime: 500,
+      mobileMenuExpandableSubmenus: true, 
+      relatedContainerForOverlayMenuSelector: '.navbar',
+   };</script><script defer="defer" src="http://blog.dtrungit.ga/assets/js/scripts.min.js?v=d78591855e0ce96bf51239b499260e20"></script><script>var images = document.querySelectorAll('img[loading]');
+
+      for (var i = 0; i < images.length; i++) {
+         if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+         } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+               }, false);
+         }
+      }</script></body></html>
