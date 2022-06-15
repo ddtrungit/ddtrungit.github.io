@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>TRUNG DUONG</title>
-    <link href="https://ddtrungit.github.io/feed.xml" rel="self" />
-    <link href="https://ddtrungit.github.io" />
+    <link href="http://blog.dtrungit.ga/feed.xml" rel="self" />
+    <link href="http://blog.dtrungit.ga" />
     <updated>2022-06-15T14:55:52+07:00</updated>
     <author>
         <name>Duong Dinh Trung</name>
     </author>
-    <id>https://ddtrungit.github.io</id>
+    <id>http://blog.dtrungit.ga</id>
 
     <entry>
         <title>[Kubernetes] Phần 1: Tổng quan</title>
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/kubernetes-phan-1-tong-quan/index.html"/>
-        <id>https://ddtrungit.github.io/kubernetes-phan-1-tong-quan/index.html</id>
+        <link href="http://blog.dtrungit.ga/kubernetes-phan-1-tong-quan/index.html"/>
+        <id>http://blog.dtrungit.ga/kubernetes-phan-1-tong-quan/index.html</id>
             <category term="K8s"/>
 
         <updated>2022-06-15T14:55:52+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/115/k8s.png" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/115/k8s.png" alt="" />
                     Kubernetes là một nền tảng nguồn mở, có thể mở rộng, phát triển với mục tiêu quản lý các ứng&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/115/k8s.png" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/115/k8s.png" alt="" />
                 <p>Kubernetes là một nền tảng nguồn mở, có thể mở rộng, phát triển với mục tiêu quản lý các ứng dụng được đóng gói thành container. Kubernetes được xếp vào một trong các orchestration tools nằm trong hệ sinh thái của container hoặc còn gọi là container orchestration system.</p>
 <p><span id="more-437"></span></p>
 <p>Với k8s, chúng ta có thể triển khai, mở rộng, quản lý các ứng dụng hỗ trợ container dễ dàng, tự động. Các đối tượng thuộc k8s được trừ tượng hóa để dễ dàng quản trị, và toàn bộ thao tác quản lý đều thao tác qua Kubernetes API.</p>
@@ -98,20 +98,20 @@
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/tai-khoa-hoc-hacker-mu-trang-masters-in-ethical-hacking/index.html"/>
-        <id>https://ddtrungit.github.io/tai-khoa-hoc-hacker-mu-trang-masters-in-ethical-hacking/index.html</id>
+        <link href="http://blog.dtrungit.ga/tai-khoa-hoc-hacker-mu-trang-masters-in-ethical-hacking/index.html"/>
+        <id>http://blog.dtrungit.ga/tai-khoa-hoc-hacker-mu-trang-masters-in-ethical-hacking/index.html</id>
             <category term="Tip"/>
 
         <updated>2022-06-13T15:31:41+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/114/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/114/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png" alt="" />
                     Masters In Ethical Hacking là khóa học Hacker mũ trắng được biên tập với lý thuyết và thực hành rất&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/114/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/114/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png" alt="" />
                 <p><strong>Masters In Ethical Hacking là khóa học Hacker mũ trắng được biên tập với lý thuyết và thực hành rất dễ hiểu. Theo đánh giá của mình, đối với những bạn newbie chưa biết gì có thể tiếp cận với các bài thực hành làm Hacker tại đây rất dễ. Tuy là Video tiếng Anh, nhưng nhìn hình và các thao tác demo thì bạn cũng có thể làm theo được, chứ không nhất thiết là phải nghe rõ từng chữ.</strong></p>
 <h2 id="ftoc-khoa-hoc-hacker-mu-trang-masters-in-ethical-hacking-co-gi-hay" class="ftwp-heading">khóa học Hacker mũ trắng – Masters In Ethical Hacking có gì hay</h2>
 <figure class="aligncenter size-full wp-image-41427 entered lazyloaded"><a href="https://anonyviet.com/wp-content/uploads/2022/05/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png" class="local-link"><img loading="lazy"  title="Tải khóa học Hacker mũ trắng - Masters In Ethical Hacking 16" src="https://anonyviet.com/wp-content/uploads/2022/05/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png" data-is-external-image="true"  sizes="(max-width: 707px) 100vw, 707px" srcset="https://anonyviet.com/wp-content/uploads/2022/05/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png 707w, https://anonyviet.com/wp-content/uploads/2022/05/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2-300x177.png 300w" alt="khoa hoc Hacker mu trang - Masters In Ethical Hacking" width="707" height="417" data-lazy-srcset="https://anonyviet.com/wp-content/uploads/2022/05/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png 707w, https://anonyviet.com/wp-content/uploads/2022/05/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2-300x177.png 300w" data-lazy-sizes="(max-width: 707px) 100vw, 707px" data-lazy-src="https://anonyviet.com/wp-content/uploads/2022/05/khoa-hoc-Hacker-mu-trang-Masters-In-Ethical-Hacking-2.png" data-pin-no-hover="true" data-ll-status="loaded"></figure></a></p>
@@ -174,20 +174,20 @@
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/how-i-setup-cicd-pipeline-for-cloudflare-worker/index.html"/>
-        <id>https://ddtrungit.github.io/how-i-setup-cicd-pipeline-for-cloudflare-worker/index.html</id>
+        <link href="http://blog.dtrungit.ga/how-i-setup-cicd-pipeline-for-cloudflare-worker/index.html"/>
+        <id>http://blog.dtrungit.ga/how-i-setup-cicd-pipeline-for-cloudflare-worker/index.html</id>
             <category term="Tip"/>
 
         <updated>2022-06-13T15:31:00+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/113/gitlab-cf.png" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/113/gitlab-cf.png" alt="" />
                     Today, most of my projects on GitHub are kept up to date with Renovate. With auto-merging enabled, I want to have&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/113/gitlab-cf.png" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/113/gitlab-cf.png" alt="" />
                 <p>Today, most of my projects on GitHub are kept up to date with <a href="https://github.com/renovatebot/renovate">Renovate</a>. With auto-merging enabled, I want to have enough confidence that the automated dependencies update would not cause any regressions.</p>
 <p>Testing Cloudflare Worker is a bit out of whack. Don’t get me wrong, I love Cloudflare Worker. However, the <a href="https://blog.cloudflare.com/unit-testing-workers-in-cloudflare-workers/">existing solution</a> out there feels a little bit unintuitive. On top of that, <a href="https://github.com/dollarshaveclub/cloudworker">dollarshaveclub/cloudworker</a> is no longer actively maintained, which is a bummer.</p>
 <p><em>TL;DR: This post talks about how I set up a CI/CD pipeline for a Cloudflare Worker project using GitHub Action and <a href="https://k6.io/">Grafana k6</a>.</em></p>
@@ -362,20 +362,20 @@
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/cach-dung-hack-tools-tren-trinh-duyet-de-hack-serverwebsite/index.html"/>
-        <id>https://ddtrungit.github.io/cach-dung-hack-tools-tren-trinh-duyet-de-hack-serverwebsite/index.html</id>
+        <link href="http://blog.dtrungit.ga/cach-dung-hack-tools-tren-trinh-duyet-de-hack-serverwebsite/index.html"/>
+        <id>http://blog.dtrungit.ga/cach-dung-hack-tools-tren-trinh-duyet-de-hack-serverwebsite/index.html</id>
             <category term="Tip"/>
 
         <updated>2022-06-13T15:30:19+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/112/1-26.jpg" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/112/1-26.jpg" alt="" />
                     Cài đặt tiện ích Hack-Tools trên FireFox và Chrome Quá trình cài đặt tiện ích Hack-Tools cực kỳ đơn giản.
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/112/1-26.jpg" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/112/1-26.jpg" alt="" />
                 <h2 id="ftoc-cai-dat-tien-ich-hack-tools-tren-firefox-va-chrome" class="ftwp-heading">Cài đặt tiện ích Hack-Tools trên FireFox và Chrome</h2>
 <p>Quá trình cài đặt tiện ích Hack-Tools cực kỳ đơn giản. Bạn chỉ cần <a href="https://anonyviet.com/tieptucdidentrangmoi/?url=https%3A%2F%2Faddons.mozilla.org%2Fen-US%2Ffirefox%2Faddon%2Fhacktools%2F" target="_blank" rel="noopener external nofollow" class="ext-link" onclick="this.target='_blank';">nhấp vào đây</a> nếu dùng Firefox hoặc <a href="https://anonyviet.com/tieptucdidentrangmoi/?url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fhack-tools%2Fcmbndhnoonmghfofefkcccljbkdpamhi" target="_blank" rel="noopener external nofollow" class="ext-link" onclick="this.target='_blank';">nhấp vào đây</a> nếu dùng Chrome và nhấn Add to Firefox hoặc Chrome để cài đặt tiện ích này.</p>
 <div class="code-block code-block-15 ai-viewport-1 ai-viewport-2"> </div>
@@ -443,20 +443,20 @@
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/hieu-ro-ve-quyen-truy-cap-tep-trong-linux/index.html"/>
-        <id>https://ddtrungit.github.io/hieu-ro-ve-quyen-truy-cap-tep-trong-linux/index.html</id>
+        <link href="http://blog.dtrungit.ga/hieu-ro-ve-quyen-truy-cap-tep-trong-linux/index.html"/>
+        <id>http://blog.dtrungit.ga/hieu-ro-ve-quyen-truy-cap-tep-trong-linux/index.html</id>
             <category term="Tip"/>
 
         <updated>2022-06-13T15:29:39+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/111/setfacl.webp" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/111/setfacl.webp" alt="" />
                     Khi làm việc với điều hành Linux thi thoảng bạn nhận được message tựa tựa thế này 'Permission denied' và&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/111/setfacl.webp" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/111/setfacl.webp" alt="" />
                 <p>Khi làm việc với điều hành Linux thi thoảng bạn nhận được message tựa tựa thế này 'Permission denied' và bạn thường sẽ lên mạng tìm cách sửa hoặc sẽ sử dụng kiểu như 'sudo chmod -R 777' hoặc 'chmod 777' để giải quyết, tuy nhiên bạn đã thực sự hiểu về những câu lên trên? Bài viết này sẽ giúp bạn hiểu rõ những câu lệnh đó. Để hiểu hơn về bài viết bạn nên nhớ lại hoặc tìm hiểu một số kiến thức như</p>
 <ol>
 <li>Chuyển số thập phân sang nhị phân hoặc ngược lại</li>
@@ -862,25 +862,25 @@ echo &quot;Them noi dung&quot; &gt; /public/mark.doc
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/su-dung-ansible-thong-qua-bastion-host/index.html"/>
-        <id>https://ddtrungit.github.io/su-dung-ansible-thong-qua-bastion-host/index.html</id>
+        <link href="http://blog.dtrungit.ga/su-dung-ansible-thong-qua-bastion-host/index.html"/>
+        <id>http://blog.dtrungit.ga/su-dung-ansible-thong-qua-bastion-host/index.html</id>
             <category term="Ansible"/>
 
         <updated>2022-06-13T14:24:17+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1.png" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1.png" alt="" />
                     Bastion host là gì? Bastion dịch theo nghĩa đen là một nơi được tăng cường. Về thuật ngữ máy tính,&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1.png" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1.png" alt="" />
                 <ul>
 <li>Bastion host là gì?</li>
 </ul>
 <p style="text-align: left;">Bastion dịch theo nghĩa đen là một nơi được tăng cường. Về thuật ngữ máy tính, đó là một máy trên mạng có thể là gatekeeper cho các kết nối đến và đi. Wikipedia định nghĩa: Máy chủ pháo đài (bastion host) là một máy tính có mục đích đặc biệt trên mạng, được thiết kế và cấu hình riêng để chịu được các cuộc tấn công. Máy chủ pháo đài thường chỉ lưu trữ một ứng dụng duy nhất, ví dụ như máy chủ proxy, các dịch vụ khác sẽ bị xóa hoặc giới hạn để giảm thiểu mối đe dọa cho máy tính. Sở dĩ, bastion host được thiết lập cứng như vậy là do vị trí và mục đích đặc biệt của nó, thường được đặt bên ngoài tường lửa hoặc trong vùng DMZ (một vùng mạng trung lập giữa mạng nội bộ và mạng Internet) và thường liên quan đến những truy cập từ các mạng hoặc máy tính không đáng tin cậy. Bạn có thể thiết lập bastion host làm máy duy nhất chấp nhận kết nối từ Internet. Sau đó, lần lượt, thiết lập tất cả các máy khác trong mạng để chỉ nhận các kết nối đến từ máy bastion host này.</p>
-<figure class="alignnone wp-image-504"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108.png" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-xs.png 300w ,https://ddtrungit.github.io/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-sm.png 480w ,https://ddtrungit.github.io/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-md.png 768w"  alt="" width="719" height="259"></figure>
+<figure class="alignnone wp-image-504"><img loading="lazy"  src="http://blog.dtrungit.ga/media/posts/110/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108.png" sizes="(max-width: 48em) 100vw, 100vw" srcset="http://blog.dtrungit.ga/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-xs.png 300w ,http://blog.dtrungit.ga/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-sm.png 480w ,http://blog.dtrungit.ga/media/posts/110/responsive/Screenshot-2021-05-22-at-9.24.14-PM-1024x368-1-300x108-md.png 768w"  alt="" width="719" height="259"></figure>
 <p>Khai báo các máy chủ vào :</p>
 <blockquote><em>/etc/ansible/hosts</em></blockquote>
 <p style="padding-left: 160px;"><em>[proxy]</em> <em>3.115.75.133</em></p>
@@ -902,20 +902,20 @@ echo &quot;Them noi dung&quot; &gt; /public/mark.doc
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/ansible-la-gi-huong-dan-cai-dat-ansible/index.html"/>
-        <id>https://ddtrungit.github.io/ansible-la-gi-huong-dan-cai-dat-ansible/index.html</id>
+        <link href="http://blog.dtrungit.ga/ansible-la-gi-huong-dan-cai-dat-ansible/index.html"/>
+        <id>http://blog.dtrungit.ga/ansible-la-gi-huong-dan-cai-dat-ansible/index.html</id>
             <category term="Ansible"/>
 
         <updated>2022-06-13T14:24:26+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/109/Ansible-la-gi-1.png" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/109/Ansible-la-gi-1.png" alt="" />
                     Trong một môi trường với nhiều server thì ta sẽ có vô vàn thứ phải lo. Từ setup crontab, update&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/109/Ansible-la-gi-1.png" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/109/Ansible-la-gi-1.png" alt="" />
                 <p>Trong một môi trường với nhiều server thì ta sẽ có vô vàn thứ phải lo. Từ setup crontab, update các gói phần mềm mới, deploy ứng dụng mới, chỉnh sửa file cấu hình…. Những công việc này tuy không khó, nhưng rất mất thời gian của những người quản trị (SysAdmin/SysEngineer/DevOps). Vậy có cách nào để tự động hóa những thao tác nhàm chán, lặp đi lặp lại này không?</p>
 <p><em>“Cùng một việc mà làm quá 2 lần thì có gì đó không ổn rồi”</em><em> </em><em>Từ một giảng viên cũ từng dạy mình</em></p>
 <p>Câu trả lời chính là ứng dụng những tool automation để quản trị hệ thống. Hiện nay có rất nhiều tool như vậy trên thị trường cụ thể như: <strong>Chef</strong>, <strong>Puppet</strong>, <strong>CFEngine</strong>, <strong>StackStorm</strong>, <strong>Ansible</strong>, <strong>SaltStack</strong>… Trong bài này, mình sẽ giới thiệu đến các bạn một công cụ rất mạnh mẽ trong việc quản trị hệ thống, đó chính là <strong>Ansible</strong>.</p>
@@ -964,7 +964,7 @@ echo &quot;Them noi dung&quot; &gt; /public/mark.doc
 <p>Có thể thấy Ansible là công cụ tự động hóa phổ biến nhất trên GitHub với số sao được người dùng bình chọn cho project này là 33,500 sao. <strong>Ansible</strong> cũng là tool dễ tiếp cận và làm quen do được build bằng Python và sử dụng file cấu hình theo dạng YAML (<strong>Y</strong>AML <strong>A</strong>in’t <strong>M</strong>arkup <strong>L</strong>anguage) dễ đọc và dễ hiểu.</p>
 <h3><span id="Kien_truc"><a name="_Toc70061298"></a><strong>Kiến trúc</strong></span></h3>
 <p>Ansible sử dụng kiến trúc agentless để giao tiếp với các máy khác mà không cần agent. Cơ bản nhất là giao tiếp thông qua giao thức SSH trên Linux, WinRM trên Windows hoặc giao tiếp qua chính API của thiết bị đó cung cấp.</p>
-<figure class="alignnone  wp-image-3598"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/109/Ansible-1.png" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/109/responsive/Ansible-1-xs.png 300w ,https://ddtrungit.github.io/media/posts/109/responsive/Ansible-1-sm.png 480w ,https://ddtrungit.github.io/media/posts/109/responsive/Ansible-1-md.png 768w"  sizes="(max-width: 825px) 100vw, 825px" srcset="https://ddtrungit.github.io/media/posts/109/Ansible-1.png 1024w, https://blog.vinahost.vn/wp-content/uploads/2021/05/Ansible-1-300x169.png 300w, https://blog.vinahost.vn/wp-content/uploads/2021/05/Ansible-1-768x434.png 768w" alt="" width="825" height="466"></figure>
+<figure class="alignnone  wp-image-3598"><img loading="lazy"  src="http://blog.dtrungit.ga/media/posts/109/Ansible-1.png" sizes="(max-width: 48em) 100vw, 100vw" srcset="http://blog.dtrungit.ga/media/posts/109/responsive/Ansible-1-xs.png 300w ,http://blog.dtrungit.ga/media/posts/109/responsive/Ansible-1-sm.png 480w ,http://blog.dtrungit.ga/media/posts/109/responsive/Ansible-1-md.png 768w"  sizes="(max-width: 825px) 100vw, 825px" srcset="http://blog.dtrungit.ga/media/posts/109/Ansible-1.png 1024w, https://blog.vinahost.vn/wp-content/uploads/2021/05/Ansible-1-300x169.png 300w, https://blog.vinahost.vn/wp-content/uploads/2021/05/Ansible-1-768x434.png 768w" alt="" width="825" height="466"></figure>
 <p>Ansible có thể giao tiếp với rất nhiều platform, OS và loại thiết bị khác nhau. Từ Ubuntu, CentOS, VMware, Windows cho tới AWS, Azure, các thiết bị mạng Cisco và Juniper….vân vân và mây mây….(hoàn toàn không cần agent khi giao tiếp).</p>
 <p>Chính cách thiết kế này làm tăng tính tiện dụng của Ansible do không cần phải setup bảo trì agent trên nhiều host. Có thể coi đây là một thế mạnh của Ansible so với các công cụ có cùng chức năng như Chef, Puppet, SaltStack (Salt thì hỗ trợ cả 2 mode là agent và agentless, có thời gian thì mình sẽ viết 1 bài về Salt).</p>
 <h3><span id="Ung_dung"><a name="_Toc70061299"></a><strong>Ứng dụng</strong></span></h3>
@@ -1040,20 +1040,20 @@ echo &quot;Them noi dung&quot; &gt; /public/mark.doc
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/install-and-configure-openvpn-server-on-ubuntu-linux/index.html"/>
-        <id>https://ddtrungit.github.io/install-and-configure-openvpn-server-on-ubuntu-linux/index.html</id>
+        <link href="http://blog.dtrungit.ga/install-and-configure-openvpn-server-on-ubuntu-linux/index.html"/>
+        <id>http://blog.dtrungit.ga/install-and-configure-openvpn-server-on-ubuntu-linux/index.html</id>
             <category term="Linux"/>
 
         <updated>2022-06-13T14:24:56+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/108/what_is_openvpn_thumb800.jpg" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/108/what_is_openvpn_thumb800.jpg" alt="" />
                     Download openvpn-install.sh script to set up OpenVPN server in 5 minutes on Ubuntu Type the following wget command or curl&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/108/what_is_openvpn_thumb800.jpg" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/108/what_is_openvpn_thumb800.jpg" alt="" />
                 <h2>Download openvpn-install.sh script to set up OpenVPN server in 5 minutes on Ubuntu</h2>
 <p>Type the following wget command or curl command: <code>$ wget https://git.io/vpn -O openvpn-install.sh</code> wget grabbing the script:</p>
 <pre>--2020-12-09 09:15:57--  https://git.io/vpnResolving git.io (git.io)... 34.195.187.253, 52.87.143.234, 34.205.238.171, ...Connecting to git.io (git.io)|34.195.187.253|:443... connected.HTTP request sent, awaiting response... 302 FoundLocation: https://raw.github.com/Nyr/openvpn-install/master/openvpn-install.sh [following]--2020-12-09 09:15:57--  https://raw.github.com/Nyr/openvpn-install/master/openvpn-install.shResolving raw.github.com (raw.github.com)... 151.101.124.133Connecting to raw.github.com (raw.github.com)|151.101.124.133|:443... connected.HTTP request sent, awaiting response... 301 Moved PermanentlyLocation: https://raw.githubusercontent.com/Nyr/openvpn-install/master/openvpn-install.sh [following]--2020-12-09 09:15:57--  https://raw.githubusercontent.com/Nyr/openvpn-install/master/openvpn-install.shResolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.124.133Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.124.133|:443... connected.HTTP request sent, awaiting response... 200 OKLength: 23079 (23K) [text/plain]Saving to: 'openvpn-install.sh'openvpn-install.sh  100%[==================&gt;]  22.54K  --.-KB/s    in 0.001s  2020-12-09 09:15:57 (36.9 MB/s) - 'openvpn-install.sh saved [23079/23079]</pre>
@@ -1112,7 +1112,7 @@ $ sudo find / -type f -name "*.ovpn"</code> Now, all you have to do is copy this
 <h3>MacOS/OS X OpenVPN client configuration</h3>
 <p>Just double click on iphone.ovpn file and it will open in your tunnelblick client &gt; Click on the “Only me” to install it:</p>
 <div id="attachment_145487" class="wp-caption aligncenter">
-<figure class="size-full wp-image-145487 lazyloaded"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/108/responsive/openvpn-macos-xs.jpg 300w ,https://ddtrungit.github.io/media/posts/108/responsive/openvpn-macos-sm.jpg 480w ,https://ddtrungit.github.io/media/posts/108/responsive/openvpn-macos-md.jpg 768w"  sizes="(max-width: 599px) 100vw, 599px" srcset="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/openvpn-macos-300x139.jpg 300w" alt="Fig.03: MacOS / OS X openvpn client configuration" width="599" height="278" aria-describedby="caption-attachment-145487" data-src="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg" data-srcset="https://ddtrungit.github.io/media/posts/108/openvpn-macos.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/openvpn-macos-300x139.jpg 300w" data-sizes="(max-width: 599px) 100vw, 599px"></figure>
+<figure class="size-full wp-image-145487 lazyloaded"><img loading="lazy"  src="http://blog.dtrungit.ga/media/posts/108/openvpn-macos.jpg" sizes="(max-width: 48em) 100vw, 100vw" srcset="http://blog.dtrungit.ga/media/posts/108/responsive/openvpn-macos-xs.jpg 300w ,http://blog.dtrungit.ga/media/posts/108/responsive/openvpn-macos-sm.jpg 480w ,http://blog.dtrungit.ga/media/posts/108/responsive/openvpn-macos-md.jpg 768w"  sizes="(max-width: 599px) 100vw, 599px" srcset="http://blog.dtrungit.ga/media/posts/108/openvpn-macos.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/openvpn-macos-300x139.jpg 300w" alt="Fig.03: MacOS / OS X openvpn client configuration" width="599" height="278" aria-describedby="caption-attachment-145487" data-src="http://blog.dtrungit.ga/media/posts/108/openvpn-macos.jpg" data-srcset="http://blog.dtrungit.ga/media/posts/108/openvpn-macos.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/openvpn-macos-300x139.jpg 300w" data-sizes="(max-width: 599px) 100vw, 599px"></figure>
 <p id="caption-attachment-145487" class="wp-caption-text">Fig.03: MacOS / OS X openvpn client configuration</p>
 </div>
 <p>Once installed click on Connect button and you will be online. Use the following command on MacOS client to verify that your public IP changed to the VPN server IP: <code>$ dig TXT +short o-o.myaddr.l.google.com @ns1.google.com</code> You can ping to OpenVPN server private IP: <code>$ ping 10.8.0.1</code></p>
@@ -1121,7 +1121,7 @@ $ sudo find / -type f -name "*.ovpn"</code> Now, all you have to do is copy this
 <p>First, install the openvpn client, enter: <code>$ sudo yum install openvpn</code> OR <code>$ sudo apt install openvpn</code> Next, copy iphone.ovpn as follows: <code>$ sudo cp iphone.ovpn /etc/openvpn/client.conf</code> Test connectivity from the CLI: <code>$ sudo openvpn --client --config /etc/openvpn/client.conf</code> Your Linux system will automatically connect when computer restart using /etc/init.d/openvpn script: <code>$ sudo /etc/init.d/openvpn start</code> For systemd based system, use the following command: <code>$ sudo systemctl start openvpn@client</code> Test the OpenVPN connectivity on Linux desktop: <code>$ <strong>ping 10.8.0.1</strong> #Ping to OpenVPN server gateway using the <a title="See Linux/Unix ping command examples for more info" href="https://www.cyberciti.biz/faq/unix-ping-command-examples/">ping command</a>
 $ <strong>ip route</strong> #Make sure routing setup using the <a title="See Linux/Unix ip command examples for more info" href="https://www.cyberciti.biz/faq/linux-ip-command-examples-usage-syntax/">ip command</a> $ ip route get 10.8.0.1
 #Make sure your public IP set to OpenVPN server
-$ <strong>dig TXT +short o-o.myaddr.l.google.com @ns1.google.com</strong></code> <figure class="aligncenter size-full wp-image-149227 lazyloaded"><img loading="lazy"  src="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://ddtrungit.github.io/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-xs.jpg 300w ,https://ddtrungit.github.io/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-sm.jpg 480w ,https://ddtrungit.github.io/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-md.jpg 768w"  sizes="(max-width: 599px) 100vw, 599px" srcset="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-300x128.jpg 300w" alt="Set up and Verify OpenVPN Server In 5 Minutes on Ubuntu Linux" width="599" height="255" data-src="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg" data-srcset="https://ddtrungit.github.io/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-300x128.jpg 300w" data-sizes="(max-width: 599px) 100vw, 599px"></figure>
+$ <strong>dig TXT +short o-o.myaddr.l.google.com @ns1.google.com</strong></code> <figure class="aligncenter size-full wp-image-149227 lazyloaded"><img loading="lazy"  src="http://blog.dtrungit.ga/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg" sizes="(max-width: 48em) 100vw, 100vw" srcset="http://blog.dtrungit.ga/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-xs.jpg 300w ,http://blog.dtrungit.ga/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-sm.jpg 480w ,http://blog.dtrungit.ga/media/posts/108/responsive/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-md.jpg 768w"  sizes="(max-width: 599px) 100vw, 599px" srcset="http://blog.dtrungit.ga/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-300x128.jpg 300w" alt="Set up and Verify OpenVPN Server In 5 Minutes on Ubuntu Linux" width="599" height="255" data-src="http://blog.dtrungit.ga/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg" data-srcset="http://blog.dtrungit.ga/media/posts/108/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux.jpg 599w, https://www.cyberciti.biz/media/new/faq/2016/06/Set-up-and-Verify-OpenVPN-Server-In-5-Minutes-on-Ubuntu-Linux-300x128.jpg 300w" data-sizes="(max-width: 599px) 100vw, 599px"></figure>
 <h3>FreeBSD OpenVPN client configuration</h3>
 <p>First, install the openvpn client using the pkg command: <code>$ sudo pkg install openvpn</code> Next, copy iphone.ovpn as follows: <code>$ mkdir -p /usr/local/etc/openvpn/
 $ sudo cp iphone.ovpn /usr/local/etc/openvpn/client.conf</code> Edit /etc/rc.conf and add the following:</p>
@@ -1167,21 +1167,21 @@ $ drill myip.opendns.com @resolver1.opendns.com</code></p>
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/install-and-configure-redis-on-amazon-linux-2/index.html"/>
-        <id>https://ddtrungit.github.io/install-and-configure-redis-on-amazon-linux-2/index.html</id>
+        <link href="http://blog.dtrungit.ga/install-and-configure-redis-on-amazon-linux-2/index.html"/>
+        <id>http://blog.dtrungit.ga/install-and-configure-redis-on-amazon-linux-2/index.html</id>
             <category term="Linux"/>
             <category term="Aws"/>
 
         <updated>2022-06-13T14:25:29+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/107/Redis-1.png" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/107/Redis-1.png" alt="" />
                     Install Redis In this section you’ll add the EPEL repository, and then use it to install Redis. sudo yum install epel-releasesudo yum&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/107/Redis-1.png" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/107/Redis-1.png" alt="" />
                 <h2 id="install-redis">Install Redis</h2>
 <p>In this section you’ll add the <a href="https://fedoraproject.org/wiki/EPEL" target="_blank" rel="noopener">EPEL</a> repository, and then use it to install Redis.</p>
 <ol>
@@ -1466,20 +1466,20 @@ $ drill myip.opendns.com @resolver1.opendns.com</code></p>
         <author>
             <name>Duong Dinh Trung</name>
         </author>
-        <link href="https://ddtrungit.github.io/creat-user-admin-mongodb/index.html"/>
-        <id>https://ddtrungit.github.io/creat-user-admin-mongodb/index.html</id>
+        <link href="http://blog.dtrungit.ga/creat-user-admin-mongodb/index.html"/>
+        <id>http://blog.dtrungit.ga/creat-user-admin-mongodb/index.html</id>
             <category term="Linux"/>
 
         <updated>2022-06-13T14:25:37+07:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://ddtrungit.github.io/media/posts/106/images.png" alt="" />
+                        <img src="http://blog.dtrungit.ga/media/posts/106/images.png" alt="" />
                     https://www.howtoforge.com/tutorial/how-to-install-and-configure-mongodb-on-centos-7/ #sudo mongo &gt; use admin db.createUser( { user: "admin", pwd: "admin123", roles: [ { role: "userAdminAnyDatabase", db: "admin" }&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <img src="https://ddtrungit.github.io/media/posts/106/images.png" alt="" />
+                    <img src="http://blog.dtrungit.ga/media/posts/106/images.png" alt="" />
                 <div style="direction: ltr; border-width: 100%;">
 <div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 6.6451in;">
 <div style="direction: ltr; margin-top: 0in; margin-left: 0in; width: 6.6451in;">
